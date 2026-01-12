@@ -61,7 +61,7 @@ export interface SidebarItem {
         <ul nz-menu nzMode="inline" class="!border-0 flex-1 pt-6" [nzInlineCollapsed]="collapsed()">
           @for (item of items(); track item.route) {
             <li nz-menu-item>
-              <a [routerLink]="item.route" routerLinkActive="active" class="flex items-center">
+              <a [routerLink]="item.route" routerLinkActive="active" class="p-4 flex items-center">
                 <span nz-icon [nzType]="item.icon.name" nzTheme="outline" class="mr-3"></span>
                 <span>{{ item.label }}</span>
               </a>

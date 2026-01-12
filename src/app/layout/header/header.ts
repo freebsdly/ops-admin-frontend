@@ -13,7 +13,7 @@ export interface UserInfo {
 }
 
 @Component({
-  selector: 'app-app-header',
+  selector: 'app-header',
   imports: [
     NzIconModule,
     NzButtonModule,
@@ -54,7 +54,7 @@ export interface UserInfo {
       </div>
     </div>
   `,
-  styleUrl: './app-header.css',
+  styleUrl: './header.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppHeader {

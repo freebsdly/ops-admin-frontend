@@ -1,6 +1,6 @@
 import { Component, signal, computed } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
-import { AppLayout } from './layout/app-layout/app-layout';
+import { AppLayout } from './layout/app-layout';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -8,9 +8,9 @@ import { AuthService } from './services/auth.service';
   imports: [RouterOutlet, AppLayout],
   template: `
     @if (showLayout()) {
-      <app-app-layout>
+      <app-layout>
         <router-outlet />
-      </app-app-layout>
+      </app-layout>
     } @else {
       <router-outlet />
     }

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, computed, signal, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -12,11 +12,11 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { UserOutline, LogoutOutline, HomeOutline } from '@ant-design/icons-angular/icons';
-import { Sidebar } from '../sidebar/sidebar';
-import { AppHeader } from '../app-header/app-header';
+import { Sidebar } from './sidebar/sidebar';
+import { AppHeader } from './header/header';
 
 @Component({
-  selector: 'app-app-layout',
+  selector: 'app-layout',
   imports: [
     RouterOutlet,
     NzLayoutModule,
@@ -32,7 +32,7 @@ import { AppHeader } from '../app-header/app-header';
   ],
   template: `
     <!-- AppHeader at the top -->
-    <app-app-header
+    <app-header
       [user]="user()"
       [sidebarCollapsed]="sidebarCollapsed()"
       (onToggleSidebar)="toggleSidebar()"
