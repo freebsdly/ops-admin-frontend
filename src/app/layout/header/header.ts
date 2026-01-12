@@ -31,16 +31,31 @@ export interface UserInfo {
         <img src="/logo.svg" alt="Ops Admin Logo" class="h-10 w-auto" />
       </div>
 
-      <!-- Right section: User menu -->
-      <div class="flex-1 flex items-center justify-end px-6">
+      <!-- Right section: User info area -->
+      <div class="flex-1 flex items-center justify-end">
         @if (user()) {
-          <div nz-dropdown [nzDropdownMenu]="userMenu" nzPlacement="bottomRight" class="flex items-center cursor-pointer hover:bg-gray-100 px-3 py-2 rounded-lg transition-colors">
-            <nz-avatar nzSize="small" nzText="{{ user()?.name?.charAt(0) || 'U' }}" class="mr-2"></nz-avatar>
-            <span class="text-sm text-gray-700 mr-1">{{ user()?.name }}</span>
-            @if (user()?.role) {
-              <span class="text-xs text-gray-500 ml-2">({{ user()?.role }})</span>
-            }
+          <!-- User info area with same height as header -->
+          <div nz-dropdown [nzDropdownMenu]="userMenu" nzPlacement="bottomRight" class="h-16 flex items-center cursor-pointer hover:bg-gray-50 px-6 border-l border-gray-200 transition-colors">
+            <!-- User avatar/image -->
+            <div class="flex items-center gap-3">
+              <nz-avatar 
+                nzSize="default" 
+                [nzSrc]="user()?.avatar" 
+                nzText="{{ user()?.name?.charAt(0) || 'U' }}"
+                class="!h-12 !w-12"
+              ></nz-avatar>
+              
+              <!-- User name and role (hidden when sidebar collapsed) -->
+              <div class="flex flex-col">
+                <span class="text-sm font-medium text-gray-800">{{ user()?.name }}</span>
+                @if (user()?.role) {
+                  <span class="text-xs text-gray-500">{{ user()?.role }}</span>
+                }
+              </div>
+            </div>
           </div>
+          
+          <!-- Dropdown menu -->
           <nz-dropdown-menu #userMenu="nzDropdownMenu">
             <ul nz-menu nzSelectable="false">
               <li nz-menu-item routerLink="/profile">
