@@ -114,7 +114,7 @@ export class Sidebar implements OnInit {
       dashboard: 'dashboard',
       user: 'user',
       team: 'team',
-      safety: 'safety',
+      safety: 'safety-certificate',
       setting: 'setting'
     };
     return iconMap[iconName || ''] || 'appstore';
