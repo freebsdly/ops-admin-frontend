@@ -20,6 +20,7 @@
   border-right: 1px solid #e5e7eb !important;
   background-color: white !important;
   height: 100%;
+  box-sizing: border-box !important;
 }
 
 :host ::ng-deep .ant-layout-sider .ant-layout-sider-children {

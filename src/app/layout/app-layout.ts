@@ -45,7 +45,7 @@ import { AppHeader } from './header/header';
       <nz-layout class="h-full">
         <nz-sider
           [nzCollapsed]="sidebarCollapsed()"
-          [nzWidth]="sidebarCollapsed() ? 64 : 256"
+          [nzWidth]="sidebarCollapsed() ? 80 : 256"
           nzCollapsible
           (nzCollapsedChange)="sidebarCollapsed.set($event)"
           class="border-r border-gray-200 !bg-white"

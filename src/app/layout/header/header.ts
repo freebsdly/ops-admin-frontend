@@ -25,17 +25,14 @@ export interface UserInfo {
     RouterLink,
   ],
   template: `
-    <div class="h-16 bg-white border-gray-200 flex items-center justify-between sticky top-0 z-50 shadow-sm px-6">
-      <!-- Left section: Logo and sidebar toggle -->
-      <div class="flex items-center space-x-4">
-        <!-- Logo -->
-        <div class="flex items-center">
-          <h1 class="text-xl font-bold text-gray-900 m-0">Ops Admin</h1>
-        </div>
+    <div class="h-16 bg-white border-b border-gray-200 flex items-center justify-between sticky top-0 z-0 shadow-sm">
+      <!-- Logo area: width matches sidebar, height matches header -->
+      <div class="h-16 flex items-center justify-center border-r border-gray-200 box-border" [style.width.px]="sidebarCollapsed() ? 80 : 256">
+        <img src="/logo.svg" alt="Ops Admin Logo" class="h-10 w-auto" />
       </div>
 
       <!-- Right section: User menu -->
-      <div class="flex items-center space-x-4">
+      <div class="flex-1 flex items-center justify-end px-6">
         @if (user()) {
           <div nz-dropdown [nzDropdownMenu]="userMenu" nzPlacement="bottomRight" class="flex items-center cursor-pointer hover:bg-gray-100 px-3 py-2 rounded-lg transition-colors">
             <nz-avatar nzSize="small" nzText="{{ user()?.name?.charAt(0) || 'U' }}" class="mr-2"></nz-avatar>
