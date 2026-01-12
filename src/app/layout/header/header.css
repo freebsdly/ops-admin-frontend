@@ -8,9 +8,11 @@
 /* User info dropdown width matching */
 :host ::ng-deep .user-info-dropdown {
   width: 100%;
+  min-width: 0 !important;
 }
 
 :host ::ng-deep .user-info-dropdown .ant-dropdown-menu {
   width: 100%;
   min-width: 100%;
+  padding: 0;
 }

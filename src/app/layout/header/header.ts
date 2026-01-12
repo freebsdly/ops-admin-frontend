@@ -5,6 +5,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
+import { NzCardModule } from 'ng-zorro-antd/card';
 import { RouterLink } from '@angular/router';
 
 export interface UserInfo {
@@ -22,13 +23,14 @@ export interface UserInfo {
     NzDropdownModule,
     NzMenuModule,
     NzTooltipModule,
+    NzCardModule,
     RouterLink,
   ],
   template: `
-    <div class="h-16 bg-white border-b border-gray-200 flex items-center justify-between sticky top-0 z-0 shadow-sm">
+    <div class="h-14 bg-white border-b border-gray-200 flex items-center justify-between sticky top-0 z-0 shadow-sm">
       <!-- Logo area: width matches sidebar, height matches header -->
-      <div class="h-16 flex items-center justify-center border-r border-gray-200 box-border transition-all duration-200" [style.width.px]="sidebarCollapsed() ? 80 : 256">
-        <img src="/logo.svg" alt="Ops Admin Logo" class="h-10 w-auto" />
+      <div class="h-14 flex items-center justify-center border-r border-gray-200 box-border transition-all duration-200" [style.width.px]="sidebarCollapsed() ? 56 : 256">
+        <img src="/logo.svg" alt="Ops Admin Logo" class="h-8 w-auto" />
       </div>
 
       <!-- Right section: User info area -->
@@ -41,7 +43,7 @@ export interface UserInfo {
             [nzDropdownMenu]="userMenu" 
             nzPlacement="bottomRight"
             [nzOverlayStyle]="dropdownStyle()"
-            class="h-16 flex items-center cursor-pointer hover:bg-gray-50 px-6 border-l border-gray-200 transition-colors"
+            class="h-14 flex items-center cursor-pointer hover:bg-gray-50 px-6 border-l border-gray-200 transition-colors"
           >
             <!-- User avatar/image -->
             <div class="flex items-center gap-3">
@@ -49,7 +51,7 @@ export interface UserInfo {
                 nzSize="default" 
                 [nzSrc]="user()?.avatar" 
                 nzText="{{ user()?.name?.charAt(0) || 'U' }}"
-                class="!h-12 !w-12"
+                class="!h-10 !w-10"
               ></nz-avatar>
               
               <!-- User name and role (hidden when sidebar collapsed) -->
@@ -64,16 +66,55 @@ export interface UserInfo {
           
           <!-- Dropdown menu -->
           <nz-dropdown-menu #userMenu="nzDropdownMenu" class="user-info-dropdown">
-            <ul nz-menu nzSelectable="false">
-              <li nz-menu-item routerLink="/profile">
-                <span nz-icon nzType="user" nzTheme="outline"></span>
-                <span>Profile</span>
-              </li>
-              <li nz-menu-item (click)="onLogout.emit()">
-                <span nz-icon nzType="logout" nzTheme="outline"></span>
-                <span>Logout</span>
-              </li>
-            </ul>
+            <!-- User card with basic info in header -->
+            <nz-card nzSize="small" class="!border-0 !shadow-none !p-0">
+              <!-- Card header with user basic info -->
+              <div nz-card-header class="!px-4 !py-3 !border-b !border-gray-200">
+                <div class="flex items-center gap-3">
+                  <nz-avatar 
+                    nzSize="default" 
+                    [nzSrc]="user()?.avatar" 
+                    nzText="{{ user()?.name?.charAt(0) || 'U' }}"
+                    class="!h-10 !w-10"
+                  ></nz-avatar>
+                  <div class="flex flex-col">
+                    <span class="text-sm font-medium text-gray-800">{{ user()?.name }}</span>
+                    @if (user()?.role) {
+                      <span class="text-xs text-gray-500">{{ user()?.role }}</span>
+                    }
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Card body with menu items -->
+              <div nz-card-body class="!p-0">
+                <ul nz-menu nzSelectable="false" class="!border-0">
+                  <li nz-menu-item routerLink="/profile" class="!h-10 !px-4">
+                    <span nz-icon nzType="user" nzTheme="outline" class="mr-2"></span>
+                    <span>Profile</span>
+                  </li>
+                  <li nz-menu-item routerLink="/settings" class="!h-10 !px-4">
+                    <span nz-icon nzType="setting" nzTheme="outline" class="mr-2"></span>
+                    <span>Settings</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <!-- Card footer with button area -->
+              <div nz-card-actions class="!px-4 !py-3 !border-t !border-gray-200">
+                <button 
+                  nz-button 
+                  nzType="primary" 
+                  nzDanger 
+                  nzBlock
+                  (click)="onLogout.emit()"
+                  class="!h-8 !text-sm"
+                >
+                  <span nz-icon nzType="logout" nzTheme="outline" class="mr-1"></span>
+                  Logout
+                </button>
+              </div>
+            </nz-card>
           </nz-dropdown-menu>
         }
       </div>
@@ -116,6 +157,8 @@ export class AppHeader implements AfterViewInit, OnDestroy {
     if (!this.userInfoArea?.nativeElement) return;
     
     const width = this.userInfoArea.nativeElement.offsetWidth;
-    this.dropdownStyle.set({ width: `${width}px` });
+    // Ensure dropdown is at least 280px wide (large)
+    const finalWidth = Math.max(width, 280);
+    this.dropdownStyle.set({ width: `${finalWidth}px` });
   }
 }

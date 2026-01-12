@@ -11,7 +11,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { UserOutline, LogoutOutline, HomeOutline } from '@ant-design/icons-angular/icons';
+import { UserOutline, LogoutOutline, HomeOutline, SettingOutline } from '@ant-design/icons-angular/icons';
 import { Sidebar } from './sidebar/sidebar';
 import { AppHeader } from './header/header';
 
@@ -45,7 +45,7 @@ import { AppHeader } from './header/header';
       <nz-layout class="h-full">
         <nz-sider
           [nzCollapsed]="sidebarCollapsed()"
-          [nzWidth]="sidebarCollapsed() ? 80 : 256"
+          [nzWidth]="sidebarCollapsed() ? 56 : 256"
           nzCollapsible
           (nzCollapsedChange)="sidebarCollapsed.set($event)"
           class="border-r border-gray-200 !bg-white"
@@ -99,7 +99,7 @@ export class AppLayout {
     private router: Router
   ) {
     // Register icons
-    const icons: IconDefinition[] = [UserOutline, LogoutOutline, HomeOutline];
+    const icons: IconDefinition[] = [UserOutline, LogoutOutline, HomeOutline, SettingOutline];
     this.iconService.addIcon(...icons);
   }
 

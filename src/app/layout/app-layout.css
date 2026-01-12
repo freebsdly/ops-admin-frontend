@@ -23,6 +23,13 @@
   box-sizing: border-box !important;
 }
 
+:host ::ng-deep .ant-layout-sider-collapsed {
+  width: 56px !important;
+  min-width: 56px !important;
+  max-width: 56px !important;
+  flex: 0 0 56px !important;
+}
+
 :host ::ng-deep .ant-layout-sider .ant-layout-sider-children {
   height: 100%;
 }
@@ -60,7 +67,11 @@
   background-color: #f5f5f5 !important;
 }
 
-:host ::ng-deep .ant-menu-item.active {
-  background-color: #f0f7ff !important;
-  color: #1890ff !important;
+/* Collapse button width to match sidebar */
+:host ::ng-deep .ant-layout-sider-collapsed .ant-layout-sider-trigger {
+  width: 56px !important;
+}
+
+:host ::ng-deep .ant-layout-sider:not(.ant-layout-sider-collapsed) .ant-layout-sider-trigger {
+  width: 256px !important;
 }
