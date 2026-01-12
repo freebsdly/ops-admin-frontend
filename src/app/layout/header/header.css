@@ -4,3 +4,13 @@
   top: 0;
   z-index: 50;
 }
+
+/* User info dropdown width matching */
+:host ::ng-deep .user-info-dropdown {
+  width: 100%;
+}
+
+:host ::ng-deep .user-info-dropdown .ant-dropdown-menu {
+  width: 100%;
+  min-width: 100%;
+}

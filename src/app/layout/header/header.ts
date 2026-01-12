@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, ViewChild, ElementRef, AfterViewInit, OnDestroy, signal, computed } from '@angular/core';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
@@ -35,7 +35,14 @@ export interface UserInfo {
       <div class="flex-1 flex items-center justify-end">
         @if (user()) {
           <!-- User info area with same height as header -->
-          <div nz-dropdown [nzDropdownMenu]="userMenu" nzPlacement="bottomRight" class="h-16 flex items-center cursor-pointer hover:bg-gray-50 px-6 border-l border-gray-200 transition-colors">
+          <div 
+            #userInfoArea
+            nz-dropdown 
+            [nzDropdownMenu]="userMenu" 
+            nzPlacement="bottomRight"
+            [nzOverlayStyle]="dropdownStyle()"
+            class="h-16 flex items-center cursor-pointer hover:bg-gray-50 px-6 border-l border-gray-200 transition-colors"
+          >
             <!-- User avatar/image -->
             <div class="flex items-center gap-3">
               <nz-avatar 
@@ -56,7 +63,7 @@ export interface UserInfo {
           </div>
           
           <!-- Dropdown menu -->
-          <nz-dropdown-menu #userMenu="nzDropdownMenu">
+          <nz-dropdown-menu #userMenu="nzDropdownMenu" class="user-info-dropdown">
             <ul nz-menu nzSelectable="false">
               <li nz-menu-item routerLink="/profile">
                 <span nz-icon nzType="user" nzTheme="outline"></span>
@@ -75,10 +82,40 @@ export interface UserInfo {
   styleUrl: './header.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppHeader {
+export class AppHeader implements AfterViewInit, OnDestroy {
   user = input<UserInfo | null>(null);
   sidebarCollapsed = input<boolean>(false);
 
   onToggleSidebar = output<void>();
   onLogout = output<void>();
+
+  @ViewChild('userInfoArea') userInfoArea!: ElementRef<HTMLDivElement>;
+
+  private resizeObserver: ResizeObserver | null = null;
+
+  dropdownStyle = signal<{ [key: string]: string }>({});
+
+  ngAfterViewInit() {
+    this.updateDropdownWidth();
+    
+    // Observe resize of user info area
+    this.resizeObserver = new ResizeObserver(() => {
+      this.updateDropdownWidth();
+    });
+    
+    this.resizeObserver.observe(this.userInfoArea.nativeElement);
+  }
+
+  ngOnDestroy() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+  }
+
+  private updateDropdownWidth() {
+    if (!this.userInfoArea?.nativeElement) return;
+    
+    const width = this.userInfoArea.nativeElement.offsetWidth;
+    this.dropdownStyle.set({ width: `${width}px` });
+  }
 }
