@@ -13,16 +13,6 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
   imports: [NzCardModule, NzStatisticModule, NzGridModule, NzIconModule, NzButtonModule, NzTableModule, NzTagModule, NzAvatarModule],
   template: `
     <div class="space-y-6">
-      <!-- Welcome Header -->
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">
-          Welcome to Ops Admin!
-        </h1>
-        <p class="text-xl text-gray-600">
-          You are now logged in and can access all features.
-        </p>
-      </div>
-
       <!-- Statistics Cards -->
       <nz-row [nzGutter]="16">
         <nz-col [nzSpan]="6">
@@ -76,7 +66,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
         <ng-template #extraTemplate>
           <button nz-button nzType="primary">View All</button>
         </ng-template>
-        
+
         <nz-table #basicTable [nzData]="recentActivities" [nzShowPagination]="false">
           <thead>
             <tr>
