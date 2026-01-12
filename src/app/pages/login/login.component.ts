@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -11,10 +11,22 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { CommonModule } from '@angular/common';
+import { UserRole, ROLE_DESCRIPTIONS } from '../../../types/roles';
+
+interface RoleOption {
+  value: UserRole;
+  label: string;
+  description: string;
+  badgeColor: string;
+}
 
 @Component({
   selector: 'app-login',
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
@@ -24,6 +36,8 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
     NzIconModule,
     NzGridModule,
     NzAlertModule,
+    NzSelectModule,
+    NzDescriptionsModule,
   ],
   template: `
     <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -70,6 +84,55 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
               </nz-form-control>
             </nz-form-item>
 
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Please select a role">
+                <nz-select
+                  nzSize="large"
+                  nzPlaceHolder="Select role"
+                  formControlName="role"
+                  class="w-full"
+                >
+                  @for (roleOption of roleOptions; track roleOption.value) {
+                    <nz-option
+                      [nzValue]="roleOption.value"
+                      [nzLabel]="roleOption.label"
+                    >
+                      <div class="flex items-center justify-between">
+                        <span>{{ roleOption.label }}</span>
+                        <span class="text-xs font-medium px-2 py-0.5 rounded"
+                          [class]="roleOption.badgeColor">
+                          {{ roleOption.value }}
+                        </span>
+                      </div>
+                    </nz-option>
+                  }
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+
+            <!-- Role information panel -->
+            @if (selectedRole()) {
+              <div class="mb-4 p-4 bg-gray-50 rounded-lg border">
+                <h4 class="font-semibold text-gray-800 mb-2">Role Information</h4>
+                <nz-descriptions nzSize="small" [nzColumn]="1">
+                  <nz-descriptions-item nzTitle="Role">
+                    {{ ROLE_DESCRIPTIONS[selectedRole()!] }}
+                  </nz-descriptions-item>
+                  <nz-descriptions-item nzTitle="Permissions">
+                    @if (selectedRole() === 'admin') {
+                      Full system access including user management and settings
+                    } @else if (selectedRole() === 'manager') {
+                      Access to monitoring logs, deployments, and notifications
+                    } @else if (selectedRole() === 'operator') {
+                      Access to service management, alerts, and basic monitoring
+                    } @else {
+                      View-only access to metrics and documents
+                    }
+                  </nz-descriptions-item>
+                </nz-descriptions>
+              </div>
+            }
+
             <div class="flex items-center justify-between mb-6">
               <label nz-checkbox formControlName="rememberMe">
                 <span>Remember me</span>
@@ -89,7 +152,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
               type="submit"
               class="mb-4"
             >
-              Sign in
+              Sign in as {{ selectedRoleLabel() }}
             </button>
 
             <div class="text-center">
@@ -120,6 +183,17 @@ export class LoginComponent implements OnInit {
   loading = false;
   error: string | null = null;
 
+  roleOptions: RoleOption[] = [
+    { value: 'admin', label: 'Administrator', description: 'Full system access', badgeColor: 'bg-red-100 text-red-800' },
+    { value: 'manager', label: 'Manager', description: 'Team and deployment access', badgeColor: 'bg-yellow-100 text-yellow-800' },
+    { value: 'operator', label: 'Operator', description: 'Service management access', badgeColor: 'bg-green-100 text-green-800' },
+    { value: 'viewer', label: 'Viewer', description: 'Read-only access', badgeColor: 'bg-gray-100 text-gray-800' },
+  ];
+
+  selectedRole = signal<UserRole | null>('viewer');
+  selectedRoleLabel = signal<string>('Viewer');
+  ROLE_DESCRIPTIONS = ROLE_DESCRIPTIONS;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -129,10 +203,24 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['demo@example.com', [Validators.required, Validators.email]],
+      password: ['password', [Validators.required, Validators.minLength(6)]],
+      role: ['viewer', [Validators.required]],
       rememberMe: [false],
     });
+
+    // Watch for role changes
+    this.loginForm.get('role')?.valueChanges.subscribe((role: UserRole) => {
+      this.selectedRole.set(role);
+      const roleOption = this.roleOptions.find(r => r.value === role);
+      this.selectedRoleLabel.set(roleOption?.label || 'User');
+    });
+
+    // Initialize with current value
+    const initialRole = this.loginForm.get('role')?.value;
+    this.selectedRole.set(initialRole);
+    const initialRoleOption = this.roleOptions.find(r => r.value === initialRole);
+    this.selectedRoleLabel.set(initialRoleOption?.label || 'User');
   }
 
   onSubmit(): void {
@@ -143,14 +231,14 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.error = null;
 
-    const { email, password } = this.loginForm.value;
+    const { email, password, role } = this.loginForm.value;
 
-    this.authService.login(email, password).then((success: boolean) => {
+    this.authService.login(email, password, role).then((success: boolean) => {
       this.loading = false;
 
       if (success) {
-        this.message.success('Login successful!');
-        const returnUrl = this.router.routerState.snapshot.root.queryParams['returnUrl'] || '/';
+        this.message.success(`Login successful as ${ROLE_DESCRIPTIONS[role as UserRole]}!`);
+        const returnUrl = this.router.routerState.snapshot.root.queryParams['returnUrl'] || '/dashboard';
         this.router.navigateByUrl(returnUrl);
       } else {
         this.message.error('Invalid email or password');
