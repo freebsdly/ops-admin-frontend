@@ -5,6 +5,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
+import { RouterLink } from '@angular/router';
 
 export interface UserInfo {
   name: string;
@@ -21,6 +22,7 @@ export interface UserInfo {
     NzDropdownModule,
     NzMenuModule,
     NzTooltipModule,
+    RouterLink,
   ],
   template: `
     <div class="h-16 bg-white border-gray-200 flex items-center justify-between sticky top-0 z-50 shadow-sm px-6">
@@ -44,6 +46,10 @@ export interface UserInfo {
           </div>
           <nz-dropdown-menu #userMenu="nzDropdownMenu">
             <ul nz-menu nzSelectable="false">
+              <li nz-menu-item routerLink="/profile">
+                <span nz-icon nzType="user" nzTheme="outline"></span>
+                <span>Profile</span>
+              </li>
               <li nz-menu-item (click)="onLogout.emit()">
                 <span nz-icon nzType="logout" nzTheme="outline"></span>
                 <span>Logout</span>
