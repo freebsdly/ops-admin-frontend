@@ -15,14 +15,12 @@ import {
   DatabaseOutline,
   BellOutline,
   MenuFoldOutline,
-  MenuUnfoldOutline
+  MenuUnfoldOutline,
+  HomeOutline,
+  SafetyCertificateOutline
 } from '@ant-design/icons-angular/icons';
-
-export interface SidebarItem {
-  label: string;
-  icon: IconDefinition;
-  route: string;
-}
+import { MenuService, MenuItem } from '../../services/menu.service';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -40,12 +38,12 @@ export interface SidebarItem {
       <div class="h-full border-gray-200 flex flex-col">
         <!-- Menu items -->
         <ul nz-menu nzMode="inline" class="!border-0 flex-1" [nzInlineCollapsed]="collapsed()">
-          @for (item of items(); track item.route) {
+          @for (item of menuItems(); track item.path) {
             <li nz-menu-item>
-              <a [routerLink]="item.route" routerLinkActive="active" class="flex items-center h-12 no-wrap"
+              <a [routerLink]="item.path" routerLinkActive="active" class="flex items-center h-12 no-wrap"
                 [class.justify-center]="collapsed()"
               >
-                <span nz-icon [nzType]="item.icon.name" nzTheme="outline" class="text-lg"></span>
+                <span nz-icon [nzType]="getIcon(item.icon)" nzTheme="outline" class="text-lg"></span>
                 @if (!collapsed()) {
                   <span class="ml-3 whitespace-nowrap">{{ item.label }}</span>
                 }
@@ -59,10 +57,10 @@ export interface SidebarItem {
       <div class="h-full bg-white border-gray-200 w-full flex flex-col transition-all duration-200">
         <!-- Menu items -->
         <ul nz-menu nzMode="inline" class="!border-0 flex-1 pt-6" [nzInlineCollapsed]="collapsed()">
-          @for (item of items(); track item.route) {
+          @for (item of menuItems(); track item.path) {
             <li nz-menu-item>
-              <a [routerLink]="item.route" routerLinkActive="active" class="p-4 flex items-center">
-                <span nz-icon [nzType]="item.icon.name" nzTheme="outline" class="mr-3"></span>
+              <a [routerLink]="item.path" routerLinkActive="active" class="p-4 flex items-center">
+                <span nz-icon [nzType]="getIcon(item.icon)" nzTheme="outline" class="mr-3"></span>
                 <span>{{ item.label }}</span>
               </a>
             </li>
@@ -76,17 +74,9 @@ export interface SidebarItem {
 })
 export class Sidebar implements OnInit {
   private readonly iconService = inject(NzIconService);
-
-  items = input<SidebarItem[]>([
-    { label: 'Dashboard', icon: DashboardOutline, route: '/dashboard' },
-    { label: 'Users', icon: TeamOutline, route: '/users' },
-    { label: 'Services', icon: AppstoreOutline, route: '/services' },
-    { label: 'Monitoring', icon: BarChartOutline, route: '/monitoring' },
-    { label: 'Database', icon: DatabaseOutline, route: '/database' },
-    { label: 'Documents', icon: FileTextOutline, route: '/documents' },
-    { label: 'Alerts', icon: BellOutline, route: '/alerts' },
-    { label: 'Settings', icon: SettingOutline, route: '/settings' },
-  ]);
+  private readonly menuService = inject(MenuService);
+  
+  menuItems = signal<MenuItem[]>([]);
 
   collapsed = input<boolean>(false);
 
@@ -104,9 +94,29 @@ export class Sidebar implements OnInit {
       DatabaseOutline,
       BellOutline,
       MenuFoldOutline,
-      MenuUnfoldOutline
+      MenuUnfoldOutline,
+      HomeOutline,
+      SafetyCertificateOutline
     ];
 
     this.iconService.addIcon(...icons);
+
+    // Load menu data from service
+    this.menuService.getMenuData().subscribe(data => {
+      this.menuItems.set(data);
+    });
+  }
+
+  getIcon(iconName?: string): string {
+    // Map service icon names to Ant Design icon names
+    const iconMap: Record<string, string> = {
+      home: 'home',
+      dashboard: 'dashboard',
+      user: 'user',
+      team: 'team',
+      safety: 'safety',
+      setting: 'setting'
+    };
+    return iconMap[iconName || ''] || 'appstore';
   }
 }
