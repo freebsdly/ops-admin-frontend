@@ -27,7 +27,7 @@ export interface UserInfo {
   template: `
     <div class="h-16 bg-white border-b border-gray-200 flex items-center justify-between sticky top-0 z-0 shadow-sm">
       <!-- Logo area: width matches sidebar, height matches header -->
-      <div class="h-16 flex items-center justify-center border-r border-gray-200 box-border" [style.width.px]="sidebarCollapsed() ? 80 : 256">
+      <div class="h-16 flex items-center justify-center border-r border-gray-200 box-border transition-all duration-200" [style.width.px]="sidebarCollapsed() ? 80 : 256">
         <img src="/logo.svg" alt="Ops Admin Logo" class="h-10 w-auto" />
       </div>
 
