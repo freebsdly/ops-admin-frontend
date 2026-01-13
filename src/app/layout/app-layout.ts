@@ -48,14 +48,44 @@ import { AppHeader } from './header/header';
           [nzWidth]="sidebarCollapsed() ? 56 : 256"
           nzCollapsible
           (nzCollapsedChange)="sidebarCollapsed.set($event)"
-          class="border-r border-gray-200 !bg-white"
+          class="border-r border-gray-200 !bg-white flex flex-col"
           style="height: 100%;"
         >
-          <app-sidebar
-            [collapsed]="sidebarCollapsed()"
-            (onToggleCollapsed)="toggleSidebar()"
-            class="block h-full"
-          />
+          <!-- Sidebar header (logo/collapse button) -->
+          <div class="sidebar-header px-4 py-4 border-b border-gray-200 flex items-center justify-center"
+            [class.justify-center]="sidebarCollapsed()">
+            @if (!sidebarCollapsed()) {
+              <div class="text-lg font-semibold text-gray-800">Ops Admin</div>
+            } @else {
+              <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold">OA</div>
+            }
+          </div>
+
+          <!-- Scrollable menu area -->
+          <div class="flex-1 min-h-0 overflow-y-auto">
+            <app-sidebar
+              [collapsed]="sidebarCollapsed()"
+              (onToggleCollapsed)="toggleSidebar()"
+              class="block h-auto"
+            />
+          </div>
+
+          <!-- Sidebar footer (collapsible trigger) -->
+          <div class="sidebar-footer border-t border-gray-200 py-3"
+            [class.px-2]="sidebarCollapsed()"
+            [class.px-4]="!sidebarCollapsed()">
+            <button
+              nz-button
+              nzType="text"
+              (click)="toggleSidebar()"
+              class="w-full flex items-center justify-center text-gray-600 hover:text-gray-800"
+            >
+              <span nz-icon [nzType]="sidebarCollapsed() ? 'menu-unfold' : 'menu-fold'" nzTheme="outline" class="mr-2"></span>
+              @if (!sidebarCollapsed()) {
+                <span>Collapse Menu</span>
+              }
+            </button>
+          </div>
         </nz-sider>
 
         <nz-layout class="flex-col h-full">

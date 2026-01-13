@@ -17,7 +17,11 @@ import {
   MenuFoldOutline,
   MenuUnfoldOutline,
   HomeOutline,
-  SafetyCertificateOutline
+  SafetyCertificateOutline,
+  ShoppingOutline,
+  CarOutline,
+  DollarOutline,
+  CreditCardOutline
 } from '@ant-design/icons-angular/icons';
 import { MenuService, MenuItem } from '../../services/menu.service';
 import { Observable, map } from 'rxjs';
@@ -35,9 +39,9 @@ import { Observable, map } from 'rxjs';
   template: `
     @if (collapsed()) {
       <!-- Collapsed sidebar - just icons with tooltips -->
-      <div class="h-full border-gray-200 flex flex-col">
+      <div class="border-gray-200 flex flex-col">
         <!-- Menu items -->
-        <ul nz-menu nzMode="inline" class="!border-0 flex-1" [nzInlineCollapsed]="collapsed()">
+        <ul nz-menu nzMode="inline" class="!border-0" [nzInlineCollapsed]="collapsed()">
           @for (item of menuItems(); track item.path) {
             <li nz-menu-item>
               <a [routerLink]="item.path" routerLinkActive="active" class="flex items-center h-12 no-wrap"
@@ -54,12 +58,12 @@ import { Observable, map } from 'rxjs';
       </div>
     } @else {
       <!-- Expanded sidebar -->
-      <div class="h-full bg-white border-gray-200 w-full flex flex-col transition-all duration-200">
+      <div class="bg-white border-gray-200 w-full flex flex-col transition-all duration-200">
         <!-- Menu items -->
-        <ul nz-menu nzMode="inline" class="!border-0 flex-1 pt-6" [nzInlineCollapsed]="collapsed()">
+        <ul nz-menu nzMode="inline" class="!border-0 py-2" [nzInlineCollapsed]="collapsed()">
           @for (item of menuItems(); track item.path) {
             <li nz-menu-item>
-              <a [routerLink]="item.path" routerLinkActive="active" class="p-4 flex items-center">
+              <a [routerLink]="item.path" routerLinkActive="active" class="px-4 py-3 flex items-center">
                 <span nz-icon [nzType]="getIcon(item.icon)" nzTheme="outline" class="mr-3"></span>
                 <span>{{ item.label }}</span>
               </a>
@@ -96,7 +100,11 @@ export class Sidebar implements OnInit {
       MenuFoldOutline,
       MenuUnfoldOutline,
       HomeOutline,
-      SafetyCertificateOutline
+      SafetyCertificateOutline,
+      ShoppingOutline,
+      CarOutline,
+      DollarOutline,
+      CreditCardOutline
     ];
 
     this.iconService.addIcon(...icons);
@@ -112,9 +120,18 @@ export class Sidebar implements OnInit {
     const iconMap: Record<string, string> = {
       home: 'home',
       dashboard: 'dashboard',
+      'bar-chart': 'bar-chart',
+      'file-text': 'file-text',
       user: 'user',
       team: 'team',
       safety: 'safety-certificate',
+      database: 'database',
+      bell: 'bell',
+      appstore: 'appstore',
+      shopping: 'shopping',
+      car: 'car',
+      dollar: 'dollar',
+      'credit-card': 'credit-card',
       setting: 'setting'
     };
     return iconMap[iconName || ''] || 'appstore';
