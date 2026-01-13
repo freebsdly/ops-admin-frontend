@@ -52,17 +52,17 @@ import { AppHeader } from './header/header';
           style="height: 100%;"
         >
           <!-- Sidebar header (logo/collapse button) -->
-          <div class="sidebar-header px-4 py-4 border-b border-gray-200 flex items-center justify-center"
+          <!-- <div class="sidebar-header px-4 py-4 border-b border-gray-200 flex items-center justify-center"
             [class.justify-center]="sidebarCollapsed()">
             @if (!sidebarCollapsed()) {
               <div class="text-lg font-semibold text-gray-800">Ops Admin</div>
             } @else {
               <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold">OA</div>
             }
-          </div>
+          </div> -->
 
           <!-- Scrollable menu area -->
-          <div class="flex-1 min-h-0 overflow-y-auto">
+          <div class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
             <app-sidebar
               [collapsed]="sidebarCollapsed()"
               (onToggleCollapsed)="toggleSidebar()"
@@ -71,7 +71,7 @@ import { AppHeader } from './header/header';
           </div>
 
           <!-- Sidebar footer (collapsible trigger) -->
-          <div class="sidebar-footer border-t border-gray-200 py-3"
+          <!-- <div class="sidebar-footer border-t border-gray-200 py-3"
             [class.px-2]="sidebarCollapsed()"
             [class.px-4]="!sidebarCollapsed()">
             <button
@@ -85,7 +85,7 @@ import { AppHeader } from './header/header';
                 <span>Collapse Menu</span>
               }
             </button>
-          </div>
+          </div> -->
         </nz-sider>
 
         <nz-layout class="flex-col h-full">
