@@ -48,8 +48,7 @@ import { AppHeader } from './header/header';
           [nzWidth]="sidebarCollapsed() ? 56 : 256"
           nzCollapsible
           (nzCollapsedChange)="sidebarCollapsed.set($event)"
-          class="border-r border-gray-200 !bg-white flex flex-col"
-          style="height: 100%;"
+          class="border-r border-gray-200 !bg-white flex flex-col full-height"
         >
           <!-- Sidebar header (logo/collapse button) -->
           <!-- <div class="sidebar-header px-4 py-4 border-b border-gray-200 flex items-center justify-center"

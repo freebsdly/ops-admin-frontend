@@ -41,14 +41,14 @@ import { Observable, map } from 'rxjs';
     NzTooltipModule,
   ],
   template: `
-    <ul nz-menu nzMode="inline" style="width: 256px;" [nzInlineCollapsed]="collapsed()">
+    <ul nz-menu nzMode="inline" class="sidebar-width" [nzInlineCollapsed]="collapsed()">
       <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menuItems() }"></ng-container>
       <ng-template #menuTpl let-menus>
         @for (menu of menus; track menu.key) {
           @if (!menu.children || menu.children.length === 0) {
             <li
               nz-menu-item
-              [nzPaddingLeft]="menu.level * 24"
+              [nzPaddingLeft]="menu.level * 16 + 4"
               [nzDisabled]="menu.disabled"
               [nzSelected]="menu.selected"
             >
@@ -62,7 +62,7 @@ import { Observable, map } from 'rxjs';
           } @else {
             <li
               nz-submenu
-              [nzPaddingLeft]="menu.level * 24"
+              [nzPaddingLeft]="menu.level * 16 + 4"
               [nzOpen]="menu.open"
               [nzTitle]="menu.label"
               [nzIcon]="getIcon(menu.icon)"
