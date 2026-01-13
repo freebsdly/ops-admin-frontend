@@ -140,6 +140,31 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     data: { title: 'Payments' },
   },
+  // Nested demo routes
+  {
+    path: 'nested/level3/item1',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Level 3 - Item 1' },
+  },
+  {
+    path: 'nested/level3/item2',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Level 3 - Item 2' },
+  },
+  {
+    path: 'nested/level2/item2',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Level 2 - Item 2' },
+  },
+  {
+    path: 'nested/level2/item3',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Level 2 - Item 3' },
+  },
   // Settings route
   {
     path: 'settings',

@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, input, output, signal, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NgTemplateOutlet } from '@angular/common';
 import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -21,7 +22,9 @@ import {
   ShoppingOutline,
   CarOutline,
   DollarOutline,
-  CreditCardOutline
+  CreditCardOutline,
+  UserOutline,
+  SafetyOutline
 } from '@ant-design/icons-angular/icons';
 import { MenuService, MenuItem } from '../../services/menu.service';
 import { Observable, map } from 'rxjs';
@@ -31,47 +34,48 @@ import { Observable, map } from 'rxjs';
   imports: [
     RouterLink,
     RouterLinkActive,
+    NgTemplateOutlet,
     NzIconModule,
     NzMenuModule,
     NzButtonModule,
     NzTooltipModule,
   ],
   template: `
-    @if (collapsed()) {
-      <!-- Collapsed sidebar - just icons with tooltips -->
-      <div class="border-gray-200 flex flex-col">
-        <!-- Menu items -->
-        <ul nz-menu nzMode="inline" class="!border-0" [nzInlineCollapsed]="collapsed()">
-          @for (item of menuItems(); track item.path) {
-            <li nz-menu-item>
-              <a [routerLink]="item.path" routerLinkActive="active" class="flex items-center h-12 no-wrap"
-                [class.justify-center]="collapsed()"
-              >
-                <span nz-icon [nzType]="getIcon(item.icon)" nzTheme="outline" class="text-lg"></span>
-                @if (!collapsed()) {
-                  <span class="ml-3 whitespace-nowrap">{{ item.label }}</span>
+    <ul nz-menu nzMode="inline" style="width: 256px;" [nzInlineCollapsed]="collapsed()">
+      <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menuItems() }"></ng-container>
+      <ng-template #menuTpl let-menus>
+        @for (menu of menus; track menu.key) {
+          @if (!menu.children || menu.children.length === 0) {
+            <li
+              nz-menu-item
+              [nzPaddingLeft]="menu.level * 24"
+              [nzDisabled]="menu.disabled"
+              [nzSelected]="menu.selected"
+            >
+              <a [routerLink]="menu.path" routerLinkActive="active">
+                @if (menu.icon) {
+                  <nz-icon [nzType]="getIcon(menu.icon)" />
                 }
+                <span>{{ menu.label }}</span>
               </a>
             </li>
-          }
-        </ul>
-      </div>
-    } @else {
-      <!-- Expanded sidebar -->
-      <div class="bg-white border-gray-200 w-full flex flex-col transition-all duration-200">
-        <!-- Menu items -->
-        <ul nz-menu nzMode="inline" class="!border-0 py-2" [nzInlineCollapsed]="collapsed()">
-          @for (item of menuItems(); track item.path) {
-            <li nz-menu-item>
-              <a [routerLink]="item.path" routerLinkActive="active" class="px-4 py-3 flex items-center">
-                <span nz-icon [nzType]="getIcon(item.icon)" nzTheme="outline" class="mr-3"></span>
-                <span>{{ item.label }}</span>
-              </a>
+          } @else {
+            <li
+              nz-submenu
+              [nzPaddingLeft]="menu.level * 24"
+              [nzOpen]="menu.open"
+              [nzTitle]="menu.label"
+              [nzIcon]="getIcon(menu.icon)"
+              [nzDisabled]="menu.disabled"
+            >
+              <ul>
+                <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }" />
+              </ul>
             </li>
           }
-        </ul>
-      </div>
-    }
+        }
+      </ng-template>
+    </ul>
   `,
   styleUrl: './sidebar.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -104,7 +108,9 @@ export class Sidebar implements OnInit {
       ShoppingOutline,
       CarOutline,
       DollarOutline,
-      CreditCardOutline
+      CreditCardOutline,
+      UserOutline,
+      SafetyOutline
     ];
 
     this.iconService.addIcon(...icons);
@@ -124,7 +130,8 @@ export class Sidebar implements OnInit {
       'file-text': 'file-text',
       user: 'user',
       team: 'team',
-      safety: 'safety-certificate',
+      safety: 'safety',
+      'safety-certificate': 'safety-certificate',
       database: 'database',
       bell: 'bell',
       appstore: 'appstore',
