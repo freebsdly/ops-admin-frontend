@@ -75,7 +75,7 @@ import { Observable, map } from 'rxjs';
 export class Sidebar implements OnInit {
   private readonly iconService = inject(NzIconService);
   private readonly menuService = inject(MenuService);
-  
+
   menuItems = signal<MenuItem[]>([]);
 
   collapsed = input<boolean>(false);
