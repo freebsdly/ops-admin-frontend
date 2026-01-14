@@ -30,7 +30,7 @@ import { MenuService, MenuItem } from '../../services/menu.service';
 import { Observable, map } from 'rxjs';
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'app-menus',
   imports: [
     RouterLink,
     RouterLinkActive,
@@ -41,7 +41,7 @@ import { Observable, map } from 'rxjs';
     NzTooltipModule,
   ],
   template: `
-    <ul nz-menu nzMode="inline" class="sidebar-width" [nzInlineCollapsed]="collapsed()">
+    <ul nz-menu nzMode="inline" class="sidebar-width" [nzInlineCollapsed]="collapsed()" nzMenuTooltipPlacement="right">
       <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: menuItems() }"></ng-container>
       <ng-template #menuTpl let-menus>
         @for (menu of menus; track menu.key) {
@@ -77,10 +77,10 @@ import { Observable, map } from 'rxjs';
       </ng-template>
     </ul>
   `,
-  styleUrl: './sidebar.css',
+  styleUrl: './menus.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Sidebar implements OnInit {
+export class Menus implements OnInit {
   private readonly iconService = inject(NzIconService);
   private readonly menuService = inject(MenuService);
 

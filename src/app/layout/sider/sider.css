@@ -1,0 +1,18 @@
+:host {
+  display: block;
+}
+
+/* Sidebar header - matches header height (56px) */
+.sidebar-header {
+  flex-shrink: 0;
+  height: 56px;
+  min-height: 56px;
+}
+
+/* Sidebar footer - same height as header (56px) */
+.sidebar-footer {
+  flex-shrink: 0;
+  height: 56px;
+  min-height: 56px;
+  border-top: 1px solid #e5e7eb !important;
+}

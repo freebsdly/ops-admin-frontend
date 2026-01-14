@@ -12,13 +12,12 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { UserOutline, LogoutOutline, HomeOutline, SettingOutline } from '@ant-design/icons-angular/icons';
-import { Sidebar } from './sidebar/sidebar';
+import { Sider } from './sider/sider';
 import { AppHeader } from './header/header';
 
 @Component({
   selector: 'app-layout',
   imports: [
-    RouterOutlet,
     NzLayoutModule,
     NzMenuModule,
     NzButtonModule,
@@ -27,90 +26,51 @@ import { AppHeader } from './header/header';
     NzAvatarModule,
     NzSpaceModule,
     NzBreadCrumbModule,
-    Sidebar,
+    Sider,
     AppHeader,
   ],
   template: `
-    <!-- AppHeader at the top -->
-    <app-header
-      [user]="user()"
-      [sidebarCollapsed]="sidebarCollapsed()"
-      (onToggleSidebar)="toggleSidebar()"
-      (onLogout)="logout()"
-      class="sticky top-0 z-50"
-    />
+    <!-- Main two-column layout -->
+    <div class="app-layout-container h-screen flex">
+      <!-- Left column: Sidebar component -->
+      <app-sider
+        [collapsed]="sidebarCollapsed()"
+        (onToggleCollapsed)="toggleSidebar()"
+      />
 
-    <!-- Main content area with sidebar and content -->
-    <div class="app-layout-container">
-      <nz-layout class="h-full">
-        <nz-sider
-          [nzCollapsed]="sidebarCollapsed()"
-          [nzWidth]="sidebarCollapsed() ? 56 : 256"
-          nzCollapsible
-          (nzCollapsedChange)="sidebarCollapsed.set($event)"
-          class="border-r border-gray-200 !bg-white flex flex-col full-height"
-        >
-          <!-- Sidebar header (logo/collapse button) -->
-          <!-- <div class="sidebar-header px-4 py-4 border-b border-gray-200 flex items-center justify-center"
-            [class.justify-center]="sidebarCollapsed()">
-            @if (!sidebarCollapsed()) {
-              <div class="text-lg font-semibold text-gray-800">Ops Admin</div>
-            } @else {
-              <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold">OA</div>
-            }
-          </div> -->
+      <!-- Right column: Content area -->
+      <div class="flex-1 flex flex-col h-full min-w-0">
+        <!-- Header (same height as sidebar header) -->
+        <app-header
+          [user]="user()"
+          [sidebarCollapsed]="sidebarCollapsed()"
+          (onToggleSidebar)="toggleSidebar()"
+          (onLogout)="logout()"
+          class="h-14"
+        />
 
-          <!-- Scrollable menu area -->
-          <div class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
-            <app-sidebar
-              [collapsed]="sidebarCollapsed()"
-              (onToggleCollapsed)="toggleSidebar()"
-              class="block h-auto"
-            />
+        <!-- Main content area -->
+        <div class="flex-1 min-h-0 overflow-auto bg-gray-50 p-6">
+          <ng-content />
+        </div>
+
+        <!-- Footer -->
+        @if (showFooter()) {
+          <div class="h-14 bg-white border-t border-gray-200 flex items-center justify-between px-6">
+            <p class="text-sm text-gray-500 mb-0">
+              © 2026 Ops Admin. All rights reserved.
+            </p>
+            <div class="flex space-x-6">
+              <a href="#" class="text-sm text-gray-500 hover:text-gray-700">
+                Privacy
+              </a>
+              <a href="#" class="text-sm text-gray-500 hover:text-gray-700">
+                Terms
+              </a>
+            </div>
           </div>
-
-          <!-- Sidebar footer (collapsible trigger) -->
-          <!-- <div class="sidebar-footer border-t border-gray-200 py-3"
-            [class.px-2]="sidebarCollapsed()"
-            [class.px-4]="!sidebarCollapsed()">
-            <button
-              nz-button
-              nzType="text"
-              (click)="toggleSidebar()"
-              class="w-full flex items-center justify-center text-gray-600 hover:text-gray-800"
-            >
-              <span nz-icon [nzType]="sidebarCollapsed() ? 'menu-unfold' : 'menu-fold'" nzTheme="outline" class="mr-2"></span>
-              @if (!sidebarCollapsed()) {
-                <span>Collapse Menu</span>
-              }
-            </button>
-          </div> -->
-        </nz-sider>
-
-        <nz-layout class="flex-col h-full">
-          <nz-content class="flex-grow bg-gray-50 p-6 min-h-0 overflow-auto">
-            <router-outlet />
-          </nz-content>
-
-          @if (showFooter()) {
-            <nz-footer class="!bg-white border-t border-gray-200 py-4">
-              <div class="flex justify-between items-center">
-                <p class="text-sm text-gray-500 mb-0">
-                  © 2026 Ops Admin. All rights reserved.
-                </p>
-                <div class="flex space-x-6">
-                  <a href="#" class="text-sm text-gray-500 hover:text-gray-700">
-                    Privacy
-                  </a>
-                  <a href="#" class="text-sm text-gray-500 hover:text-gray-700">
-                    Terms
-                  </a>
-                </div>
-              </div>
-            </nz-footer>
-          }
-        </nz-layout>
-      </nz-layout>
+        }
+      </div>
     </div>
   `,
   styleUrl: './app-layout.css',

@@ -1,21 +1,16 @@
 :host {
-  display: flex;
-  flex-direction: column;
+  display: block;
   height: 100vh;
   width: 100%;
 }
 
 .app-layout-container {
   display: flex;
-  flex: 1;
+  height: 100%;
   min-height: 0;
 }
 
-:host ::ng-deep .ant-layout {
-  height: 100%;
-}
-
-/* Sidebar structure */
+/* Left column: Sidebar */
 :host ::ng-deep .ant-layout-sider {
   border-right: 1px solid #e5e7eb !important;
   background-color: white !important;
@@ -39,9 +34,10 @@
   height: 100% !important;
 }
 
-/* Sidebar header */
+/* Sidebar header - matches header height (56px) */
 .sidebar-header {
   flex-shrink: 0;
+  height: 56px;
   min-height: 56px;
 }
 
@@ -53,19 +49,35 @@
   overflow-x: hidden !important;
 }
 
-/* Sidebar footer */
+/* Sidebar footer - same height as header (56px) */
 .sidebar-footer {
   flex-shrink: 0;
+  height: 56px;
   min-height: 56px;
   border-top: 1px solid #e5e7eb !important;
 }
 
-/* Content area */
-:host ::ng-deep .ant-layout-content {
+/* Right column container */
+:host ::ng-deep .right-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* Main content area */
+:host ::ng-deep .main-content {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 0;
+}
+
+/* Footer styling */
+:host ::ng-deep .app-footer {
+  height: 56px;
+  min-height: 56px;
 }
 
 /* Menu item styling with proper margins */
@@ -117,15 +129,6 @@
   gap: 8px !important;
 }
 
-/* Active menu item styling */
-:host ::ng-deep .ant-menu-item-selected {
-  background-color: #f0f7ff !important;
-}
-
-:host ::ng-deep .ant-menu-item-selected a {
-  color: #1677ff !important;
-}
-
 /* Collapse button width to match sidebar */
 :host ::ng-deep .ant-layout-sider-collapsed .ant-layout-sider-trigger {
   width: 56px !important;
@@ -133,12 +136,6 @@
 
 :host ::ng-deep .ant-layout-sider:not(.ant-layout-sider-collapsed) .ant-layout-sider-trigger {
   width: 256px !important;
-}
-
-/* Ensure header stays fixed */
-.sticky {
-  position: sticky !important;
-  z-index: 50 !important;
 }
 
 /* Full height utility class */

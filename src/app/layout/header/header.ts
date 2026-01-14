@@ -27,23 +27,23 @@ export interface UserInfo {
     RouterLink,
   ],
   template: `
-    <div class="h-14 bg-white border-b border-gray-200 flex items-center justify-between sticky top-0 z-0 shadow-sm">
-      <!-- Logo area: width matches sidebar, height matches header -->
-      <div class="h-14 flex items-center justify-center border-r border-gray-200 box-border logo-area" [class.logo-area-collapsed]="sidebarCollapsed()">
-        <img src="/logo.svg" alt="Ops Admin Logo" class="h-8 w-auto" />
+    <div class="h-full bg-white border-b border-gray-200 flex items-center justify-between px-6">
+      <!-- Left section: Page title or breadcrumbs can go here -->
+      <div class="flex-1">
+        <!-- Breadcrumbs or page title area -->
       </div>
 
       <!-- Right section: User info area -->
-      <div class="flex-1 flex items-center justify-end">
+      <div class="flex items-center justify-end">
         @if (user()) {
-          <!-- User info area with same height as header -->
+          <!-- User info area -->
           <div 
             #userInfoArea
             nz-dropdown 
             [nzDropdownMenu]="userMenu" 
             nzPlacement="bottomRight"
             [nzOverlayStyle]="dropdownStyle()"
-            class="h-14 flex items-center cursor-pointer hover:bg-gray-50 px-6 border-l border-gray-200 transition-colors"
+            class="h-full flex items-center cursor-pointer hover:bg-gray-50 px-4 border-l border-gray-200 transition-colors"
           >
             <!-- User avatar/image -->
             <div class="flex items-center gap-3">
@@ -51,10 +51,10 @@ export interface UserInfo {
                 nzSize="default" 
                 [nzSrc]="user()?.avatar" 
                 nzText="{{ user()?.name?.charAt(0) || 'U' }}"
-                class="!h-10 !w-10"
+                class="!h-8 !w-8"
               ></nz-avatar>
               
-              <!-- User name and role (hidden when sidebar collapsed) -->
+              <!-- User name and role -->
               <div class="flex flex-col">
                 <span class="text-sm font-medium text-gray-800">{{ user()?.name }}</span>
                 @if (user()?.role) {

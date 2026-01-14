@@ -1,8 +1,6 @@
 :host {
   display: block;
-  position: sticky;
-  top: 0;
-  z-index: 50;
+  height: 56px;
 }
 
 /* User info dropdown width matching */
@@ -15,14 +13,4 @@
   width: 100%;
   min-width: 100%;
   padding: 0;
-}
-
-/* Logo width classes matching sidebar */
-.logo-area {
-  width: 256px !important;
-  transition: width 200ms ease-in-out !important;
-}
-
-.logo-area-collapsed {
-  width: 56px !important;
 }
