@@ -72,17 +72,33 @@ D:/projects/ops-admin-frontend/
 │       │   ├── header/            # Header component
 │       │   │   ├── header.ts
 │       │   │   └── header.css
-│       │   └── sidebar/           # Sidebar component
-│       │       ├── sidebar.ts
-│       │       └── sidebar.css
+│       │   └── sider/              # Sidebar component (named sider, not sidebar)
+│       │       ├── sider.ts
+│       │       ├── sider.css
+│       │       └── menus/          # Menu components
+│       │           ├── menus.ts
+│       │           └── menus.css
 │       └── pages/                 # Page components
-│           ├── home/              # Home page
+│           ├── home/              # Home page (implemented)
 │           │   └── home.component.ts
-│           ├── login/             # Login page
+│           ├── login/             # Login page (implemented)
 │           │   └── login.component.ts
-│           └── user-profile/      # User profile page
-│               ├── user-profile.component.ts
-│               └── user-profile.component.css
+│           ├── user-profile/      # User profile page (implemented)
+│           │   ├── user-profile.component.ts
+│           │   └── user-profile.component.css
+│           ├── placeholder.component.ts  # Generic placeholder for unimplemented pages
+│           ├── dashboard/         # Dashboard pages (empty directory)
+│           ├── roles/             # Role management (empty directory)
+│           ├── permissions/       # Permission management (empty directory)
+│           ├── reports/           # Report pages
+│           │   ├── system-reports/      # System reports (empty)
+│           │   ├── user-reports/        # User reports (empty)
+│           │   └── performance-reports/ # Performance reports (empty)
+│           └── settings/          # Settings pages
+│               ├── general-settings/      # General settings (empty)
+│               ├── authentication-settings/ # Auth settings (empty)
+│               ├── notifications-settings/  # Notification settings (empty)
+│               └── encryption-settings/     # Encryption settings (empty)
 ├── public/                        # Static assets
 │   ├── favicon.ico               # Application icon
 │   └── logo.svg                  # Application logo
@@ -224,6 +240,25 @@ D:/projects/ops-admin-frontend/
 - **Code Splitting**: Automatic via Angular's build system
 - **Asset Optimization**: Enabled for production builds
 
+### Logo Implementation
+
+**SVG Logo Files**:
+- `/logo-expanded.svg`: Full logo for expanded sidebar (256x56)
+- `/logo-collapsed.svg`: Icon-only logo for collapsed sidebar (56x56) 
+- `/logo.svg`: Original logo (120x40) - kept for compatibility
+
+**Logo Usage**:
+- **Sider (Expanded)**: Shows `logo-expanded.svg` filling the width
+- **Sider (Collapsed)**: Shows `logo-collapsed.svg` centered in 56px area
+- **Header**: No logo - clean header with user info only
+
+**Design Features**:
+- Consistent gradient across both logos (#1890ff → #52c41a)
+- Gear icon representing DevOps operations
+- White text on gradient background for expanded logo
+- Responsive sizing fills available area appropriately
+- Logo appears only in sider header for clean interface
+
 ## Gotchas and Non-Obvious Patterns
 
 1. **Angular v20+ Changes**: Standalone components are default; no need to set `standalone: true`
@@ -231,14 +266,27 @@ D:/projects/ops-admin-frontend/
 3. **NG-ZORRO-ANTD UI**: Follow NG-ZORRO patterns for consistent UI components
 4. **Authentication Flow**: Protected routes with `AuthGuard`, conditional layout rendering
 5. **Package Manager**: Uses pnpm (not npm) - note the difference in package resolution
+6. **File Naming**: Sidebar component is named `sider.ts` (not `sidebar.ts`) - follows NG-ZORRO naming convention
+7. **Placeholder Component**: Many routes use `PlaceholderComponent` until proper pages are implemented
+8. **Mock Data**: Authentication and user data are mock implementations for demo purposes
 
 ## Future Development Guidelines
 
-1. **Component Generation**: Use Angular CLI to generate new components
-2. **Route Configuration**: Add routes to `app.routes.ts` with appropriate guards
-3. **State Management**: Use signals for local state, services for shared state
-4. **Styling**: Combine Tailwind CSS with NG-ZORRO component styling
-5. **Testing**: Write Angular TestBed tests for components and services
-6. **Authentication**: Extend AuthService with real API integration
-7. **Navigation**: Expand MenuService for dynamic menu generation based on roles
+1. **Page Implementation Priority**:
+   - Start with Dashboard and Reports pages
+   - Implement Settings sections (General, Authentication, etc.)
+   - Add Security modules (User, Role, Permission management)
+
+2. **Component Generation**: Use Angular CLI to generate new components for placeholder pages
+
+3. **Route Configuration**: Replace placeholder routes with actual page components
+
+4. **State Management**: Use signals for local state, services for shared state
+
+5. **Authentication**: Replace mock AuthService with real API integration
+
+6. **Testing**: Write Angular TestBed tests for all components and services
+
+7. **Role-Based Features**: Implement actual role-based menu generation and access control
+
 8. **Responsive Design**: Ensure all components work on mobile breakpoints

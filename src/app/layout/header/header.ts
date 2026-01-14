@@ -28,9 +28,9 @@ export interface UserInfo {
   ],
   template: `
     <div class="h-full bg-white border-b border-gray-200 flex items-center justify-between px-6">
-      <!-- Left section: Page title or breadcrumbs can go here -->
+      <!-- Left section: Page title or breadcrumbs area -->
       <div class="flex-1">
-        <!-- Breadcrumbs or page title area -->
+        <!-- Breadcrumbs or page title can go here -->
       </div>
 
       <!-- Right section: User info area -->
@@ -125,7 +125,6 @@ export interface UserInfo {
 })
 export class AppHeader implements AfterViewInit, OnDestroy {
   user = input<UserInfo | null>(null);
-  sidebarCollapsed = input<boolean>(false);
 
   onToggleSidebar = output<void>();
   onLogout = output<void>();

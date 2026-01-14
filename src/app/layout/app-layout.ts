@@ -43,7 +43,6 @@ import { AppHeader } from './header/header';
         <!-- Header (same height as sidebar header) -->
         <app-header
           [user]="user()"
-          [sidebarCollapsed]="sidebarCollapsed()"
           (onToggleSidebar)="toggleSidebar()"
           (onLogout)="logout()"
           class="h-14"
