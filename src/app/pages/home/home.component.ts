@@ -7,10 +7,11 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
-  imports: [NzCardModule, NzStatisticModule, NzGridModule, NzIconModule, NzButtonModule, NzTableModule, NzTagModule, NzAvatarModule],
+  imports: [NzCardModule, NzStatisticModule, NzGridModule, NzIconModule, NzButtonModule, NzTableModule, NzTagModule, NzAvatarModule, TranslateModule],
   template: `
     <div class="space-y-6">
       <!-- Statistics Cards -->
@@ -18,7 +19,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
         <nz-col [nzSpan]="6">
           <nz-card>
             <nz-statistic
-              nzTitle="Active Users"
+              [nzTitle]="'HOME.ACTIVE_USERS' | translate"
               [nzValue]="2847"
               [nzPrefix]="userIcon"
               [nzValueStyle]="{ color: '#3f8600' }"
@@ -29,7 +30,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
         <nz-col [nzSpan]="6">
           <nz-card>
             <nz-statistic
-              nzTitle="Total Revenue"
+              [nzTitle]="'HOME.TOTAL_REVENUE' | translate"
               [nzValue]="'¥89,342'"
               [nzPrefix]="dollarIcon"
               [nzValueStyle]="{ color: '#cf1322' }"
@@ -40,7 +41,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
         <nz-col [nzSpan]="6">
           <nz-card>
             <nz-statistic
-              nzTitle="Orders"
+              [nzTitle]="'HOME.ORDERS' | translate"
               [nzValue]="1234"
               [nzPrefix]="shoppingIcon"
               [nzValueStyle]="{ color: '#1890ff' }"
@@ -51,7 +52,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
         <nz-col [nzSpan]="6">
           <nz-card>
             <nz-statistic
-              nzTitle="Growth Rate"
+              [nzTitle]="'HOME.GROWTH_RATE' | translate"
               [nzValue]="'23.5%'"
               [nzPrefix]="arrowIcon"
               [nzValueStyle]="{ color: '#3f8600' }"
@@ -62,18 +63,18 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
       </nz-row>
 
       <!-- Recent Activity Table -->
-      <nz-card nzTitle="Recent Activity" [nzExtra]="extraTemplate">
+      <nz-card [nzTitle]="'HOME.RECENT_ACTIVITY' | translate" [nzExtra]="extraTemplate">
         <ng-template #extraTemplate>
-          <button nz-button nzType="primary">View All</button>
+          <button nz-button nzType="primary">{{ 'BUTTONS.VIEW_ALL' | translate }}</button>
         </ng-template>
 
         <nz-table #basicTable [nzData]="recentActivities" [nzShowPagination]="false">
           <thead>
             <tr>
-              <th>User</th>
-              <th>Action</th>
-              <th>Status</th>
-              <th>Time</th>
+              <th>{{ 'COMMON.USER' | translate }}</th>
+              <th>{{ 'COMMON.ACTION' | translate }}</th>
+              <th>{{ 'COMMON.STATUS' | translate }}</th>
+              <th>{{ 'COMMON.TIME' | translate }}</th>
             </tr>
           </thead>
           <tbody>
@@ -95,23 +96,23 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
       </nz-card>
 
       <!-- Quick Actions -->
-      <nz-card nzTitle="Quick Actions">
+      <nz-card [nzTitle]="'HOME.QUICK_ACTIONS' | translate">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <button nz-button nzBlock nzSize="large">
             <span nz-icon nzType="user-add" class="mr-2"></span>
-            Add User
+            {{ 'BUTTONS.ADD_USER' | translate }}
           </button>
           <button nz-button nzBlock nzSize="large">
             <span nz-icon nzType="file-add" class="mr-2"></span>
-            New Report
+            {{ 'BUTTONS.NEW_REPORT' | translate }}
           </button>
           <button nz-button nzBlock nzSize="large">
             <span nz-icon nzType="setting" class="mr-2"></span>
-            Settings
+            {{ 'BUTTONS.SETTINGS' | translate }}
           </button>
           <button nz-button nzBlock nzSize="large">
             <span nz-icon nzType="mail" class="mr-2"></span>
-            Messages
+            {{ 'BUTTONS.MESSAGES' | translate }}
           </button>
         </div>
       </nz-card>

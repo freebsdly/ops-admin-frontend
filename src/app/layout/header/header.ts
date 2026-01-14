@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output, ViewChild, ElementRef, AfterViewInit, OnDestroy, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, ViewChild, ElementRef, AfterViewInit, OnDestroy, signal, computed, inject } from '@angular/core';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
@@ -7,6 +7,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 export interface UserInfo {
   name: string;
@@ -25,6 +26,7 @@ export interface UserInfo {
     NzTooltipModule,
     NzCardModule,
     RouterLink,
+    TranslateModule,
   ],
   template: `
     <div class="h-full bg-white border-b border-gray-200 flex items-center justify-between px-6">
@@ -91,11 +93,11 @@ export interface UserInfo {
                 <ul nz-menu nzSelectable="false" class="!border-0">
                   <li nz-menu-item routerLink="/profile" class="!h-10 !px-4">
                     <span nz-icon nzType="user" nzTheme="outline" class="mr-2"></span>
-                    <span>Profile</span>
+                    <span>{{ 'LAYOUT.HEADER.PROFILE' | translate }}</span>
                   </li>
                   <li nz-menu-item routerLink="/settings" class="!h-10 !px-4">
                     <span nz-icon nzType="setting" nzTheme="outline" class="mr-2"></span>
-                    <span>Settings</span>
+                    <span>{{ 'LAYOUT.HEADER.SETTINGS' | translate }}</span>
                   </li>
                 </ul>
               </div>
@@ -111,7 +113,7 @@ export interface UserInfo {
                   class="!h-8 !text-sm"
                 >
                   <span nz-icon nzType="logout" nzTheme="outline" class="mr-1"></span>
-                  Logout
+                  {{ 'LAYOUT.HEADER.LOGOUT' | translate }}
                 </button>
               </div>
             </nz-card>

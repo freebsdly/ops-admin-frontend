@@ -1,0 +1,118 @@
+{
+  "APP": {
+    "TITLE": "Ops Management Platform",
+    "DESCRIPTION": "Enterprise-level operations management and monitoring platform"
+  },
+  "LOGIN": {
+    "TITLE": "Login",
+    "EMAIL_PLACEHOLDER": "Email address",
+    "PASSWORD_PLACEHOLDER": "Password",
+    "REMEMBER_ME": "Remember me",
+    "FORGOT_PASSWORD": "Forgot password",
+    "LOGIN_BUTTON": "Login",
+    "REGISTER_LINK": "Don't have an account? Register now",
+    "ERROR": {
+      "REQUIRED": "Please enter {field}",
+      "INVALID": "Please enter a valid {field}"
+    }
+  },
+  "HOME": {
+    "TITLE": "Dashboard",
+    "WELCOME": "Welcome back",
+    "ACTIVE_USERS": "Active Users",
+    "TOTAL_REVENUE": "Total Revenue",
+    "ORDERS": "Orders",
+    "GROWTH_RATE": "Growth Rate",
+    "RECENT_ACTIVITY": "Recent Activity",
+    "QUICK_ACTIONS": "Quick Actions",
+    "STATISTICS": "Statistics Overview"
+  },
+  "USER_PROFILE": {
+    "TITLE": "User Profile",
+    "PERSONAL_INFO": "Personal Information",
+    "SETTINGS": "Settings",
+    "ACCOUNT_SECURITY": "Account Security"
+  },
+  "MENU": {
+    "DASHBOARD": "Dashboard",
+    "USER_MANAGEMENT": "User Management",
+    "ROLE_MANAGEMENT": "Role Management",
+    "PERMISSION_MANAGEMENT": "Permission Management",
+    "REPORTS": "Reports",
+    "SYSTEM_REPORTS": "System Reports",
+    "USER_REPORTS": "User Reports",
+    "PERFORMANCE_REPORTS": "Performance Reports",
+    "SETTINGS": "Settings",
+    "GENERAL_SETTINGS": "General Settings",
+    "AUTHENTICATION_SETTINGS": "Authentication Settings",
+    "NOTIFICATIONS_SETTINGS": "Notification Settings",
+    "ENCRYPTION_SETTINGS": "Encryption Settings",
+    "LOGOUT": "Logout"
+  },
+  "LAYOUT": {
+    "HEADER": {
+      "PROFILE": "Profile",
+      "SETTINGS": "Settings",
+      "LOGOUT": "Logout"
+    },
+    "SIDER": {
+      "COLLAPSE": "Collapse menu",
+      "EXPAND": "Expand menu"
+    }
+  },
+  "BUTTONS": {
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "ADD": "Add",
+    "SEARCH": "Search",
+    "RESET": "Reset",
+    "CONFIRM": "Confirm",
+    "CLOSE": "Close",
+    "VIEW_ALL": "View All",
+    "ADD_USER": "Add User",
+    "NEW_REPORT": "New Report",
+    "SETTINGS": "Settings",
+    "MESSAGES": "Messages",
+    "PRIVACY": "Privacy",
+    "TERMS": "Terms",
+    "EDIT_PROFILE": "Edit Profile"
+  },
+  "COMMON": {
+    "LOADING": "Loading...",
+    "ERROR": "An error occurred",
+    "SUCCESS": "Operation successful",
+    "WARNING": "Warning",
+    "INFO": "Information",
+    "YES": "Yes",
+    "NO": "No",
+    "OK": "OK",
+    "BACK": "Back",
+    "NEXT": "Next",
+    "PREVIOUS": "Previous",
+    "USER": "User",
+    "ACTION": "Action",
+    "STATUS": "Status",
+    "TIME": "Time",
+    "FULL_NAME": "Full Name",
+    "EMAIL_ADDRESS": "Email Address",
+    "PHONE_NUMBER": "Phone Number",
+    "ROLE": "Role",
+    "BIO": "Bio",
+    "ALL_RIGHTS_RESERVED": "All rights reserved",
+    "DISABLED": "Disabled",
+    "ENABLED": "Enabled",
+    "DAYS_30": "30 days"
+  },
+  "SETTINGS": {
+    "TWO_FACTOR_AUTH": "Two-Factor Authentication",
+    "EMAIL_NOTIFICATIONS": "Email Notifications",
+    "PASSWORD_EXPIRY": "Password Expiry"
+  },
+  "LANGUAGE": {
+    "EN": "English",
+    "ZH": "Chinese",
+    "SELECT": "Select Language"
+  }
+}

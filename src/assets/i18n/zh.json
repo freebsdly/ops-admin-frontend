@@ -1,0 +1,118 @@
+{
+  "APP": {
+    "TITLE": "运维管理平台",
+    "DESCRIPTION": "企业级运维管理与监控平台"
+  },
+  "LOGIN": {
+    "TITLE": "登录",
+    "EMAIL_PLACEHOLDER": "邮箱地址",
+    "PASSWORD_PLACEHOLDER": "密码",
+    "REMEMBER_ME": "记住我",
+    "FORGOT_PASSWORD": "忘记密码",
+    "LOGIN_BUTTON": "登录",
+    "REGISTER_LINK": "没有账户？立即注册",
+    "ERROR": {
+      "REQUIRED": "请输入{field}",
+      "INVALID": "请输入有效的{field}"
+    }
+  },
+  "HOME": {
+    "TITLE": "仪表板",
+    "WELCOME": "欢迎回来",
+    "ACTIVE_USERS": "活跃用户",
+    "TOTAL_REVENUE": "总收入",
+    "ORDERS": "订单",
+    "GROWTH_RATE": "增长率",
+    "RECENT_ACTIVITY": "近期活动",
+    "QUICK_ACTIONS": "快捷操作",
+    "STATISTICS": "统计概览"
+  },
+  "USER_PROFILE": {
+    "TITLE": "用户资料",
+    "PERSONAL_INFO": "个人信息",
+    "SETTINGS": "设置",
+    "ACCOUNT_SECURITY": "账户安全"
+  },
+  "MENU": {
+    "DASHBOARD": "仪表板",
+    "USER_MANAGEMENT": "用户管理",
+    "ROLE_MANAGEMENT": "角色管理",
+    "PERMISSION_MANAGEMENT": "权限管理",
+    "REPORTS": "报告",
+    "SYSTEM_REPORTS": "系统报告",
+    "USER_REPORTS": "用户报告",
+    "PERFORMANCE_REPORTS": "性能报告",
+    "SETTINGS": "设置",
+    "GENERAL_SETTINGS": "通用设置",
+    "AUTHENTICATION_SETTINGS": "认证设置",
+    "NOTIFICATIONS_SETTINGS": "通知设置",
+    "ENCRYPTION_SETTINGS": "加密设置",
+    "LOGOUT": "退出登录"
+  },
+  "LAYOUT": {
+    "HEADER": {
+      "PROFILE": "个人资料",
+      "SETTINGS": "设置",
+      "LOGOUT": "退出登录"
+    },
+    "SIDER": {
+      "COLLAPSE": "收起菜单",
+      "EXPAND": "展开菜单"
+    }
+  },
+  "BUTTONS": {
+    "SAVE": "保存",
+    "CANCEL": "取消",
+    "EDIT": "编辑",
+    "DELETE": "删除",
+    "ADD": "添加",
+    "SEARCH": "搜索",
+    "RESET": "重置",
+    "CONFIRM": "确认",
+    "CLOSE": "关闭",
+    "VIEW_ALL": "查看全部",
+    "ADD_USER": "添加用户",
+    "NEW_REPORT": "新报告",
+    "SETTINGS": "设置",
+    "MESSAGES": "消息",
+    "PRIVACY": "隐私",
+    "TERMS": "条款",
+    "EDIT_PROFILE": "编辑资料"
+  },
+  "COMMON": {
+    "LOADING": "加载中...",
+    "ERROR": "发生错误",
+    "SUCCESS": "操作成功",
+    "WARNING": "警告",
+    "INFO": "信息",
+    "YES": "是",
+    "NO": "否",
+    "OK": "确定",
+    "BACK": "返回",
+    "NEXT": "下一步",
+    "PREVIOUS": "上一步",
+    "USER": "用户",
+    "ACTION": "操作",
+    "STATUS": "状态",
+    "TIME": "时间",
+    "FULL_NAME": "全名",
+    "EMAIL_ADDRESS": "邮箱地址",
+    "PHONE_NUMBER": "电话号码",
+    "ROLE": "角色",
+    "BIO": "简介",
+    "ALL_RIGHTS_RESERVED": "保留所有权利",
+    "DISABLED": "已禁用",
+    "ENABLED": "已启用",
+    "DAYS_30": "30天"
+  },
+  "SETTINGS": {
+    "TWO_FACTOR_AUTH": "双重认证",
+    "EMAIL_NOTIFICATIONS": "邮件通知",
+    "PASSWORD_EXPIRY": "密码有效期"
+  },
+  "LANGUAGE": {
+    "EN": "English",
+    "ZH": "中文",
+    "SELECT": "选择语言"
+  }
+}

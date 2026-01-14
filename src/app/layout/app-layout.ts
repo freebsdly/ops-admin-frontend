@@ -11,9 +11,11 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { UserOutline, LogoutOutline, HomeOutline, SettingOutline } from '@ant-design/icons-angular/icons';
+import { UserOutline, LogoutOutline, HomeOutline, SettingOutline, GlobalOutline } from '@ant-design/icons-angular/icons';
 import { Sider } from './sider/sider';
 import { AppHeader } from './header/header';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-layout',
@@ -28,6 +30,8 @@ import { AppHeader } from './header/header';
     NzBreadCrumbModule,
     Sider,
     AppHeader,
+    LanguageSwitcherComponent,
+    TranslateModule,
   ],
   template: `
     <!-- Main two-column layout -->
@@ -57,14 +61,15 @@ import { AppHeader } from './header/header';
         @if (showFooter()) {
           <div class="h-14 bg-white border-t border-gray-200 flex items-center justify-between px-6">
             <p class="text-sm text-gray-500 mb-0">
-              © 2026 Ops Admin. All rights reserved.
+              {{ 'APP.TITLE' | translate }} © 2026. {{ 'COMMON.ALL_RIGHTS_RESERVED' | translate }}
             </p>
-            <div class="flex space-x-6">
+            <div class="flex items-center space-x-6">
+              <app-language-switcher />
               <a href="#" class="text-sm text-gray-500 hover:text-gray-700">
-                Privacy
+                {{ 'BUTTONS.PRIVACY' | translate }}
               </a>
               <a href="#" class="text-sm text-gray-500 hover:text-gray-700">
-                Terms
+                {{ 'BUTTONS.TERMS' | translate }}
               </a>
             </div>
           </div>
@@ -87,7 +92,7 @@ export class AppLayout {
     private router: Router
   ) {
     // Register icons
-    const icons: IconDefinition[] = [UserOutline, LogoutOutline, HomeOutline, SettingOutline];
+    const icons: IconDefinition[] = [UserOutline, LogoutOutline, HomeOutline, SettingOutline, GlobalOutline];
     this.iconService.addIcon(...icons);
   }
 

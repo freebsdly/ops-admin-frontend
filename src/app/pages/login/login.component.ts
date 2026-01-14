@@ -11,6 +11,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
     NzIconModule,
     NzGridModule,
     NzAlertModule,
+    TranslateModule,
   ],
   template: `
     <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -34,10 +36,10 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
               <span nz-icon nzType="lock" nzTheme="outline" class="text-white text-2xl"></span>
             </div>
             <h2 class="text-3xl font-bold text-gray-900">
-              Welcome Back
+              {{ 'LOGIN.TITLE' | translate }}
             </h2>
             <p class="mt-2 text-sm text-gray-600">
-              Sign in to your Ops Admin account
+              {{ 'APP.DESCRIPTION' | translate }}
             </p>
           </div>
 
@@ -47,7 +49,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
                 <nz-input-group nzPrefixIcon="user" nzSize="large">
                   <input
                     nz-input
-                    placeholder="Email address"
+                    [placeholder]="'LOGIN.EMAIL_PLACEHOLDER' | translate"
                     formControlName="email"
                     type="email"
                     autocomplete="email"
@@ -61,7 +63,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
                 <nz-input-group nzPrefixIcon="lock" nzSize="large">
                   <input
                     nz-input
-                    placeholder="Password"
+                    [placeholder]="'LOGIN.PASSWORD_PLACEHOLDER' | translate"
                     formControlName="password"
                     type="password"
                     autocomplete="current-password"
@@ -72,10 +74,10 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 
             <div class="flex items-center justify-between mb-6">
               <label nz-checkbox formControlName="rememberMe">
-                <span>Remember me</span>
+                <span>{{ 'LOGIN.REMEMBER_ME' | translate }}</span>
               </label>
               <a class="text-sm text-blue-600 hover:text-blue-500" href="#">
-                Forgot password?
+                {{ 'LOGIN.FORGOT_PASSWORD' | translate }}
               </a>
             </div>
 
@@ -89,15 +91,12 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
               type="submit"
               class="mb-4"
             >
-              Sign in
+              {{ 'LOGIN.LOGIN_BUTTON' | translate }}
             </button>
 
             <div class="text-center">
               <span class="text-sm text-gray-600">
-                Don't have an account?
-                <a class="text-blue-600 hover:text-blue-500 font-medium" href="#">
-                  Sign up
-                </a>
+                {{ 'LOGIN.REGISTER_LINK' | translate }}
               </span>
             </div>
           </form>
