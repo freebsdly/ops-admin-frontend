@@ -3,11 +3,15 @@ import { RouterOutlet, Router } from '@angular/router';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { AppLayout } from './layout/app-layout';
 import { AuthService } from './services/auth.service';
+import { RouteLoadingIndicatorComponent } from './components/route-loading-indicator.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AppLayout, TranslateModule],
+  imports: [RouterOutlet, AppLayout, TranslateModule, RouteLoadingIndicatorComponent],
   template: `
+    <!-- Global route loading indicator -->
+    <app-route-loading-indicator />
+    
     @if (showLayout()) {
     <app-layout>
       <router-outlet />
