@@ -181,5 +181,9 @@
     "TIME_AGO": {
       "MINUTES_AGO": "{minutes} minutes ago"
     }
+  },
+  "TABS": {
+    "NEW_TAB": "New Tab",
+    "ADD_TOOLTIP": "Add new tab"
   }
 }

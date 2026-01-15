@@ -11,9 +11,20 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { UserOutline, LogoutOutline, HomeOutline, SettingOutline, GlobalOutline } from '@ant-design/icons-angular/icons';
+import { 
+  UserOutline, 
+  LogoutOutline, 
+  HomeOutline, 
+  SettingOutline, 
+  GlobalOutline,
+  DashboardOutline,
+  TeamOutline,
+  FileTextOutline,
+  PlusOutline
+} from '@ant-design/icons-angular/icons';
 import { Sider } from './sider/sider';
 import { AppHeader } from './header/header';
+import { Tabs } from './tabs/tabs';
 import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -30,6 +41,7 @@ import { TranslateModule } from '@ngx-translate/core';
     NzBreadCrumbModule,
     Sider,
     AppHeader,
+    Tabs,
     LanguageSwitcherComponent,
     TranslateModule,
   ],
@@ -51,6 +63,9 @@ import { TranslateModule } from '@ngx-translate/core';
           (onLogout)="logout()"
           class="h-12"
         />
+
+        <!-- Tab Bar -->
+        <app-tabs class="h-10 border-b border-gray-200" />
 
         <!-- Main content area -->
         <div class="flex-1 min-h-0 overflow-auto bg-gray-50 p-6">
@@ -92,7 +107,17 @@ export class AppLayout {
     private router: Router
   ) {
     // Register icons
-    const icons: IconDefinition[] = [UserOutline, LogoutOutline, HomeOutline, SettingOutline, GlobalOutline];
+    const icons: IconDefinition[] = [
+      UserOutline, 
+      LogoutOutline, 
+      HomeOutline, 
+      SettingOutline, 
+      GlobalOutline,
+      DashboardOutline,
+      TeamOutline,
+      FileTextOutline,
+      PlusOutline
+    ];
     this.iconService.addIcon(...icons);
   }
 

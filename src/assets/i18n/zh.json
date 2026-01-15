@@ -181,5 +181,9 @@
     "TIME_AGO": {
       "MINUTES_AGO": "{minutes} 分钟前"
     }
+  },
+  "TABS": {
+    "NEW_TAB": "新标签页",
+    "ADD_TOOLTIP": "添加新标签页"
   }
 }
