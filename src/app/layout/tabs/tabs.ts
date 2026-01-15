@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { RouteConfigService } from '../../services/route-config.service';
 
 export interface TabItem {
   key: string;
@@ -57,6 +58,7 @@ export interface TabItem {
 export class Tabs {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly routeConfigService = inject(RouteConfigService);
   
   // Default tabs configuration
   tabs = signal<TabItem[]>([
@@ -101,87 +103,28 @@ export class Tabs {
   }
   
   addTabFromRoute(path: string): void {
-    // Map route to tab configuration
-    const tabConfig = this.getTabConfigForPath(path);
+    // Get tab configuration from unified service
+    const tabConfig = this.routeConfigService.getTabConfig(path);
     
-    if (tabConfig) {
-      const existingTabIndex = this.tabs().findIndex(tab => tab.key === tabConfig.key);
-      
-      if (existingTabIndex === -1) {
-        // Add new tab
-        const newTab: TabItem = {
-          key: tabConfig.key,
-          label: tabConfig.label,
-          path: path,
-          icon: tabConfig.icon,
-          closable: true
-        };
-        
-        const currentTabs = [...this.tabs(), newTab];
-        this.tabs.set(currentTabs);
-        this.selectedIndex.set(currentTabs.length - 1);
-      } else {
-        // Tab already exists, just activate it
-        this.selectedIndex.set(existingTabIndex);
-      }
-    }
-  }
-  
-  getTabConfigForPath(path: string): { key: string; label: string; icon?: string } | null {
-    // Map paths to tab configurations
-    const routeMap: Record<string, { key: string; label: string; icon?: string }> = {
-      '/': { key: 'home', label: 'MENU.HOME', icon: 'home' },
-      '/home': { key: 'home', label: 'MENU.HOME', icon: 'home' },
-      '/dashboard': { key: 'dashboard', label: 'MENU.DASHBOARD', icon: 'dashboard' },
-      '/analytics': { key: 'analytics', label: 'MENU.ANALYTICS', icon: 'bar-chart' },
-      '/reports': { key: 'reports', label: 'MENU.REPORTS', icon: 'file-text' },
-      '/users': { key: 'user-management', label: 'MENU.USER_MANAGEMENT', icon: 'user' },
-      '/roles': { key: 'role-management', label: 'MENU.ROLE_MANAGEMENT', icon: 'team' },
-      '/permissions': { key: 'permission-management', label: 'MENU.PERMISSION_MANAGEMENT', icon: 'safety-certificate' },
-      '/audit': { key: 'audit', label: 'MENU.AUDIT', icon: 'database' },
-      '/notifications': { key: 'notifications', label: 'MENU.NOTIFICATIONS', icon: 'bell' },
-      '/inventory': { key: 'inventory', label: 'MENU.INVENTORY', icon: 'appstore' },
-      '/orders': { key: 'orders', label: 'MENU.ORDERS', icon: 'shopping' },
-      '/customers': { key: 'customers', label: 'MENU.CUSTOMERS', icon: 'team' },
-      '/products': { key: 'products', label: 'MENU.PRODUCTS', icon: 'database' },
-      '/categories': { key: 'categories', label: 'MENU.CATEGORIES', icon: 'appstore' },
-      '/warehouses': { key: 'warehouses', label: 'MENU.WAREHOUSES', icon: 'home' },
-      '/shipping': { key: 'shipping', label: 'MENU.SHIPPING', icon: 'car' },
-      '/billing': { key: 'billing', label: 'MENU.BILLING', icon: 'dollar' },
-      '/invoices': { key: 'invoices', label: 'MENU.INVOICES', icon: 'file-text' },
-      '/payments': { key: 'payments', label: 'MENU.PAYMENTS', icon: 'credit-card' },
-      '/nested/level3/item1': { key: 'level3-item1', label: 'MENU.LEVEL3_ITEM1', icon: 'appstore' },
-      '/nested/level3/item2': { key: 'level3-item2', label: 'MENU.LEVEL3_ITEM2', icon: 'appstore' },
-      '/nested/level2/item2': { key: 'level2-item2', label: 'MENU.LEVEL2_ITEM2', icon: 'appstore' },
-      '/nested/level2/item3': { key: 'level2-item3', label: 'MENU.LEVEL2_ITEM3', icon: 'appstore' },
-      '/settings': { key: 'settings', label: 'MENU.SETTINGS', icon: 'setting' },
-      '/profile': { key: 'profile', label: 'LAYOUT.HEADER.PROFILE', icon: 'user' },
-      '/test-loading': { key: 'test-loading', label: 'TEST.LOADING', icon: 'appstore' }
-    };
+    const existingTabIndex = this.tabs().findIndex(tab => tab.key === tabConfig.key);
     
-    // Check exact match first
-    if (routeMap[path]) {
-      return routeMap[path];
-    }
-    
-    // Check for dynamic routes (e.g., /users/123)
-    const basePath = path.split('/').slice(0, 2).join('/') || '/';
-    if (routeMap[basePath]) {
-      const config = routeMap[basePath];
-      return {
-        key: config.key,
-        label: config.label,
-        icon: config.icon
+    if (existingTabIndex === -1) {
+      // Add new tab
+      const newTab: TabItem = {
+        key: tabConfig.key,
+        label: tabConfig.label,
+        path: path,
+        icon: tabConfig.icon,
+        closable: true
       };
+      
+      const currentTabs = [...this.tabs(), newTab];
+      this.tabs.set(currentTabs);
+      this.selectedIndex.set(currentTabs.length - 1);
+    } else {
+      // Tab already exists, just activate it
+      this.selectedIndex.set(existingTabIndex);
     }
-    
-    // Default fallback for unknown routes
-    const routeName = path.split('/').pop() || 'page';
-    return {
-      key: `page-${routeName}`,
-      label: `MENU.${routeName.toUpperCase()}`,
-      icon: 'appstore'
-    };
   }
   
   isDefaultTab(key: string): boolean {
