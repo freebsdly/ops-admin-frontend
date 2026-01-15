@@ -3,14 +3,22 @@
   height: 48px;
 }
 
-/* User info dropdown width matching */
+/* User info dropdown styling for new design */
 :host ::ng-deep .user-info-dropdown {
-  width: 100%;
-  min-width: 0 !important;
+  width: auto !important;
+  min-width: auto !important;
+  max-width: none !important;
 }
 
 :host ::ng-deep .user-info-dropdown .ant-dropdown-menu {
-  width: 100%;
-  min-width: 100%;
+  width: auto !important;
+  min-width: auto !important;
   padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Custom hover effects for menu items */
+:host ::ng-deep .user-info-dropdown .ant-dropdown-menu-item:hover {
+  background-color: transparent !important;
 }

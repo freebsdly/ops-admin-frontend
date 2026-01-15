@@ -11,7 +11,6 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
   template: `
     <a nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight">
       <span nz-icon nzType="global"></span>
-      {{ 'LANGUAGE.SELECT' | translate }}
     </a>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
@@ -62,7 +61,7 @@ export class LanguageSwitcherComponent {
   currentLanguage = 'zh';
 
   constructor() {
-    this.currentLanguage = this.translate.currentLang || 'zh';
+    this.currentLanguage = this.translate.getCurrentLang() || 'zh';
   }
 
   changeLanguage(lang: string): void {
