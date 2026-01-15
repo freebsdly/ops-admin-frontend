@@ -16,3 +16,13 @@
   min-height: 56px;
   border-top: 1px solid #e5e7eb !important;
 }
+
+/* Hidden scrollbar styles */
+.hidden-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;             /* Safari and Chrome */
+}
