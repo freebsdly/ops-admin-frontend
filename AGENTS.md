@@ -243,13 +243,13 @@ D:/projects/ops-admin-frontend/
 ### Logo Implementation
 
 **SVG Logo Files**:
-- `/logo-expanded.svg`: Full logo for expanded sidebar (256x56)
-- `/logo-collapsed.svg`: Icon-only logo for collapsed sidebar (56x56) 
+- `/logo-expanded.svg`: Full logo for expanded sidebar (200x48)
+- `/logo-collapsed.svg`: Icon-only logo for collapsed sidebar (48x48) 
 - `/logo.svg`: Original logo (120x40) - kept for compatibility
 
 **Logo Usage**:
 - **Sider (Expanded)**: Shows `logo-expanded.svg` filling the width
-- **Sider (Collapsed)**: Shows `logo-collapsed.svg` centered in 56px area
+- **Sider (Collapsed)**: Shows `logo-collapsed.svg` centered in 48px area
 - **Header**: No logo - clean header with user info only
 
 **Design Features**:

@@ -49,7 +49,7 @@ import { TranslateModule } from '@ngx-translate/core';
           [user]="user()"
           (onToggleSidebar)="toggleSidebar()"
           (onLogout)="logout()"
-          class="h-14"
+          class="h-12"
         />
 
         <!-- Main content area -->
@@ -59,7 +59,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
         <!-- Footer -->
         @if (showFooter()) {
-          <div class="h-14 bg-white border-t border-gray-200 flex items-center justify-between px-6">
+          <div class="h-12 bg-white border-t border-gray-200 flex items-center justify-between px-6">
             <p class="text-sm text-gray-500 mb-0">
               {{ 'APP.TITLE' | translate }} © 2026. {{ 'COMMON.ALL_RIGHTS_RESERVED' | translate }}
             </p>

@@ -1,4 +1,4 @@
-<svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="logoCollapsedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#1890ff" />
@@ -7,16 +7,16 @@
   </defs>
   
   <!-- Background fills entire area -->
-  <rect width="56" height="56" fill="url(#logoCollapsedGradient)" rx="0"/>
+  <rect width="48" height="48" fill="url(#logoCollapsedGradient)" rx="0"/>
   
   <!-- Gear icon centered - scaled to fill most of the area -->
-  <circle cx="28" cy="28" r="20" fill="white" />
-  <circle cx="28" cy="28" r="16" fill="url(#logoCollapsedGradient)" />
-  <circle cx="28" cy="28" r="8" fill="white" />
+  <circle cx="24" cy="24" r="18" fill="white" />
+  <circle cx="24" cy="24" r="14" fill="url(#logoCollapsedGradient)" />
+  <circle cx="24" cy="24" r="7" fill="white" />
   
   <!-- Gear teeth -->
-  <rect x="40" y="26" width="4" height="4" fill="white" transform="rotate(45 28 28)" />
-  <rect x="16" y="26" width="4" height="4" fill="white" transform="rotate(-45 28 28)" />
-  <rect x="26" y="38" width="4" height="4" fill="white" transform="rotate(0 28 28)" />
-  <rect x="26" y="18" width="4" height="4" fill="white" transform="rotate(0 28 28)" />
+  <rect x="34" y="22" width="4" height="4" fill="white" transform="rotate(45 24 24)" />
+  <rect x="14" y="22" width="4" height="4" fill="white" transform="rotate(-45 24 24)" />
+  <rect x="22" y="32" width="4" height="4" fill="white" transform="rotate(0 24 24)" />
+  <rect x="22" y="16" width="4" height="4" fill="white" transform="rotate(0 24 24)" />
 </svg>

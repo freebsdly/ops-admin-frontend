@@ -21,10 +21,10 @@
 }
 
 :host ::ng-deep .ant-layout-sider-collapsed {
-  width: 56px !important;
-  min-width: 56px !important;
-  max-width: 56px !important;
-  flex: 0 0 56px !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  flex: 0 0 48px !important;
 }
 
 :host ::ng-deep .ant-layout-sider .ant-layout-sider-children {
@@ -34,11 +34,11 @@
   height: 100% !important;
 }
 
-/* Sidebar header - matches header height (56px) */
+/* Sidebar header - matches header height (48px) */
 .sidebar-header {
   flex-shrink: 0;
-  height: 56px;
-  min-height: 56px;
+  height: 48px;
+  min-height: 48px;
 }
 
 /* Scrollable menu area */
@@ -49,11 +49,11 @@
   overflow-x: hidden !important;
 }
 
-/* Sidebar footer - same height as header (56px) */
+/* Sidebar footer - same height as header (48px) */
 .sidebar-footer {
   flex-shrink: 0;
-  height: 56px;
-  min-height: 56px;
+  height: 48px;
+  min-height: 48px;
   border-top: 1px solid #e5e7eb !important;
 }
 
@@ -76,8 +76,8 @@
 
 /* Footer styling */
 :host ::ng-deep .app-footer {
-  height: 56px;
-  min-height: 56px;
+  height: 48px;
+  min-height: 48px;
 }
 
 /* Menu item styling with proper margins */
@@ -131,11 +131,11 @@
 
 /* Collapse button width to match sidebar */
 :host ::ng-deep .ant-layout-sider-collapsed .ant-layout-sider-trigger {
-  width: 56px !important;
+  width: 48px !important;
 }
 
 :host ::ng-deep .ant-layout-sider:not(.ant-layout-sider-collapsed) .ant-layout-sider-trigger {
-  width: 256px !important;
+  width: 200px !important;
 }
 
 /* Full height utility class */
@@ -145,9 +145,9 @@
 
 /* Sidebar width classes */
 .sidebar-width {
-  width: 256px !important;
+  width: 200px !important;
 }
 
 .sidebar-width-collapsed {
-  width: 56px !important;
+  width: 48px !important;
 }

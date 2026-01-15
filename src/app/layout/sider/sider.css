@@ -2,18 +2,18 @@
   display: block;
 }
 
-/* Sidebar header - matches header height (56px) */
+/* Sidebar header - matches header height (48px) */
 .sidebar-header {
   flex-shrink: 0;
-  height: 56px;
-  min-height: 56px;
+  height: 48px;
+  min-height: 48px;
 }
 
-/* Sidebar footer - same height as header (56px) */
+/* Sidebar footer - same height as header (48px) */
 .sidebar-footer {
   flex-shrink: 0;
-  height: 56px;
-  min-height: 56px;
+  height: 48px;
+  min-height: 48px;
   border-top: 1px solid #e5e7eb !important;
 }
 

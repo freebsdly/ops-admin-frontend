@@ -17,21 +17,21 @@ import { Menus } from './menus';
   template: `
     <nz-sider
       [nzCollapsed]="collapsed()"
-      [nzWidth]="collapsed() ? 56 : 256"
+      [nzWidth]="collapsed() ? 48 : 200"
       class="border-r border-gray-200 !bg-white flex flex-col full-height"
     >
       <!-- Sidebar header (contains logo area) - fixed at top -->
-      <div class="sidebar-header h-14 border-b border-gray-200 flex items-center justify-center"
+      <div class="sidebar-header border-b border-gray-200 flex items-center justify-center"
         [class.justify-center]="collapsed()">
         @if (!collapsed()) {
           <!-- Expanded logo: SVG that fills the sider width -->
           <div class="flex items-center justify-center w-full">
-            <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="w-full h-14 object-contain" />
+            <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="w-full h-12 object-contain" />
           </div>
         } @else {
           <!-- Collapsed logo: SVG icon that fills the area -->
           <div class="flex items-center justify-center w-full h-full">
-            <img src="/logo-collapsed.svg" alt="Ops Admin Logo" class="h-14 w-full object-contain" />
+            <img src="/logo-collapsed.svg" alt="Ops Admin Logo" class="h-12 w-full object-contain" />
           </div>
         }
       </div>
@@ -46,12 +46,12 @@ import { Menus } from './menus';
       </div>
 
       <!-- Sidebar footer (collapsible trigger) - fixed at bottom -->
-      <div class="sidebar-footer h-14 border-t border-gray-200 flex items-center justify-center mt-auto">
+      <div class="sidebar-footer border-t border-gray-200 flex items-center justify-center mt-auto">
         <button
           nz-button
           nzType="text"
           (click)="onToggleCollapsed.emit()"
-          class="w-full h-14 flex items-center justify-center text-gray-600"
+          class="w-full h-12 flex items-center justify-center text-gray-600"
         >
           <span nz-icon [nzType]="collapsed() ? 'menu-unfold' : 'menu-fold'" nzTheme="outline"></span>
         </button>
