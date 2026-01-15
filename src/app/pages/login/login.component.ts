@@ -11,7 +11,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../language-switcher/language-switcher.component';
 
 @Component({
@@ -52,7 +52,7 @@ import { LanguageSwitcherComponent } from '../../language-switcher/language-swit
 
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" nz-form nzLayout="vertical">
             <nz-form-item>
-              <nz-form-control nzErrorTip="Please enter a valid email">
+              <nz-form-control [nzErrorTip]="'LOGIN.VALIDATION.EMAIL_REQUIRED' | translate">
                 <nz-input-group nzPrefixIcon="user" nzSize="large">
                   <input
                     nz-input
@@ -66,7 +66,7 @@ import { LanguageSwitcherComponent } from '../../language-switcher/language-swit
             </nz-form-item>
 
             <nz-form-item>
-              <nz-form-control nzErrorTip="Password must be at least 6 characters">
+              <nz-form-control [nzErrorTip]="'LOGIN.VALIDATION.PASSWORD_REQUIRED' | translate">
                 <nz-input-group nzPrefixIcon="lock" nzSize="large">
                   <input
                     nz-input
@@ -130,7 +130,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -155,17 +156,17 @@ export class LoginComponent implements OnInit {
       this.loading = false;
 
       if (success) {
-        this.message.success('Login successful!');
+        this.message.success(this.translate.instant('LOGIN.SUCCESS'));
         const returnUrl = this.router.routerState.snapshot.root.queryParams['returnUrl'] || '/';
         this.router.navigateByUrl(returnUrl);
       } else {
-        this.message.error('Invalid email or password');
-        this.error = 'Invalid email or password';
+        this.message.error(this.translate.instant('LOGIN.ERROR.INVALID_CREDENTIALS'));
+        this.error = this.translate.instant('LOGIN.ERROR.INVALID_CREDENTIALS');
       }
     }).catch(() => {
       this.loading = false;
-      this.message.error('An error occurred during login');
-      this.error = 'An error occurred during login';
+      this.message.error(this.translate.instant('LOGIN.ERROR.SERVER_ERROR'));
+      this.error = this.translate.instant('LOGIN.ERROR.SERVER_ERROR');
     });
   }
 }

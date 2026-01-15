@@ -41,7 +41,7 @@ export interface UserInfo {
             }
             <div class="mt-2 flex items-center gap-2 text-sm text-gray-500">
               <span nz-icon nzType="check-circle" nzTheme="outline" class="text-green-500"></span>
-              <span>Online</span>
+              <span>{{ 'USER_CARD.STATUS_ONLINE' | translate }}</span>
             </div>
           </div>
         </div>
@@ -51,15 +51,15 @@ export interface UserInfo {
       <div class="px-6 py-4 border-b border-gray-100 bg-gray-50">
         <div class="grid grid-cols-3 gap-4 text-center">
           <div>
-            <div class="text-sm text-gray-500">Projects</div>
+            <div class="text-sm text-gray-500">{{ 'USER_CARD.STATS_PROJECTS' | translate }}</div>
             <div class="text-xl font-bold text-gray-800">12</div>
           </div>
           <div>
-            <div class="text-sm text-gray-500">Tasks</div>
+            <div class="text-sm text-gray-500">{{ 'USER_CARD.STATS_TASKS' | translate }}</div>
             <div class="text-xl font-bold text-gray-800">47</div>
           </div>
           <div>
-            <div class="text-sm text-gray-500">Teams</div>
+            <div class="text-sm text-gray-500">{{ 'USER_CARD.STATS_TEAMS' | translate }}</div>
             <div class="text-xl font-bold text-gray-800">3</div>
           </div>
         </div>
@@ -75,7 +75,7 @@ export interface UserInfo {
               </div>
               <div class="flex flex-col">
                 <span class="text-sm font-medium text-gray-800">{{ 'LAYOUT.HEADER.PROFILE' | translate }}</span>
-                <span class="text-xs text-gray-500">View and edit your profile</span>
+                <span class="text-xs text-gray-500">{{ 'USER_CARD.PROFILE_DESCRIPTION' | translate }}</span>
               </div>
             </div>
           </li>
@@ -86,7 +86,7 @@ export interface UserInfo {
               </div>
               <div class="flex flex-col">
                 <span class="text-sm font-medium text-gray-800">{{ 'LAYOUT.HEADER.SETTINGS' | translate }}</span>
-                <span class="text-xs text-gray-500">Configure your preferences</span>
+                <span class="text-xs text-gray-500">{{ 'USER_CARD.SETTINGS_DESCRIPTION' | translate }}</span>
               </div>
             </div>
           </li>
@@ -96,8 +96,8 @@ export interface UserInfo {
                 <span nz-icon nzType="bell" nzTheme="outline" class="text-yellow-600"></span>
               </div>
               <div class="flex flex-col">
-                <span class="text-sm font-medium text-gray-800">Notifications</span>
-                <span class="text-xs text-gray-500">Manage your alerts</span>
+                <span class="text-sm font-medium text-gray-800">{{ 'USER_CARD.NOTIFICATIONS' | translate }}</span>
+                <span class="text-xs text-gray-500">{{ 'USER_CARD.NOTIFICATIONS_DESCRIPTION' | translate }}</span>
               </div>
             </div>
           </li>
@@ -107,8 +107,8 @@ export interface UserInfo {
                 <span nz-icon nzType="question-circle" nzTheme="outline" class="text-green-600"></span>
               </div>
               <div class="flex flex-col">
-                <span class="text-sm font-medium text-gray-800">Help & Support</span>
-                <span class="text-xs text-gray-500">Get assistance</span>
+                <span class="text-sm font-medium text-gray-800">{{ 'USER_CARD.HELP_SUPPORT' | translate }}</span>
+                <span class="text-xs text-gray-500">{{ 'USER_CARD.HELP_DESCRIPTION' | translate }}</span>
               </div>
             </div>
           </li>

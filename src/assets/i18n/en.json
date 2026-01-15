@@ -13,7 +13,14 @@
     "REGISTER_LINK": "Don't have an account? Register now",
     "ERROR": {
       "REQUIRED": "Please enter {field}",
-      "INVALID": "Please enter a valid {field}"
+      "INVALID": "Please enter a valid {field}",
+      "INVALID_CREDENTIALS": "Invalid email or password",
+      "SERVER_ERROR": "An error occurred during login"
+    },
+    "SUCCESS": "Login successful!",
+    "VALIDATION": {
+      "EMAIL_REQUIRED": "Please enter a valid email",
+      "PASSWORD_REQUIRED": "Password must be at least 6 characters"
     }
   },
   "HOME": {
@@ -140,5 +147,39 @@
     "EN": "English",
     "ZH": "Chinese",
     "SELECT": "Select Language"
+  },
+  "USER_CARD": {
+    "STATUS_ONLINE": "Online",
+    "STATS_PROJECTS": "Projects",
+    "STATS_TASKS": "Tasks",
+    "STATS_TEAMS": "Teams",
+    "PROFILE_DESCRIPTION": "View and edit your profile",
+    "SETTINGS_DESCRIPTION": "Configure your preferences",
+    "NOTIFICATIONS": "Notifications",
+    "NOTIFICATIONS_DESCRIPTION": "Manage your alerts",
+    "HELP_SUPPORT": "Help & Support",
+    "HELP_DESCRIPTION": "Get assistance"
+  },
+  "ACTIVITIES": {
+    "USERS": {
+      "JOHN_DOE": "John Doe",
+      "JANE_SMITH": "Jane Smith",
+      "BOB_JOHNSON": "Bob Johnson",
+      "ALICE_BROWN": "Alice Brown"
+    },
+    "ACTIONS": {
+      "CREATED_NEW_USER": "Created new user",
+      "UPDATED_SETTINGS": "Updated settings",
+      "DELETED_REPORT": "Deleted report",
+      "GENERATED_REPORT": "Generated report"
+    },
+    "STATUSES": {
+      "SUCCESS": "Success",
+      "PENDING": "Pending",
+      "FAILED": "Failed"
+    },
+    "TIME_AGO": {
+      "MINUTES_AGO": "{minutes} minutes ago"
+    }
   }
 }

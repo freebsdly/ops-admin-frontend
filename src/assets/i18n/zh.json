@@ -13,7 +13,14 @@
     "REGISTER_LINK": "没有账户？立即注册",
     "ERROR": {
       "REQUIRED": "请输入{field}",
-      "INVALID": "请输入有效的{field}"
+      "INVALID": "请输入有效的{field}",
+      "INVALID_CREDENTIALS": "邮箱或密码无效",
+      "SERVER_ERROR": "登录过程中发生错误"
+    },
+    "SUCCESS": "登录成功！",
+    "VALIDATION": {
+      "EMAIL_REQUIRED": "请输入有效的邮箱地址",
+      "PASSWORD_REQUIRED": "密码必须至少6个字符"
     }
   },
   "HOME": {
@@ -140,5 +147,39 @@
     "EN": "English",
     "ZH": "中文",
     "SELECT": "选择语言"
+  },
+  "USER_CARD": {
+    "STATUS_ONLINE": "在线",
+    "STATS_PROJECTS": "项目",
+    "STATS_TASKS": "任务",
+    "STATS_TEAMS": "团队",
+    "PROFILE_DESCRIPTION": "查看和编辑您的个人资料",
+    "SETTINGS_DESCRIPTION": "配置您的偏好设置",
+    "NOTIFICATIONS": "通知",
+    "NOTIFICATIONS_DESCRIPTION": "管理您的提醒",
+    "HELP_SUPPORT": "帮助与支持",
+    "HELP_DESCRIPTION": "获取帮助"
+  },
+  "ACTIVITIES": {
+    "USERS": {
+      "JOHN_DOE": "约翰·多伊",
+      "JANE_SMITH": "简·史密斯",
+      "BOB_JOHNSON": "鲍勃·约翰逊",
+      "ALICE_BROWN": "爱丽丝·布朗"
+    },
+    "ACTIONS": {
+      "CREATED_NEW_USER": "创建了新用户",
+      "UPDATED_SETTINGS": "更新了设置",
+      "DELETED_REPORT": "删除了报告",
+      "GENERATED_REPORT": "生成了报告"
+    },
+    "STATUSES": {
+      "SUCCESS": "成功",
+      "PENDING": "待处理",
+      "FAILED": "失败"
+    },
+    "TIME_AGO": {
+      "MINUTES_AGO": "{minutes} 分钟前"
+    }
   }
 }
