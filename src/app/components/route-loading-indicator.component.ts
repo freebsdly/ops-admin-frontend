@@ -42,9 +42,6 @@ import { RouteLoadingService } from '../services/route-loading.service';
     .loading-content {
       position: relative;
       z-index: 1;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       padding: 24px;
       display: flex;
       flex-direction: column;
