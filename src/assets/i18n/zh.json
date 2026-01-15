@@ -47,7 +47,30 @@
     "AUTHENTICATION_SETTINGS": "认证设置",
     "NOTIFICATIONS_SETTINGS": "通知设置",
     "ENCRYPTION_SETTINGS": "加密设置",
-    "LOGOUT": "退出登录"
+    "LOGOUT": "退出登录",
+    "HOME": "首页",
+    "ANALYTICS": "分析",
+    "SECURITY": "安全",
+    "AUDIT": "审计日志",
+    "NOTIFICATIONS": "通知",
+    "OPERATIONS": "运营",
+    "INVENTORY": "库存",
+    "ORDERS": "订单",
+    "CUSTOMERS": "客户",
+    "PRODUCTS": "产品",
+    "CATEGORIES": "分类",
+    "WAREHOUSES": "仓库",
+    "SHIPPING": "物流",
+    "FINANCE": "财务",
+    "BILLING": "计费",
+    "INVOICES": "发票",
+    "PAYMENTS": "支付",
+    "NESTED_DEMO": "嵌套演示",
+    "LEVEL2_ITEM1": "二级 - 项目1",
+    "LEVEL3_ITEM1": "三级 - 项目1",
+    "LEVEL3_ITEM2": "三级 - 项目2",
+    "LEVEL2_ITEM2": "二级 - 项目2",
+    "LEVEL2_ITEM3": "二级 - 项目3"
   },
   "LAYOUT": {
     "HEADER": {
@@ -103,7 +126,10 @@
     "ALL_RIGHTS_RESERVED": "保留所有权利",
     "DISABLED": "已禁用",
     "ENABLED": "已启用",
-    "DAYS_30": "30天"
+    "DAYS_30": "30天",
+    "PLACEHOLDER": "占位页面",
+    "PLACEHOLDER_PAGE": "这是 {title} 的占位页面",
+    "PLACEHOLDER_MESSAGE": "此页面将在未来更新中实现完整功能。"
   },
   "SETTINGS": {
     "TWO_FACTOR_AUTH": "双重认证",

@@ -13,7 +13,7 @@ import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { IconDefinition } from '@ant-design/icons-angular';
 import {
   DashboardOutline,
@@ -78,8 +78,8 @@ import { MenuService, MenuItem } from '../../services/menu.service';
           nz-submenu
           [nzPaddingLeft]="menu.level * 16 + 4"
           [nzOpen]="menu.open"
-          [nzTitle]="getTranslatedLabel(menu.key)"
           [nzIcon]="getIcon(menu.icon)"
+          [nzTitle]="getTranslatedTitle(menu.key)"
           [nzDisabled]="menu.disabled"
         >
           <ul>
@@ -96,6 +96,7 @@ import { MenuService, MenuItem } from '../../services/menu.service';
 export class Menus implements OnInit {
   private readonly iconService = inject(NzIconService);
   private readonly menuService = inject(MenuService);
+  private readonly translateService = inject(TranslateService);
 
   menuItems = signal<MenuItem[]>([]);
 
@@ -160,23 +161,43 @@ export class Menus implements OnInit {
   getTranslatedLabel(key: string): string {
     // Map menu keys to translation keys
     const translationMap: Record<string, string> = {
-      home: 'MENU.DASHBOARD',
-      profile: 'MENU.USER_MANAGEMENT',
+      home: 'MENU.HOME',
+      dashboard: 'MENU.DASHBOARD',
+      analytics: 'MENU.ANALYTICS',
+      reports: 'MENU.REPORTS',
+      security: 'MENU.SECURITY',
+      users: 'MENU.USER_MANAGEMENT',
       roles: 'MENU.ROLE_MANAGEMENT',
       permissions: 'MENU.PERMISSION_MANAGEMENT',
-      reports: 'MENU.REPORTS',
-      'system-reports': 'MENU.SYSTEM_REPORTS',
-      'user-reports': 'MENU.USER_REPORTS',
-      'performance-reports': 'MENU.PERFORMANCE_REPORTS',
+      audit: 'MENU.AUDIT',
+      notifications: 'MENU.NOTIFICATIONS',
+      operations: 'MENU.OPERATIONS',
+      inventory: 'MENU.INVENTORY',
+      orders: 'MENU.ORDERS',
+      customers: 'MENU.CUSTOMERS',
+      products: 'MENU.PRODUCTS',
+      categories: 'MENU.CATEGORIES',
+      warehouses: 'MENU.WAREHOUSES',
+      shipping: 'MENU.SHIPPING',
+      finance: 'MENU.FINANCE',
+      billing: 'MENU.BILLING',
+      invoices: 'MENU.INVOICES',
+      payments: 'MENU.PAYMENTS',
+      'nested-demo': 'MENU.NESTED_DEMO',
+      'level2-item1': 'MENU.LEVEL2_ITEM1',
+      'level3-item1': 'MENU.LEVEL3_ITEM1',
+      'level3-item2': 'MENU.LEVEL3_ITEM2',
+      'level2-item2': 'MENU.LEVEL2_ITEM2',
+      'level2-item3': 'MENU.LEVEL2_ITEM3',
       settings: 'MENU.SETTINGS',
-      'general-settings': 'MENU.GENERAL_SETTINGS',
-      'authentication-settings': 'MENU.AUTHENTICATION_SETTINGS',
-      'notifications-settings': 'MENU.NOTIFICATIONS_SETTINGS',
-      'encryption-settings': 'MENU.ENCRYPTION_SETTINGS',
-      logout: 'MENU.LOGOUT',
     };
 
     const translationKey = translationMap[key] || `MENU.${key.toUpperCase().replace(/-/g, '_')}`;
     return translationKey;
+  }
+
+  getTranslatedTitle(key: string): string {
+    const translationKey = this.getTranslatedLabel(key);
+    return this.translateService.instant(translationKey);
   }
 }

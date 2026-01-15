@@ -1,16 +1,17 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-placeholder',
-  imports: [],
+  imports: [TranslateModule],
   template: `
     <div class="p-6">
-      <h1 class="text-2xl font-semibold mb-4">{{ title }}</h1>
-      <p class="text-gray-600">This is a placeholder page for {{ title }}</p>
+      <h1 class="text-2xl font-semibold mb-4">{{ titleKey | translate }}</h1>
+      <p class="text-gray-600">{{ 'COMMON.PLACEHOLDER_PAGE' | translate:{title: (titleKey | translate)} }}</p>
       <div class="mt-8 p-4 bg-blue-50 border border-blue-200 rounded">
         <p class="text-blue-700">
-          This page will be implemented with full functionality in a future update.
+          {{ 'COMMON.PLACEHOLDER_MESSAGE' | translate }}
         </p>
       </div>
     </div>
@@ -20,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PlaceholderComponent {
   private route = inject(ActivatedRoute);
   
-  get title(): string {
-    return this.route.snapshot.data['title'] || 'Placeholder Page';
+  get titleKey(): string {
+    return this.route.snapshot.data['titleKey'] || 'COMMON.PLACEHOLDER';
   }
 }

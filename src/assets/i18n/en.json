@@ -47,7 +47,30 @@
     "AUTHENTICATION_SETTINGS": "Authentication Settings",
     "NOTIFICATIONS_SETTINGS": "Notification Settings",
     "ENCRYPTION_SETTINGS": "Encryption Settings",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+    "HOME": "Home",
+    "ANALYTICS": "Analytics",
+    "SECURITY": "Security",
+    "AUDIT": "Audit Log",
+    "NOTIFICATIONS": "Notifications",
+    "OPERATIONS": "Operations",
+    "INVENTORY": "Inventory",
+    "ORDERS": "Orders",
+    "CUSTOMERS": "Customers",
+    "PRODUCTS": "Products",
+    "CATEGORIES": "Categories",
+    "WAREHOUSES": "Warehouses",
+    "SHIPPING": "Shipping",
+    "FINANCE": "Finance",
+    "BILLING": "Billing",
+    "INVOICES": "Invoices",
+    "PAYMENTS": "Payments",
+    "NESTED_DEMO": "Nested Demo",
+    "LEVEL2_ITEM1": "Level 2 - Item 1",
+    "LEVEL3_ITEM1": "Level 3 - Item 1",
+    "LEVEL3_ITEM2": "Level 3 - Item 2",
+    "LEVEL2_ITEM2": "Level 2 - Item 2",
+    "LEVEL2_ITEM3": "Level 2 - Item 3"
   },
   "LAYOUT": {
     "HEADER": {
@@ -103,7 +126,10 @@
     "ALL_RIGHTS_RESERVED": "All rights reserved",
     "DISABLED": "Disabled",
     "ENABLED": "Enabled",
-    "DAYS_30": "30 days"
+    "DAYS_30": "30 days",
+    "PLACEHOLDER": "Placeholder Page",
+    "PLACEHOLDER_PAGE": "This is a placeholder page for {title}",
+    "PLACEHOLDER_MESSAGE": "This page will be implemented with full functionality in a future update."
   },
   "SETTINGS": {
     "TWO_FACTOR_AUTH": "Two-Factor Authentication",
