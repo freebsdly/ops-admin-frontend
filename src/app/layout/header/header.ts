@@ -40,6 +40,11 @@ export interface UserInfo {
       <!-- Right section: User info area -->
       <div class="flex items-center justify-end">
         @if (user()) {
+          <!-- Language switcher -->
+          <div class="border-r border-gray-200 pr-4">
+            <app-language-switcher />
+          </div>
+          
           <!-- User info area -->
           <div 
             #userInfoArea
@@ -106,11 +111,6 @@ export interface UserInfo {
               
               <!-- Card footer with button area -->
               <div nz-card-actions class="!px-4 !py-3 !border-t !border-gray-200">
-                <!-- Language switcher -->
-                <div class="mb-3">
-                  <app-language-switcher />
-                </div>
-                
                 <button 
                   nz-button 
                   nzType="primary" 

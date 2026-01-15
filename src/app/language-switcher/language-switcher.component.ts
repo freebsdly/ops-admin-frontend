@@ -38,10 +38,21 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
       padding: 8px 12px;
       border-radius: 4px;
       transition: background-color 0.3s;
+      height: 32px;
+      font-size: 14px;
       
       &:hover {
         background-color: rgba(0, 0, 0, 0.04);
       }
+    }
+    
+    /* Header-specific styles */
+    :host-context(.border-r) a {
+      border-radius: 0;
+      padding: 0 12px;
+      height: 48px;
+      display: flex;
+      align-items: center;
     }
   `,
 })
