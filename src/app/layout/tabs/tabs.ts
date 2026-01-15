@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, inject, effect, DestroyRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TranslateModule } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export interface TabItem {
   key: string;
@@ -31,7 +32,7 @@ export interface TabItem {
               <span class="text-gray-600">{{ getIcon(tab.icon) }}</span>
             }
             <span>{{ tab.label | translate }}</span>
-            @if (tab.closable !== false) {
+            @if (tab.closable !== false && !isDefaultTab(tab.key)) {
               <button
                 class="ml-1 text-gray-500 hover:text-gray-700"
                 (click)="closeTab(i, $event)"
@@ -41,15 +42,6 @@ export interface TabItem {
             }
           </button>
         }
-        
-        <!-- Add new tab button -->
-        <button
-          class="flex items-center justify-center w-8 h-8 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
-          (click)="addTab()"
-          title="{{ 'TABS.ADD_TOOLTIP' | translate }}"
-        >
-          +
-        </button>
       </div>
     </div>
   `,
@@ -62,52 +54,135 @@ export interface TabItem {
 })
 export class Tabs {
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
   
   // Default tabs configuration
   tabs = signal<TabItem[]>([
     { 
-      key: 'dashboard',
-      label: 'MENU.DASHBOARD',
+      key: 'home',
+      label: 'MENU.HOME',
       path: '/home',
-      icon: 'dashboard',
+      icon: 'home',
       closable: false
-    },
-    { 
-      key: 'user-management',
-      label: 'MENU.USER_MANAGEMENT',
-      path: '/users',
-      icon: 'team'
-    },
-    { 
-      key: 'reports',
-      label: 'MENU.REPORTS',
-      path: '/reports',
-      icon: 'file-text'
-    },
-    { 
-      key: 'settings',
-      label: 'MENU.SETTINGS',
-      path: '/settings',
-      icon: 'setting'
     }
   ]);
   
   selectedIndex = signal(0);
   
   constructor() {
-    // Monitor route changes to update active tab
+    // Monitor route changes to update active tab and add new tabs
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
+      filter(event => event instanceof NavigationEnd),
+      takeUntilDestroyed()
     ).subscribe(() => {
-      this.updateActiveTab();
+      this.handleRouteChange();
     });
     
     // Initial tab update
-    this.updateActiveTab();
+    this.handleRouteChange();
+  }
+  
+  handleRouteChange(): void {
+    const currentPath = this.router.url.split('?')[0];
+    const currentTab = this.tabs().find(tab => tab.path === currentPath);
+    
+    // If we're at a new route that's not already a tab, add it
+    if (!currentTab) {
+      this.addTabFromRoute(currentPath);
+    }
+    
+    // Update selected index
+    const index = this.tabs().findIndex(tab => tab.path === currentPath);
+    if (index !== -1) {
+      this.selectedIndex.set(index);
+    }
+  }
+  
+  addTabFromRoute(path: string): void {
+    // Map route to tab configuration
+    const tabConfig = this.getTabConfigForPath(path);
+    
+    if (tabConfig) {
+      const existingTabIndex = this.tabs().findIndex(tab => tab.key === tabConfig.key);
+      
+      if (existingTabIndex === -1) {
+        // Add new tab
+        const newTab: TabItem = {
+          key: tabConfig.key,
+          label: tabConfig.label,
+          path: path,
+          icon: tabConfig.icon,
+          closable: true
+        };
+        
+        const currentTabs = [...this.tabs(), newTab];
+        this.tabs.set(currentTabs);
+        this.selectedIndex.set(currentTabs.length - 1);
+      } else {
+        // Tab already exists, just activate it
+        this.selectedIndex.set(existingTabIndex);
+      }
+    }
+  }
+  
+  getTabConfigForPath(path: string): { key: string; label: string; icon?: string } | null {
+    // Map paths to tab configurations
+    const routeMap: Record<string, { key: string; label: string; icon?: string }> = {
+      '/home': { key: 'home', label: 'MENU.HOME', icon: 'home' },
+      '/dashboard': { key: 'dashboard', label: 'MENU.DASHBOARD', icon: 'dashboard' },
+      '/analytics': { key: 'analytics', label: 'MENU.ANALYTICS', icon: 'bar-chart' },
+      '/reports': { key: 'reports', label: 'MENU.REPORTS', icon: 'file-text' },
+      '/users': { key: 'user-management', label: 'MENU.USER_MANAGEMENT', icon: 'user' },
+      '/roles': { key: 'role-management', label: 'MENU.ROLE_MANAGEMENT', icon: 'team' },
+      '/permissions': { key: 'permission-management', label: 'MENU.PERMISSION_MANAGEMENT', icon: 'safety-certificate' },
+      '/audit': { key: 'audit', label: 'MENU.AUDIT', icon: 'database' },
+      '/notifications': { key: 'notifications', label: 'MENU.NOTIFICATIONS', icon: 'bell' },
+      '/inventory': { key: 'inventory', label: 'MENU.INVENTORY', icon: 'appstore' },
+      '/orders': { key: 'orders', label: 'MENU.ORDERS', icon: 'shopping' },
+      '/customers': { key: 'customers', label: 'MENU.CUSTOMERS', icon: 'team' },
+      '/products': { key: 'products', label: 'MENU.PRODUCTS', icon: 'database' },
+      '/categories': { key: 'categories', label: 'MENU.CATEGORIES', icon: 'appstore' },
+      '/warehouses': { key: 'warehouses', label: 'MENU.WAREHOUSES', icon: 'home' },
+      '/shipping': { key: 'shipping', label: 'MENU.SHIPPING', icon: 'car' },
+      '/billing': { key: 'billing', label: 'MENU.BILLING', icon: 'dollar' },
+      '/invoices': { key: 'invoices', label: 'MENU.INVOICES', icon: 'file-text' },
+      '/payments': { key: 'payments', label: 'MENU.PAYMENTS', icon: 'credit-card' },
+      '/nested/level3/item1': { key: 'level3-item1', label: 'MENU.LEVEL3_ITEM1', icon: 'appstore' },
+      '/nested/level3/item2': { key: 'level3-item2', label: 'MENU.LEVEL3_ITEM2', icon: 'appstore' },
+      '/nested/level2/item2': { key: 'level2-item2', label: 'MENU.LEVEL2_ITEM2', icon: 'appstore' },
+      '/nested/level2/item3': { key: 'level2-item3', label: 'MENU.LEVEL2_ITEM3', icon: 'appstore' },
+      '/settings': { key: 'settings', label: 'MENU.SETTINGS', icon: 'setting' },
+      '/profile': { key: 'profile', label: 'LAYOUT.HEADER.PROFILE', icon: 'user' },
+      '/test-loading': { key: 'test-loading', label: 'TEST.LOADING', icon: 'appstore' }
+    };
+    
+    // Check exact match first
+    if (routeMap[path]) {
+      return routeMap[path];
+    }
+    
+    // Check for dynamic routes (e.g., /users/123)
+    const basePath = path.split('/').slice(0, 2).join('/') || '/';
+    if (routeMap[basePath]) {
+      const config = routeMap[basePath];
+      return {
+        key: config.key,
+        label: config.label,
+        icon: config.icon
+      };
+    }
+    
+    // Default fallback for unknown routes
+    const routeName = path.split('/').pop() || 'page';
+    return {
+      key: `page-${routeName}`,
+      label: `MENU.${routeName.toUpperCase()}`,
+      icon: 'file'
+    };
   }
   
   getIcon(iconName?: string): string {
-    // Map icon names to Ant Design icon names
+    // Map icon names to emoji or Ant Design icon names
     const iconMap: Record<string, string> = {
       home: '🏠',
       dashboard: '📊',
@@ -130,12 +205,8 @@ export class Tabs {
     return iconMap[iconName || ''] || '📋';
   }
   
-  updateActiveTab(): void {
-    const currentPath = this.router.url.split('?')[0];
-    const index = this.tabs().findIndex(tab => tab.path === currentPath);
-    if (index !== -1) {
-      this.selectedIndex.set(index);
-    }
+  isDefaultTab(key: string): boolean {
+    return ['home'].includes(key);
   }
   
   onTabClick(index: number): void {
@@ -153,8 +224,8 @@ export class Tabs {
     
     const tab = this.tabs()[index];
     
-    // Don't close unclosable tabs
-    if (tab && tab.closable === false) {
+    // Don't close default tabs (dashboard/home)
+    if (tab && this.isDefaultTab(tab.key)) {
       return;
     }
     
@@ -173,19 +244,5 @@ export class Tabs {
         this.router.navigate(['/home']);
       }
     }
-  }
-  
-  addTab(): void {
-    const newTab: TabItem = {
-      key: `new-tab-${Date.now()}`,
-      label: 'TABS.NEW_TAB',
-      path: '/placeholder',
-      icon: 'file'
-    };
-    
-    const currentTabs = [...this.tabs(), newTab];
-    this.tabs.set(currentTabs);
-    this.selectedIndex.set(currentTabs.length - 1);
-    this.router.navigate([newTab.path]);
   }
 }
