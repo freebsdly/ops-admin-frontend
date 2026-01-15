@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 export interface TabItem {
   key: string;
@@ -15,7 +16,8 @@ export interface TabItem {
 @Component({
   selector: 'app-tabs',
   imports: [
-    TranslateModule
+    TranslateModule,
+    NzIconModule
   ],
   template: `
     <div class="bg-white border-b border-gray-200">
@@ -29,7 +31,7 @@ export interface TabItem {
             (click)="onTabClick(i)"
           >
             @if (tab.icon) {
-              <span class="text-gray-600">{{ getIcon(tab.icon) }}</span>
+              <nz-icon [nzType]="tab.icon" class="text-gray-600" />
             }
             <span>{{ tab.label | translate }}</span>
             @if (tab.closable !== false && !isDefaultTab(tab.key)) {
@@ -128,6 +130,7 @@ export class Tabs {
   getTabConfigForPath(path: string): { key: string; label: string; icon?: string } | null {
     // Map paths to tab configurations
     const routeMap: Record<string, { key: string; label: string; icon?: string }> = {
+      '/': { key: 'home', label: 'MENU.HOME', icon: 'home' },
       '/home': { key: 'home', label: 'MENU.HOME', icon: 'home' },
       '/dashboard': { key: 'dashboard', label: 'MENU.DASHBOARD', icon: 'dashboard' },
       '/analytics': { key: 'analytics', label: 'MENU.ANALYTICS', icon: 'bar-chart' },
@@ -177,32 +180,8 @@ export class Tabs {
     return {
       key: `page-${routeName}`,
       label: `MENU.${routeName.toUpperCase()}`,
-      icon: 'file'
+      icon: 'appstore'
     };
-  }
-  
-  getIcon(iconName?: string): string {
-    // Map icon names to emoji or Ant Design icon names
-    const iconMap: Record<string, string> = {
-      home: '🏠',
-      dashboard: '📊',
-      'bar-chart': '📈',
-      'file-text': '📄',
-      user: '👤',
-      team: '👥',
-      safety: '🛡️',
-      'safety-certificate': '📜',
-      database: '🗄️',
-      bell: '🔔',
-      appstore: '📱',
-      shopping: '🛒',
-      car: '🚗',
-      dollar: '💵',
-      'credit-card': '💳',
-      setting: '⚙️',
-      file: '📁'
-    };
-    return iconMap[iconName || ''] || '📋';
   }
   
   isDefaultTab(key: string): boolean {
