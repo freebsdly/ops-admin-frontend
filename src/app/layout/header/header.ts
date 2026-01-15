@@ -8,6 +8,7 @@ import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '../../language-switcher/language-switcher.component';
 
 export interface UserInfo {
   name: string;
@@ -27,6 +28,7 @@ export interface UserInfo {
     NzCardModule,
     RouterLink,
     TranslateModule,
+    LanguageSwitcherComponent,
   ],
   template: `
     <div class="h-full bg-white border-b border-gray-200 flex items-center justify-between px-6">
@@ -104,6 +106,11 @@ export interface UserInfo {
               
               <!-- Card footer with button area -->
               <div nz-card-actions class="!px-4 !py-3 !border-t !border-gray-200">
+                <!-- Language switcher -->
+                <div class="mb-3">
+                  <app-language-switcher />
+                </div>
+                
                 <button 
                   nz-button 
                   nzType="primary" 

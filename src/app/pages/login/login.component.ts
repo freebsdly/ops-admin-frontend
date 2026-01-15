@@ -12,6 +12,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '../../language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-login',
@@ -26,11 +27,12 @@ import { TranslateModule } from '@ngx-translate/core';
     NzGridModule,
     NzAlertModule,
     TranslateModule,
+    LanguageSwitcherComponent,
   ],
   template: `
     <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div class="w-full max-w-md">
-        <nz-card class="shadow-xl rounded-2xl overflow-hidden">
+        <nz-card class="shadow-xl rounded-2xl overflow-hidden relative">
           <div class="text-center mb-8">
             <div class="mx-auto w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
               <span nz-icon nzType="lock" nzTheme="outline" class="text-white text-2xl"></span>
@@ -41,6 +43,11 @@ import { TranslateModule } from '@ngx-translate/core';
             <p class="mt-2 text-sm text-gray-600">
               {{ 'APP.DESCRIPTION' | translate }}
             </p>
+          </div>
+
+          <!-- Language switcher in top right corner -->
+          <div class="absolute top-4 right-4">
+            <app-language-switcher />
           </div>
 
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" nz-form nzLayout="vertical">
