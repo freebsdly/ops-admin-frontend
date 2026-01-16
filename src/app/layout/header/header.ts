@@ -25,7 +25,7 @@ import { UserInfoCardComponent, UserInfo } from '../../components/user-info-card
     UserInfoCardComponent,
   ],
   template: `
-    <div class="h-full bg-white border-b border-gray-200 flex items-center justify-between px-6">
+    <div class="h-full bg-white border-b border-gray-200 flex items-center justify-between px-4">
       <!-- Left section: Page title or breadcrumbs area -->
       <div class="flex-1">
         <!-- Breadcrumbs or page title can go here -->
@@ -38,32 +38,32 @@ import { UserInfoCardComponent, UserInfo } from '../../components/user-info-card
           <div class="border-r border-gray-200 pr-4">
             <app-language-switcher />
           </div>
-          
+
           <!-- User info area -->
-          <div 
+          <div
             #userInfoArea
-            nz-dropdown 
-            [nzDropdownMenu]="userMenu" 
+            nz-dropdown
+            [nzDropdownMenu]="userMenu"
             nzPlacement="bottomRight"
             [nzOverlayStyle]="dropdownStyle()"
             class="h-full flex items-center cursor-pointer hover:bg-gray-50 px-4 border-l border-gray-200 transition-colors"
           >
             <!-- User avatar/image -->
             <div class="flex items-center gap-3">
-              <nz-avatar 
-                nzSize="default" 
-                [nzSrc]="user()?.avatar" 
+              <nz-avatar
+                nzSize="default"
+                [nzSrc]="user()?.avatar"
                 nzText="{{ user()?.name?.charAt(0) || 'U' }}"
                 class="!h-8 !w-8"
               ></nz-avatar>
             </div>
           </div>
-          
+
           <!-- Dropdown menu -->
           <nz-dropdown-menu #userMenu="nzDropdownMenu" class="user-info-dropdown">
-            <app-user-info-card 
-              [user]="user()" 
-              (onLogout)="onLogout.emit()" 
+            <app-user-info-card
+              [user]="user()"
+              (onLogout)="onLogout.emit()"
             />
           </nz-dropdown-menu>
         }
@@ -87,12 +87,12 @@ export class AppHeader implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.updateDropdownWidth();
-    
+
     // Observe resize of user info area
     this.resizeObserver = new ResizeObserver(() => {
       this.updateDropdownWidth();
     });
-    
+
     this.resizeObserver.observe(this.userInfoArea.nativeElement);
   }
 

@@ -11,11 +11,11 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { 
-  UserOutline, 
-  LogoutOutline, 
-  HomeOutline, 
-  SettingOutline, 
+import {
+  UserOutline,
+  LogoutOutline,
+  HomeOutline,
+  SettingOutline,
   GlobalOutline,
   DashboardOutline,
   TeamOutline,
@@ -69,13 +69,13 @@ import { TranslateModule } from '@ngx-translate/core';
         <app-tabs class="h-8 border-b border-gray-200" />
 
         <!-- Main content area -->
-        <div class="flex-1 min-h-0 overflow-auto bg-white p-6">
+        <div class="flex-1 min-h-0 overflow-auto bg-white p-4">
           <ng-content />
         </div>
 
         <!-- Footer -->
         @if (showFooter()) {
-          <div class="h-12 bg-white border-t border-gray-200 flex items-center justify-between px-6">
+          <div class="h-12 bg-white border-t border-gray-200 flex items-center justify-between px-4">
             <p class="text-sm text-gray-500 mb-0">
               {{ 'APP.TITLE' | translate }} © 2026. {{ 'COMMON.ALL_RIGHTS_RESERVED' | translate }}
             </p>
@@ -109,10 +109,10 @@ export class AppLayout {
   ) {
     // Register icons
     const icons: IconDefinition[] = [
-      UserOutline, 
-      LogoutOutline, 
-      HomeOutline, 
-      SettingOutline, 
+      UserOutline,
+      LogoutOutline,
+      HomeOutline,
+      SettingOutline,
       GlobalOutline,
       DashboardOutline,
       TeamOutline,

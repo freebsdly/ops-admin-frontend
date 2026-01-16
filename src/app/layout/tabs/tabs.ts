@@ -35,16 +35,17 @@ export interface TabItem {
         class="tab-container flex items-center h-8 px-4 overflow-x-auto overflow-y-hidden"
       >
         <!-- Hidden dropdown trigger for context menu -->
-        <div
+        <button
+          #dropdownTrigger
+          nz-button
+          nzType="text"
+          class="!w-1 !h-1 !p-0 !opacity-0 absolute"
           nz-dropdown
           [nzDropdownMenu]="tabManagementMenu"
           nzTrigger="click"
-          class="!opacity-0 !pointer-events-none"
-        >
-          <button #dropdownTrigger nz-button nzType="text" class="!w-0 !h-0 !p-0 !opacity-0"></button>
-        </div>
+        ></button>
 
-        <nz-space [nzSize]="1">
+        <nz-space [nzSize]="2">
           @for (tab of tabs(); track tab.key; let i = $index) {
         <button
           class="flex items-center gap-2 px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap"
