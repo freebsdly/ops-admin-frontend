@@ -13,7 +13,7 @@ import { filter } from 'rxjs/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
+import { NzDropdownModule, NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { RouteConfigService } from '@/app/services/route-config.service';
@@ -35,17 +35,6 @@ export interface TabItem {
       <div
         class="tab-container border-b border-gray-200 flex items-center h-8 overflow-x-auto overflow-y-hidden"
       >
-        <!-- Dropdown trigger for context menu - small visible button -->
-        <button
-          #dropdownTrigger
-          nz-button
-          nzType="text"
-          class="!w-1 !h-1 !p-0 !bg-transparent !border-0 !text-transparent"
-          nz-dropdown
-          [nzDropdownMenu]="tabManagementMenu"
-          nzTrigger="click"
-        ></button>
-
         <div class="flex items-center border-b border-gray-300">
           @for (tab of tabs(); track tab.key; let i = $index) {
           <button
@@ -61,7 +50,7 @@ export interface TabItem {
             [class.border-t-blue-500]="i === selectedIndex()"
             style="width: 7rem; margin-left: -1px;"
             (click)="onTabClick(i)"
-            (contextmenu)="onTabContextMenu(i, $event)"
+            (contextmenu)="onTabContextMenu(i, $event, tabManagementMenu)"
           >
             <div class="flex items-center gap-1 flex-1 overflow-hidden">
               @if (tab.icon) {
@@ -86,10 +75,14 @@ export interface TabItem {
     <!-- Tab Management Dropdown Menu -->
     <nz-dropdown-menu #tabManagementMenu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item (click)="closeCurrentTab()">
+        <li nz-menu-item 
+          (click)="closeCurrentTab()" 
+          [nzDisabled]="!isTabClosable()">
           <span>{{ 'TABS.MANAGEMENT.CLOSE_CURRENT_TAB' | translate }}</span>
         </li>
-        <li nz-menu-item (click)="closeOtherTabs()">
+        <li nz-menu-item 
+          (click)="closeOtherTabs()" 
+          [nzDisabled]="isTabDefault()">
           <span>{{ 'TABS.MANAGEMENT.CLOSE_OTHER_TABS' | translate }}</span>
         </li>
         <li nz-menu-item (click)="closeAllTabs()">
@@ -99,14 +92,20 @@ export interface TabItem {
         <li nz-menu-item (click)="reloadCurrentTab()">
           <span>{{ 'TABS.MANAGEMENT.RELOAD_CURRENT_TAB' | translate }}</span>
         </li>
-        <li nz-menu-item (click)="duplicateCurrentTab()">
+        <li nz-menu-item 
+          (click)="duplicateCurrentTab()" 
+          [nzDisabled]="!isTabClosable()">
           <span>{{ 'TABS.MANAGEMENT.DUPLICATE_CURRENT_TAB' | translate }}</span>
         </li>
         <li nz-menu-divider></li>
-        <li nz-menu-item (click)="pinCurrentTab()">
+        <li nz-menu-item 
+          (click)="pinCurrentTab()" 
+          [nzDisabled]="isTabPinned() || isTabDefault()">
           <span>{{ 'TABS.MANAGEMENT.PIN_CURRENT_TAB' | translate }}</span>
         </li>
-        <li nz-menu-item (click)="unpinCurrentTab()">
+        <li nz-menu-item 
+          (click)="unpinCurrentTab()" 
+          [nzDisabled]="!isTabPinned()">
           <span>{{ 'TABS.MANAGEMENT.UNPIN_CURRENT_TAB' | translate }}</span>
         </li>
       </ul>
@@ -136,11 +135,11 @@ export interface TabItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Tabs {
-  @ViewChild('dropdownTrigger') dropdownTrigger!: ElementRef<HTMLButtonElement>;
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   private readonly routeConfigService = inject(RouteConfigService);
   private readonly menuService = inject(MenuService);
+  private readonly contextMenuService = inject(NzContextMenuService);
   private readonly tabsStorageKey = 'app_tabs';
 
   // Initialize tabs from localStorage or with default home tab
@@ -293,6 +292,21 @@ export class Tabs {
     return ['home'].includes(key);
   }
 
+  isTabClosable(): boolean {
+    const currentTab = this.tabs()[this.contextMenuIndex()];
+    return currentTab ? currentTab.closable !== false : false;
+  }
+
+  isTabPinned(): boolean {
+    const currentTab = this.tabs()[this.contextMenuIndex()];
+    return currentTab ? currentTab.closable === false : false;
+  }
+
+  isTabDefault(): boolean {
+    const currentTab = this.tabs()[this.contextMenuIndex()];
+    return currentTab ? this.isDefaultTab(currentTab.key) : false;
+  }
+
   onTabClick(index: number): void {
     this.selectedIndex.set(index);
     const tab = this.tabs()[index];
@@ -337,17 +351,13 @@ export class Tabs {
     // If index > currentSelectedIndex, selected index stays the same
   }
 
-  onTabContextMenu(index: number, event: MouseEvent): void {
+  onTabContextMenu(index: number, event: MouseEvent, menu: NzDropdownMenuComponent): void {
     event.preventDefault();
     event.stopPropagation();
     this.contextMenuIndex.set(index);
-
-    // Programmatically trigger dropdown by clicking the small trigger button
-    setTimeout(() => {
-      if (this.dropdownTrigger && this.dropdownTrigger.nativeElement) {
-        this.dropdownTrigger.nativeElement.click();
-      }
-    }, 0);
+    
+    // Show the context menu using the service
+    this.contextMenuService.create(event, menu);
   }
 
   // Tab Management Methods
