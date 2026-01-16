@@ -17,16 +17,15 @@ import { Menus } from './menus';
   template: `
     <nz-sider
       [nzCollapsed]="collapsed()"
-      [nzWidth]="collapsed() ? 48 : 200"
-      class="border-r border-gray-200 !bg-gray-100 flex flex-col full-height"
+      class="!bg-gray-100 flex flex-col full-height"
     >
       <!-- Sidebar header (contains logo area) - fixed at top -->
-      <div class="sidebar-header border-b border-gray-200 flex items-center justify-center"
+      <div class="sidebar-header border-gray-200 flex items-center justify-center"
         [class.justify-center]="collapsed()">
         @if (!collapsed()) {
           <!-- Expanded logo: SVG that fills the sider width -->
-          <div class="flex items-center justify-center w-full">
-            <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="w-full h-12 object-contain" />
+          <div class="flex items-center justify-center w-full h-full">
+            <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="w-full h-full" />
           </div>
         } @else {
           <!-- Collapsed logo: SVG icon that fills the area -->
@@ -65,7 +64,7 @@ export class Sider {
   private readonly iconService = inject(NzIconService);
 
   collapsed = input<boolean>(false);
-  
+
   onToggleCollapsed = output<void>();
 
   constructor() {

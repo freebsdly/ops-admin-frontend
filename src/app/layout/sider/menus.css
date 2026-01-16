@@ -1,7 +1,7 @@
 /* Menus component styles */
-:host {
+/* :host {
   display: block;
-}
+} */
 
 /* Override nz-menu background color */
 ::ng-deep .ant-menu {
