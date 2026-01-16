@@ -1,10 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
-import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { IconDefinition } from '@ant-design/icons-angular';
-import { GlobalOutline } from '@ant-design/icons-angular/icons';
 
 @Component({
   selector: 'app-language-switcher',
@@ -59,15 +57,11 @@ import { GlobalOutline } from '@ant-design/icons-angular/icons';
 })
 export class LanguageSwitcherComponent {
   private translate = inject(TranslateService);
-  private readonly iconService = inject(NzIconService);
 
   currentLanguage = 'zh';
 
   constructor() {
     this.currentLanguage = this.translate.getCurrentLang() || 'zh';
-    // Register the global icon
-    const icons: IconDefinition[] = [GlobalOutline];
-    this.iconService.addIcon(...icons);
   }
 
   changeLanguage(lang: string): void {

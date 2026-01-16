@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, provideAppInitializer } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -9,13 +9,13 @@ import en from '@angular/common/locales/en';
 import zh from '@angular/common/locales/zh';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { IconService } from '@/app/services/icon.service';
 
 registerLocaleData(en);
 registerLocaleData(zh);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(),
     provideTranslateService({
@@ -28,5 +28,11 @@ export const appConfig: ApplicationConfig = {
     }),
     provideNzI18n(zh_CN),
     { provide: NZ_I18N, useValue: zh_CN },
+    
+    // Initialize icon service at app startup
+    provideAppInitializer(() => {
+      const iconService = new IconService();
+      return Promise.resolve();
+    }),
   ],
 };

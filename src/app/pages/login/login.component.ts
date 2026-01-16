@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@/app/services/auth.service';
@@ -7,14 +7,12 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '@/app/language-switcher/language-switcher.component';
-import { IconDefinition } from '@ant-design/icons-angular';
-import { LockOutline, UserOutline, GlobalOutline } from '@ant-design/icons-angular/icons';
 
 @Component({
   selector: 'app-login',
@@ -127,19 +125,13 @@ export class LoginComponent implements OnInit {
   loading = false;
   error: string | null = null;
 
-  private readonly iconService = inject(NzIconService);
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private message: NzMessageService,
     private translate: TranslateService
-  ) {
-    // Register icons used in the login page
-    const icons: IconDefinition[] = [LockOutline, UserOutline, GlobalOutline];
-    this.iconService.addIcon(...icons);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({

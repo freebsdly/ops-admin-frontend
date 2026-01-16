@@ -9,32 +9,11 @@ import {
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
-import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { IconDefinition } from '@ant-design/icons-angular';
-import {
-  DashboardOutline,
-  TeamOutline,
-  SettingOutline,
-  AppstoreOutline,
-  FileTextOutline,
-  BarChartOutline,
-  DatabaseOutline,
-  BellOutline,
-  MenuFoldOutline,
-  MenuUnfoldOutline,
-  HomeOutline,
-  SafetyCertificateOutline,
-  ShoppingOutline,
-  CarOutline,
-  DollarOutline,
-  CreditCardOutline,
-  UserOutline,
-  SafetyOutline,
-} from '@ant-design/icons-angular/icons';
 import { MenuService, MenuItem } from '@/app/services/menu.service';
 
 @Component({
@@ -94,7 +73,6 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Menus implements OnInit {
-  private readonly iconService = inject(NzIconService);
   private readonly menuService = inject(MenuService);
   private readonly translateService = inject(TranslateService);
 
@@ -105,30 +83,6 @@ export class Menus implements OnInit {
   onToggleCollapsed = output<boolean>();
 
   ngOnInit() {
-    // Register all icons
-    const icons: IconDefinition[] = [
-      DashboardOutline,
-      TeamOutline,
-      SettingOutline,
-      AppstoreOutline,
-      FileTextOutline,
-      BarChartOutline,
-      DatabaseOutline,
-      BellOutline,
-      MenuFoldOutline,
-      MenuUnfoldOutline,
-      HomeOutline,
-      SafetyCertificateOutline,
-      ShoppingOutline,
-      CarOutline,
-      DollarOutline,
-      CreditCardOutline,
-      UserOutline,
-      SafetyOutline,
-    ];
-
-    this.iconService.addIcon(...icons);
-
     // Load menu data from service
     this.menuService.getMenuData().subscribe((data) => {
       this.menuItems.set(data);

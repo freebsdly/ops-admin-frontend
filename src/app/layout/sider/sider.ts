@@ -1,9 +1,7 @@
-import { Component, ChangeDetectionStrategy, input, output, signal, inject } from '@angular/core';
-import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
+import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { IconDefinition } from '@ant-design/icons-angular';
-import { MenuFoldOutline, MenuUnfoldOutline } from '@ant-design/icons-angular/icons';
 import { Menus } from '@/app/layout/sider/menus';
 
 @Component({
@@ -59,15 +57,9 @@ import { Menus } from '@/app/layout/sider/menus';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Sider {
-  private readonly iconService = inject(NzIconService);
-
   collapsed = input<boolean>(false);
 
   onToggleCollapsed = output<void>();
 
-  constructor() {
-    // Register icons
-    const icons: IconDefinition[] = [MenuFoldOutline, MenuUnfoldOutline];
-    this.iconService.addIcon(...icons);
-  }
+  constructor() {}
 }

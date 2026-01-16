@@ -1,27 +1,14 @@
-import { Component, ChangeDetectionStrategy, computed, signal, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, signal } from '@angular/core';
 import { AuthService } from '@/app/services/auth.service';
 import { Router } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-import { IconDefinition } from '@ant-design/icons-angular';
-import {
-  UserOutline,
-  LogoutOutline,
-  HomeOutline,
-  SettingOutline,
-  GlobalOutline,
-  DashboardOutline,
-  TeamOutline,
-  FileTextOutline,
-  PlusOutline,
-  ToolOutline,
-} from '@ant-design/icons-angular/icons';
 import { Sider } from '@/app/layout/sider/sider';
 import { AppHeader } from '@/app/layout/header/header';
 import { Tabs } from '@/app/layout/tabs/tabs';
@@ -93,28 +80,11 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppLayout {
-  private readonly iconService = inject(NzIconService);
-
   user = computed(() => this.authService.user());
   sidebarCollapsed = signal(false);
   showFooter = signal(false);
 
-  constructor(private authService: AuthService, private router: Router) {
-    // Register icons
-    const icons: IconDefinition[] = [
-      UserOutline,
-      LogoutOutline,
-      HomeOutline,
-      SettingOutline,
-      GlobalOutline,
-      DashboardOutline,
-      TeamOutline,
-      FileTextOutline,
-      PlusOutline,
-      ToolOutline,
-    ];
-    this.iconService.addIcon(...icons);
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   toggleSidebar(): void {
     this.sidebarCollapsed.set(!this.sidebarCollapsed());
