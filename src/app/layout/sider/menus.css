@@ -21,6 +21,6 @@
 }
 
 ::ng-deep .ant-menu-item-selected {
-  background-color: #dbeafe !important;
-  color: #2563eb !important;
+  background-color: #f0f7ff !important;
+  color: #1677ff !important;
 }

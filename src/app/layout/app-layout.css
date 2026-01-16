@@ -91,7 +91,11 @@
 }
 
 :host ::ng-deep .ant-menu-item:hover {
-  background-color: #f5f5f5 !important;
+  background-color: #e5e7eb !important;
+}
+
+:host ::ng-deep .ant-menu-submenu-title:hover {
+  background-color: #e5e7eb !important;
 }
 
 /* Active menu item styling */
