@@ -309,8 +309,14 @@ export class Tabs {
     currentTabs.splice(index, 1);
     this.tabs.set(currentTabs);
 
-    // If closed tab was active, navigate to next available tab or default
-    if (index === this.selectedIndex()) {
+    const currentSelectedIndex = this.selectedIndex();
+    
+    // Update selected index if closed tab was before the selected tab
+    if (index < currentSelectedIndex) {
+      // Selected tab moves left
+      this.selectedIndex.set(currentSelectedIndex - 1);
+    } else if (index === currentSelectedIndex) {
+      // Closed tab was active, navigate to next available tab or default
       if (currentTabs.length > 0) {
         const newIndex = Math.min(index, currentTabs.length - 1);
         this.selectedIndex.set(newIndex);
@@ -320,6 +326,7 @@ export class Tabs {
         this.router.navigate(['/home']);
       }
     }
+    // If index > currentSelectedIndex, selected index stays the same
   }
 
   onTabContextMenu(index: number, event: MouseEvent): void {
@@ -347,7 +354,7 @@ export class Tabs {
     const currentIndex = this.contextMenuIndex();
     const currentTab = this.tabs()[currentIndex];
 
-    if (currentTab && !this.isDefaultTab(currentTab.key)) {
+    if (currentTab) {
       // Keep only the current tab and default tabs
       const defaultTabs = this.tabs().filter((tab) => this.isDefaultTab(tab.key));
       const newTabs = [...defaultTabs, currentTab];
@@ -359,10 +366,12 @@ export class Tabs {
 
       this.tabs.set(uniqueTabs);
 
-      // Update selected index to the current tab's new position
+      // Update selected index to the current tab's new position and navigate
       const newIndex = uniqueTabs.findIndex((tab) => tab.key === currentTab.key);
       if (newIndex !== -1) {
         this.selectedIndex.set(newIndex);
+        // Navigate to the current tab's path
+        this.router.navigate([currentTab.path]);
       }
     }
   }
@@ -375,7 +384,7 @@ export class Tabs {
 
     // Navigate to home if not already there
     if (this.router.url !== '/home') {
-    this.router.navigate(['/home']);
+      this.router.navigate(['/home']);
     }
   }
 
