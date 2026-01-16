@@ -27,7 +27,7 @@ import { UserInfoCardComponent, UserInfo } from '../../components/user-info-card
     UserInfoCardComponent,
   ],
   template: `
-    <div class="h-full bg-white border-gray-200 flex items-center justify-between px-4">
+    <div class="h-full bg-white border-b border-gray-200 flex items-center justify-between px-4">
       <!-- Left section: Page title or breadcrumbs area -->
       <div class="flex-1">
         <!-- Breadcrumbs or page title can go here -->

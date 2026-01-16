@@ -32,7 +32,7 @@ export interface TabItem {
   template: `
     <div class="bg-white border-b border-gray-200">
       <div
-        class="tab-container flex items-center h-8 px-4 overflow-x-auto overflow-y-hidden"
+        class="tab-container border-b border-gray-200 flex items-center h-8 px-4 overflow-x-auto overflow-y-hidden"
       >
         <!-- Dropdown trigger for context menu - small visible button -->
         <button

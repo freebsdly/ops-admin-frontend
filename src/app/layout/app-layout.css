@@ -151,3 +151,27 @@
 .sidebar-width-collapsed {
   width: 48px !important;
 }
+
+/* Thin scrollbar styles for content area */
+:host ::ng-deep .content-area {
+  /* WebKit browsers (Chrome, Safari, Edge) */
+  scrollbar-width: thin;
+}
+
+:host ::ng-deep .content-area::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+:host ::ng-deep .content-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:host ::ng-deep .content-area::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+:host ::ng-deep .content-area::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
