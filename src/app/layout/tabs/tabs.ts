@@ -48,7 +48,7 @@ export interface TabItem {
         <nz-space [nzSize]="2">
           @for (tab of tabs(); track tab.key; let i = $index) {
           <button
-            class="flex items-center justify-between gap-1 px-2 py-0.5 rounded text-[10px] font-medium transition-colors w-28"
+            class="flex items-center justify-between gap-1 px-2 py-0.5 rounded font-medium transition-colors w-28"
             style="width: 7rem;"
             [class]="
               i === selectedIndex()
@@ -62,13 +62,16 @@ export interface TabItem {
               @if (tab.icon) {
               <nz-icon [nzType]="tab.icon" class="text-gray-600 shrink-0" />
               }
-              <span class="break-words line-clamp-1 leading-tight text-[10px] truncate text-center flex-1">{{ tab.label | translate }}</span>
+              <span class="break-words line-clamp-1 leading-tight text-[12px] truncate text-center flex-1">{{ tab.label | translate }}</span>
             </div>
-            @if (tab.closable !== false) {
-            <button class="text-gray-500 hover:text-gray-700 shrink-0 text-[10px]" (click)="closeTab(i, $event)">
+            <button
+              class="text-gray-500 hover:text-gray-700 shrink-0 text-[10px] w-4"
+              [class.invisible]="tab.closable === false"
+              [class.pointer-events-none]="tab.closable === false"
+              (click)="tab.closable !== false ? closeTab(i, $event) : null"
+            >
               ×
             </button>
-            }
           </button>
           }
         </nz-space>
@@ -297,8 +300,8 @@ export class Tabs {
 
     const tab = this.tabs()[index];
 
-    // Don't close default tabs (dashboard/home)
-    if (tab && this.isDefaultTab(tab.key)) {
+    // Don't close if tab is marked as non-closable
+    if (tab && tab.closable === false) {
       return;
     }
 
@@ -390,7 +393,7 @@ export class Tabs {
     const currentIndex = this.contextMenuIndex();
     const currentTab = this.tabs()[currentIndex];
 
-    if (currentTab && currentTab.closable !== false && !this.isDefaultTab(currentTab.key)) {
+    if (currentTab && currentTab.closable !== false) {
       // Create a duplicate tab with a unique key
       const duplicateTab: TabItem = {
         ...currentTab,
@@ -410,7 +413,7 @@ export class Tabs {
     const currentIndex = this.contextMenuIndex();
     const currentTab = this.tabs()[currentIndex];
 
-    if (currentTab && !this.isDefaultTab(currentTab.key)) {
+    if (currentTab && currentTab.closable !== false) {
       // For now, we'll just make the tab non-closable (pinned)
       const updatedTabs = [...this.tabs()];
       updatedTabs[currentIndex] = {
@@ -426,7 +429,7 @@ export class Tabs {
     const currentIndex = this.contextMenuIndex();
     const currentTab = this.tabs()[currentIndex];
 
-    if (currentTab && !this.isDefaultTab(currentTab.key)) {
+    if (currentTab && currentTab.closable === false) {
       // Make the tab closable again (unpinned)
       const updatedTabs = [...this.tabs()];
       updatedTabs[currentIndex] = {
