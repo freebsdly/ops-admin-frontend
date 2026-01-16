@@ -6,6 +6,7 @@ import {
   signal,
   inject,
   OnInit,
+  DestroyRef,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
@@ -14,6 +15,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MenuService, MenuItem } from '@/app/services/menu.service';
 
 @Component({
@@ -72,9 +74,10 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
   styleUrl: './menus.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Menus implements OnInit {
+export class Menus {
   private readonly menuService = inject(MenuService);
   private readonly translateService = inject(TranslateService);
+  private destroyRef = inject(DestroyRef);
 
   menuItems = signal<MenuItem[]>([]);
 
@@ -82,9 +85,11 @@ export class Menus implements OnInit {
 
   onToggleCollapsed = output<boolean>();
 
-  ngOnInit() {
-    // Load menu data from service
-    this.menuService.getMenuData().subscribe((data) => {
+  constructor() {
+    // Subscribe to menu data updates
+    this.menuService.getMenuData().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((data) => {
       this.menuItems.set(data);
     });
   }

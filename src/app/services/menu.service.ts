@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 
 export interface MenuItem {
   key: string;
@@ -315,11 +315,71 @@ export class MenuService {
     },
   ];
 
+  private selectedMenuItemKey = 'home';
+  private menuDataSubject = new BehaviorSubject<MenuItem[]>(this.menuData);
+
+  constructor() {
+    this.updateMenuSelection();
+  }
+
   getMenuData(): Observable<MenuItem[]> {
-    return of(this.menuData);
+    return this.menuDataSubject.asObservable();
   }
 
   getMenuByKey(key: string): Observable<MenuItem | undefined> {
-    return of(this.menuData.find(item => item.key === key));
+    const menuItem = this.menuData.find(item => item.key === key);
+    return of(menuItem);
+  }
+
+  selectMenuItemByKey(key: string): void {
+    this.selectedMenuItemKey = key;
+    this.updateMenuSelection();
+  }
+
+  selectMenuItemByPath(path: string): void {
+    const menuItem = this.findMenuItemByPath(this.menuData, path);
+    if (menuItem) {
+      this.selectedMenuItemKey = menuItem.key;
+      this.updateMenuSelection();
+    }
+  }
+
+  private findMenuItemByPath(items: MenuItem[], path: string): MenuItem | undefined {
+    for (const item of items) {
+      if (item.path === path) {
+        return item;
+      }
+      if (item.children) {
+        const found = this.findMenuItemByPath(item.children, path);
+        if (found) {
+          return found;
+        }
+      }
+    }
+    return undefined;
+  }
+
+  private updateMenuSelection(): void {
+    const selectedKey = this.selectedMenuItemKey;
+    
+    const updateSelection = (items: MenuItem[]): MenuItem[] => {
+      return items.map(item => {
+        const isSelected = item.key === selectedKey;
+        
+        const updatedItem: MenuItem = {
+          ...item,
+          selected: isSelected,
+        };
+        
+        if (item.children && item.children.length > 0) {
+          updatedItem.children = updateSelection(item.children);
+        }
+        
+        return updatedItem;
+      });
+    };
+    
+    this.menuData = updateSelection(this.menuData);
+    this.menuDataSubject.next(this.menuData);
   }
 }

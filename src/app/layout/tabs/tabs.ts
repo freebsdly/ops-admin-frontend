@@ -17,6 +17,7 @@ import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { RouteConfigService } from '@/app/services/route-config.service';
+import { MenuService } from '@/app/services/menu.service';
 
 export interface TabItem {
   key: string;
@@ -139,6 +140,7 @@ export class Tabs {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   private readonly routeConfigService = inject(RouteConfigService);
+  private readonly menuService = inject(MenuService);
   private readonly tabsStorageKey = 'app_tabs';
 
   // Initialize tabs from localStorage or with default home tab
@@ -252,6 +254,8 @@ export class Tabs {
     const index = this.tabs().findIndex((tab) => tab.path === currentPath);
     if (index !== -1) {
       this.selectedIndex.set(index);
+      // Notify MenuService to select corresponding menu item
+      this.menuService.selectMenuItemByPath(currentPath);
     }
   }
 
