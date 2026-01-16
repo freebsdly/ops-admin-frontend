@@ -81,8 +81,7 @@ export interface TabItem {
           <span>{{ 'TABS.MANAGEMENT.CLOSE_CURRENT_TAB' | translate }}</span>
         </li>
         <li nz-menu-item 
-          (click)="closeOtherTabs()" 
-          [nzDisabled]="isTabDefault()">
+          (click)="closeOtherTabs()">
           <span>{{ 'TABS.MANAGEMENT.CLOSE_OTHER_TABS' | translate }}</span>
         </li>
         <li nz-menu-item (click)="closeAllTabs()">
