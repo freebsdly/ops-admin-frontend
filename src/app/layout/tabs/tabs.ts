@@ -45,22 +45,26 @@ export interface TabItem {
           nzTrigger="click"
         ></button>
 
-        <nz-space [nzSize]="2">
+        <div class="flex items-center border-b border-gray-300">
           @for (tab of tabs(); track tab.key; let i = $index) {
           <button
-            class="flex items-center justify-between gap-1 px-2 py-0.5 rounded font-medium transition-colors w-28"
-            style="width: 7rem;"
-            [class]="
-              i === selectedIndex()
-                ? 'bg-white text-blue-600 border-t border-blue-500 border-b-0'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-b border-gray-300'
-            "
+            class="flex items-center justify-between gap-1 px-2 py-0.5 rounded font-medium transition-colors w-28 h-8 border border-gray-300 border-b-0 relative"
+            [class.bg-white]="i === selectedIndex()"
+            [class.bg-gray-50]="i !== selectedIndex()"
+            [class.text-blue-600]="i === selectedIndex()"
+            [class.text-gray-700]="i !== selectedIndex()"
+            [class.hover:bg-gray-100]="i !== selectedIndex()"
+            [class.z-10]="i === selectedIndex()"
+            [class.-mb-px]="i === selectedIndex()"
+            [class.border-t-2]="i === selectedIndex()"
+            [class.border-t-blue-500]="i === selectedIndex()"
+            style="width: 7rem; margin-left: -1px;"
             (click)="onTabClick(i)"
             (contextmenu)="onTabContextMenu(i, $event)"
           >
             <div class="flex items-center gap-1 flex-1 overflow-hidden">
               @if (tab.icon) {
-              <nz-icon [nzType]="tab.icon" class="text-gray-600 shrink-0" />
+              <nz-icon [nzType]="tab.icon" [class.text-blue-500]="i === selectedIndex()" [class.text-gray-600]="i !== selectedIndex()" class="shrink-0" />
               }
               <span class="break-words line-clamp-1 leading-tight text-[12px] truncate text-center flex-1">{{ tab.label | translate }}</span>
             </div>
@@ -74,7 +78,7 @@ export interface TabItem {
             </button>
           </button>
           }
-        </nz-space>
+        </div>
       </div>
     </div>
 
