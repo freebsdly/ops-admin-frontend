@@ -66,7 +66,7 @@ import { TranslateModule } from '@ngx-translate/core';
         />
 
         <!-- Tab Bar -->
-        <app-tabs class="h-10 border-b border-gray-200" />
+        <app-tabs class="h-8 border-b border-gray-200" />
 
         <!-- Main content area -->
         <div class="flex-1 min-h-0 overflow-auto bg-gray-50 p-6">

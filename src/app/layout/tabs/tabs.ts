@@ -5,6 +5,8 @@ import {
   inject,
   effect,
   DestroyRef,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -30,30 +32,29 @@ export interface TabItem {
   template: `
     <div class="bg-white border-b border-gray-200">
       <div
-        class="tab-container flex items-center h-10 px-4 overflow-x-auto overflow-y-hidden"
+        class="tab-container flex items-center h-8 px-4 overflow-x-auto overflow-y-hidden"
       >
-        <!-- Dropdown for tab management -->
+        <!-- Hidden dropdown trigger for context menu -->
         <div
           nz-dropdown
           [nzDropdownMenu]="tabManagementMenu"
           nzTrigger="click"
-          nzPlacement="bottomLeft"
+          class="!opacity-0 !pointer-events-none"
         >
-          <button nz-button nzType="text" class="!px-2 !h-7 text-gray-600 hover:text-gray-800">
-            <nz-icon nzType="tool" class="text-xs" />
-          </button>
+          <button #dropdownTrigger nz-button nzType="text" class="!w-0 !h-0 !p-0 !opacity-0"></button>
         </div>
 
         <nz-space [nzSize]="1">
           @for (tab of tabs(); track tab.key; let i = $index) {
         <button
-          class="flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-colors whitespace-nowrap"
+          class="flex items-center gap-2 px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap"
           [class]="
             i === selectedIndex()
               ? 'bg-white text-blue-600 border-t-2 border-blue-500 border-b-0'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-b border-gray-300'
           "
           (click)="onTabClick(i)"
+          (contextmenu)="onTabContextMenu(i, $event)"
         >
           @if (tab.icon) {
           <nz-icon [nzType]="tab.icon" class="text-gray-600" />
@@ -123,6 +124,7 @@ export interface TabItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Tabs {
+  @ViewChild('dropdownTrigger') dropdownTrigger!: ElementRef<HTMLButtonElement>;
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   private readonly routeConfigService = inject(RouteConfigService);
@@ -132,6 +134,7 @@ export class Tabs {
   tabs = signal<TabItem[]>(this.loadTabsFromStorage());
 
   selectedIndex = signal(this.loadSelectedIndexFromStorage());
+  contextMenuIndex = signal(0);
 
   constructor() {
     // Monitor route changes to update active tab and add new tabs
@@ -312,16 +315,25 @@ export class Tabs {
     }
   }
 
+  onTabContextMenu(index: number, event: MouseEvent): void {
+    event.preventDefault();
+    this.contextMenuIndex.set(index);
+    // Programmatically trigger dropdown
+    if (this.dropdownTrigger && this.dropdownTrigger.nativeElement) {
+      this.dropdownTrigger.nativeElement.click();
+    }
+  }
+
   // Tab Management Methods
   closeCurrentTab(): void {
-    const currentIndex = this.selectedIndex();
+    const currentIndex = this.contextMenuIndex();
     if (currentIndex >= 0 && currentIndex < this.tabs().length) {
       this.closeTab(currentIndex);
     }
   }
 
   closeOtherTabs(): void {
-    const currentIndex = this.selectedIndex();
+    const currentIndex = this.contextMenuIndex();
     const currentTab = this.tabs()[currentIndex];
 
     if (currentTab && !this.isDefaultTab(currentTab.key)) {
@@ -357,7 +369,7 @@ export class Tabs {
   }
 
   reloadCurrentTab(): void {
-    const currentTab = this.tabs()[this.selectedIndex()];
+    const currentTab = this.tabs()[this.contextMenuIndex()];
     if (currentTab && currentTab.path) {
       this.router.navigate([currentTab.path]).then(() => {
         // Force a hard reload of the component
@@ -367,7 +379,7 @@ export class Tabs {
   }
 
   duplicateCurrentTab(): void {
-    const currentIndex = this.selectedIndex();
+    const currentIndex = this.contextMenuIndex();
     const currentTab = this.tabs()[currentIndex];
 
     if (currentTab && currentTab.closable !== false && !this.isDefaultTab(currentTab.key)) {
@@ -387,7 +399,7 @@ export class Tabs {
   }
 
   pinCurrentTab(): void {
-    const currentIndex = this.selectedIndex();
+    const currentIndex = this.contextMenuIndex();
     const currentTab = this.tabs()[currentIndex];
 
     if (currentTab && !this.isDefaultTab(currentTab.key)) {
@@ -403,7 +415,7 @@ export class Tabs {
   }
 
   unpinCurrentTab(): void {
-    const currentIndex = this.selectedIndex();
+    const currentIndex = this.contextMenuIndex();
     const currentTab = this.tabs()[currentIndex];
 
     if (currentTab && !this.isDefaultTab(currentTab.key)) {
