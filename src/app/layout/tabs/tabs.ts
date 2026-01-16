@@ -48,10 +48,11 @@ export interface TabItem {
         <nz-space [nzSize]="2">
           @for (tab of tabs(); track tab.key; let i = $index) {
           <button
-            class="flex items-center gap-2 px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap"
+            class="flex items-center justify-center gap-2 px-3 py-0.5 rounded text-xs font-medium transition-colors whitespace-nowrap w-28"
+            style="min-width: 7rem; max-width: 7rem;"
             [class]="
               i === selectedIndex()
-                ? 'bg-white text-blue-600 border-t-2 border-blue-500 border-b-0'
+                ? 'bg-white text-blue-600 border-t border-blue-500 border-b-0'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-b border-gray-300'
             "
             (click)="onTabClick(i)"
