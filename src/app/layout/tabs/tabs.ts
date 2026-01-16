@@ -48,8 +48,8 @@ export interface TabItem {
         <nz-space [nzSize]="2">
           @for (tab of tabs(); track tab.key; let i = $index) {
           <button
-            class="flex items-center justify-center gap-2 px-3 py-0.5 rounded text-xs font-medium transition-colors whitespace-nowrap w-28"
-            style="min-width: 7rem; max-width: 7rem;"
+            class="flex items-center justify-between gap-1 px-2 py-0.5 rounded text-[10px] font-medium transition-colors w-28"
+            style="width: 7rem;"
             [class]="
               i === selectedIndex()
                 ? 'bg-white text-blue-600 border-t border-blue-500 border-b-0'
@@ -58,12 +58,14 @@ export interface TabItem {
             (click)="onTabClick(i)"
             (contextmenu)="onTabContextMenu(i, $event)"
           >
-            @if (tab.icon) {
-            <nz-icon [nzType]="tab.icon" class="text-gray-600" />
-            }
-            <span>{{ tab.label | translate }}</span>
-            @if (tab.closable !== false && !isDefaultTab(tab.key)) {
-            <button class="ml-1 text-gray-500 hover:text-gray-700" (click)="closeTab(i, $event)">
+            <div class="flex items-center gap-1 flex-1 overflow-hidden">
+              @if (tab.icon) {
+              <nz-icon [nzType]="tab.icon" class="text-gray-600 shrink-0" />
+              }
+              <span class="break-words line-clamp-1 leading-tight text-[10px] truncate text-center flex-1">{{ tab.label | translate }}</span>
+            </div>
+            @if (tab.closable !== false) {
+            <button class="text-gray-500 hover:text-gray-700 shrink-0 text-[10px]" (click)="closeTab(i, $event)">
               ×
             </button>
             }
@@ -370,7 +372,7 @@ export class Tabs {
 
     // Navigate to home if not already there
     if (this.router.url !== '/home') {
-      this.router.navigate(['/home']);
+    this.router.navigate(['/home']);
     }
   }
 
