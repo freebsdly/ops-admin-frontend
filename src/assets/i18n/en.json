@@ -184,6 +184,15 @@
   },
   "TABS": {
     "NEW_TAB": "New Tab",
-    "ADD_TOOLTIP": "Add new tab"
+    "ADD_TOOLTIP": "Add new tab",
+    "MANAGEMENT": {
+      "CLOSE_CURRENT_TAB": "Close Current Tab",
+      "CLOSE_OTHER_TABS": "Close Other Tabs",
+      "CLOSE_ALL_TABS": "Close All Tabs",
+      "RELOAD_CURRENT_TAB": "Reload Current Tab",
+      "DUPLICATE_CURRENT_TAB": "Duplicate Current Tab",
+      "PIN_CURRENT_TAB": "Pin Current Tab",
+      "UNPIN_CURRENT_TAB": "Unpin Current Tab"
+    }
   }
 }

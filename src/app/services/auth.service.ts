@@ -6,6 +6,7 @@ import { Injectable, signal } from '@angular/core';
 export class AuthService {
   private readonly tokenKey = 'auth_token';
   private readonly userKey = 'user';
+  private readonly tabsKey = 'app_tabs';
   
   isAuthenticated = signal<boolean>(!!localStorage.getItem(this.tokenKey));
   user = signal<{ name: string; email: string } | null>(
@@ -38,6 +39,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userKey);
+    localStorage.removeItem(this.tabsKey);
     this.isAuthenticated.set(false);
     this.user.set(null);
   }
