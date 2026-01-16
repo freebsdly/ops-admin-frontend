@@ -20,7 +20,8 @@ import {
   DashboardOutline,
   TeamOutline,
   FileTextOutline,
-  PlusOutline
+  PlusOutline,
+  ToolOutline
 } from '@ant-design/icons-angular/icons';
 import { Sider } from './sider/sider';
 import { AppHeader } from './header/header';
@@ -116,7 +117,8 @@ export class AppLayout {
       DashboardOutline,
       TeamOutline,
       FileTextOutline,
-      PlusOutline
+      PlusOutline,
+      ToolOutline
     ];
     this.iconService.addIcon(...icons);
   }

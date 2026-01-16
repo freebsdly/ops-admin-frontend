@@ -1,11 +1,19 @@
-import { Component, ChangeDetectionStrategy, signal, inject, effect, DestroyRef } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  signal,
+  inject,
+  effect,
+  DestroyRef,
+} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { RouteConfigService } from '../../services/route-config.service';
 
 export interface TabItem {
@@ -18,47 +26,50 @@ export interface TabItem {
 
 @Component({
   selector: 'app-tabs',
-  imports: [
-    TranslateModule,
-    NzIconModule,
-    NzDropDownModule,
-    NzButtonModule
-  ],
+  imports: [TranslateModule, NzIconModule, NzDropdownModule, NzButtonModule, NzSpaceModule],
   template: `
     <div class="bg-white border-b border-gray-200">
-      <div class="tab-container flex items-center h-10 px-4 space-x-2 overflow-x-auto overflow-y-hidden">
+      <div
+        class="tab-container flex items-center h-10 px-4 overflow-x-auto overflow-y-hidden"
+      >
         <!-- Dropdown for tab management -->
-        <div nz-dropdown [nzDropdownMenu]="tabManagementMenu" nzTrigger="click" nzPlacement="bottomLeft">
+        <div
+          nz-dropdown
+          [nzDropdownMenu]="tabManagementMenu"
+          nzTrigger="click"
+          nzPlacement="bottomLeft"
+        >
           <button nz-button nzType="text" class="!px-2 !h-7 text-gray-600 hover:text-gray-800">
             <nz-icon nzType="tool" class="text-xs" />
           </button>
         </div>
-        
-        @for (tab of tabs(); track tab.key; let i = $index) {
-          <button
-            class="flex items-center gap-2 px-3 py-1.5 rounded-t-md text-xs font-medium transition-colors whitespace-nowrap"
-            [class]="i === selectedIndex() ? 
-              'bg-white text-blue-600 border-t border-l border-r border-gray-300 shadow-sm' : 
-              'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-            (click)="onTabClick(i)"
-          >
-            @if (tab.icon) {
-              <nz-icon [nzType]="tab.icon" class="text-gray-600" />
-            }
-            <span>{{ tab.label | translate }}</span>
-            @if (tab.closable !== false && !isDefaultTab(tab.key)) {
-              <button
-                class="ml-1 text-gray-500 hover:text-gray-700"
-                (click)="closeTab(i, $event)"
-              >
-                ×
-              </button>
-            }
+
+        <nz-space [nzSize]="1">
+          @for (tab of tabs(); track tab.key; let i = $index) {
+        <button
+          class="flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-colors whitespace-nowrap"
+          [class]="
+            i === selectedIndex()
+              ? 'bg-white text-blue-600 border-t-2 border-blue-500 border-b-0'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-b border-gray-300'
+          "
+          (click)="onTabClick(i)"
+        >
+          @if (tab.icon) {
+          <nz-icon [nzType]="tab.icon" class="text-gray-600" />
+          }
+          <span>{{ tab.label | translate }}</span>
+          @if (tab.closable !== false && !isDefaultTab(tab.key)) {
+          <button class="ml-1 text-gray-500 hover:text-gray-700" (click)="closeTab(i, $event)">
+            ×
           </button>
-        }
+          }
+        </button>
+          }
+        </nz-space>
       </div>
     </div>
-    
+
     <!-- Tab Management Dropdown Menu -->
     <nz-dropdown-menu #tabManagementMenu="nzDropdownMenu">
       <ul nz-menu>
@@ -92,56 +103,58 @@ export interface TabItem {
     :host {
       display: block;
     }
-    
+
     /* Hide scrollbar for tab container */
     .tab-container::-webkit-scrollbar {
       display: none;
     }
-    
+
     .tab-container {
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
       scroll-behavior: smooth;
     }
-    
+
     /* Ensure tab buttons don't shrink and maintain consistent appearance */
     .tab-container button {
       flex-shrink: 0;
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Tabs {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   private readonly routeConfigService = inject(RouteConfigService);
   private readonly tabsStorageKey = 'app_tabs';
-  
+
   // Initialize tabs from localStorage or with default home tab
   tabs = signal<TabItem[]>(this.loadTabsFromStorage());
-  
+
   selectedIndex = signal(this.loadSelectedIndexFromStorage());
-  
+
   constructor() {
     // Monitor route changes to update active tab and add new tabs
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      takeUntilDestroyed()
-    ).subscribe(() => {
-      this.handleRouteChange();
-    });
-    
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => {
+        this.handleRouteChange();
+      });
+
     // Save tabs to localStorage when they change
     effect(() => {
       const currentTabs = this.tabs();
       const currentIndex = this.selectedIndex();
       this.saveTabsToStorage(currentTabs, currentIndex);
     });
-    
+
     // Initial tab update
     this.handleRouteChange();
   }
-  
+
   private loadTabsFromStorage(): TabItem[] {
     try {
       const stored = localStorage.getItem(this.tabsStorageKey);
@@ -150,17 +163,17 @@ export class Tabs {
         // Ensure we always have at least the home tab
         const tabs = parsed.tabs || [];
         const hasHome = tabs.some((tab: TabItem) => tab.key === 'home');
-        
+
         if (!hasHome) {
           return [
-            { 
+            {
               key: 'home',
               label: 'MENU.HOME',
               path: '/home',
               icon: 'home',
-              closable: false
+              closable: false,
             },
-            ...tabs
+            ...tabs,
           ];
         }
         return tabs;
@@ -168,19 +181,19 @@ export class Tabs {
     } catch (error) {
       console.error('Error loading tabs from storage:', error);
     }
-    
+
     // Default tab if no storage or error
     return [
-      { 
+      {
         key: 'home',
         label: 'MENU.HOME',
         path: '/home',
         icon: 'home',
-        closable: false
-      }
+        closable: false,
+      },
     ];
   }
-  
+
   private loadSelectedIndexFromStorage(): number {
     try {
       const stored = localStorage.getItem(this.tabsStorageKey);
@@ -193,52 +206,52 @@ export class Tabs {
     }
     return 0;
   }
-  
+
   private saveTabsToStorage(tabs: TabItem[], selectedIndex: number): void {
     try {
       const data = {
         tabs: tabs,
-        selectedIndex: selectedIndex
+        selectedIndex: selectedIndex,
       };
       localStorage.setItem(this.tabsStorageKey, JSON.stringify(data));
     } catch (error) {
       console.error('Error saving tabs to storage:', error);
     }
   }
-  
+
   handleRouteChange(): void {
     const currentPath = this.router.url.split('?')[0];
-    
+
     // Don't handle tabs for login route
     if (currentPath === '/login') {
       return;
     }
-    
-    const currentTab = this.tabs().find(tab => tab.path === currentPath);
-    
+
+    const currentTab = this.tabs().find((tab) => tab.path === currentPath);
+
     // If we're at a new route that's not already a tab, add it
     if (!currentTab) {
       this.addTabFromRoute(currentPath);
     }
-    
+
     // Update selected index
-    const index = this.tabs().findIndex(tab => tab.path === currentPath);
+    const index = this.tabs().findIndex((tab) => tab.path === currentPath);
     if (index !== -1) {
       this.selectedIndex.set(index);
     }
   }
-  
+
   addTabFromRoute(path: string): void {
     // Don't add tab for login route
     if (path === '/login') {
       return;
     }
-    
+
     // Get tab configuration from unified service
     const tabConfig = this.routeConfigService.getTabConfig(path);
-    
-    const existingTabIndex = this.tabs().findIndex(tab => tab.key === tabConfig.key);
-    
+
+    const existingTabIndex = this.tabs().findIndex((tab) => tab.key === tabConfig.key);
+
     if (existingTabIndex === -1) {
       // Add new tab
       const newTab: TabItem = {
@@ -246,9 +259,9 @@ export class Tabs {
         label: tabConfig.label,
         path: path,
         icon: tabConfig.icon,
-        closable: true
+        closable: true,
       };
-      
+
       const currentTabs = [...this.tabs(), newTab];
       this.tabs.set(currentTabs);
       this.selectedIndex.set(currentTabs.length - 1);
@@ -257,11 +270,11 @@ export class Tabs {
       this.selectedIndex.set(existingTabIndex);
     }
   }
-  
+
   isDefaultTab(key: string): boolean {
     return ['home'].includes(key);
   }
-  
+
   onTabClick(index: number): void {
     this.selectedIndex.set(index);
     const tab = this.tabs()[index];
@@ -269,23 +282,23 @@ export class Tabs {
       this.router.navigate([tab.path]);
     }
   }
-  
+
   closeTab(index: number, event?: MouseEvent): void {
     if (event) {
       event.stopPropagation();
     }
-    
+
     const tab = this.tabs()[index];
-    
+
     // Don't close default tabs (dashboard/home)
     if (tab && this.isDefaultTab(tab.key)) {
       return;
     }
-    
+
     const currentTabs = [...this.tabs()];
     currentTabs.splice(index, 1);
     this.tabs.set(currentTabs);
-    
+
     // If closed tab was active, navigate to next available tab or default
     if (index === this.selectedIndex()) {
       if (currentTabs.length > 0) {
@@ -310,21 +323,21 @@ export class Tabs {
   closeOtherTabs(): void {
     const currentIndex = this.selectedIndex();
     const currentTab = this.tabs()[currentIndex];
-    
+
     if (currentTab && !this.isDefaultTab(currentTab.key)) {
       // Keep only the current tab and default tabs
-      const defaultTabs = this.tabs().filter(tab => this.isDefaultTab(tab.key));
+      const defaultTabs = this.tabs().filter((tab) => this.isDefaultTab(tab.key));
       const newTabs = [...defaultTabs, currentTab];
-      
+
       // Remove duplicates if current tab is already a default tab
-      const uniqueTabs = newTabs.filter((tab, index, self) => 
-        index === self.findIndex(t => t.key === tab.key)
+      const uniqueTabs = newTabs.filter(
+        (tab, index, self) => index === self.findIndex((t) => t.key === tab.key)
       );
-      
+
       this.tabs.set(uniqueTabs);
-      
+
       // Update selected index to the current tab's new position
-      const newIndex = uniqueTabs.findIndex(tab => tab.key === currentTab.key);
+      const newIndex = uniqueTabs.findIndex((tab) => tab.key === currentTab.key);
       if (newIndex !== -1) {
         this.selectedIndex.set(newIndex);
       }
@@ -333,10 +346,10 @@ export class Tabs {
 
   closeAllTabs(): void {
     // Keep only default tabs (home)
-    const defaultTabs = this.tabs().filter(tab => this.isDefaultTab(tab.key));
+    const defaultTabs = this.tabs().filter((tab) => this.isDefaultTab(tab.key));
     this.tabs.set(defaultTabs);
     this.selectedIndex.set(0);
-    
+
     // Navigate to home if not already there
     if (this.router.url !== '/home') {
       this.router.navigate(['/home']);
@@ -356,18 +369,18 @@ export class Tabs {
   duplicateCurrentTab(): void {
     const currentIndex = this.selectedIndex();
     const currentTab = this.tabs()[currentIndex];
-    
+
     if (currentTab && currentTab.closable !== false && !this.isDefaultTab(currentTab.key)) {
       // Create a duplicate tab with a unique key
       const duplicateTab: TabItem = {
         ...currentTab,
-        key: `${currentTab.key}-copy-${Date.now()}`
+        key: `${currentTab.key}-copy-${Date.now()}`,
       };
-      
+
       const currentTabs = [...this.tabs(), duplicateTab];
       this.tabs.set(currentTabs);
       this.selectedIndex.set(currentTabs.length - 1);
-      
+
       // Navigate to the duplicated tab's path
       this.router.navigate([duplicateTab.path]);
     }
@@ -376,15 +389,15 @@ export class Tabs {
   pinCurrentTab(): void {
     const currentIndex = this.selectedIndex();
     const currentTab = this.tabs()[currentIndex];
-    
+
     if (currentTab && !this.isDefaultTab(currentTab.key)) {
       // For now, we'll just make the tab non-closable (pinned)
       const updatedTabs = [...this.tabs()];
       updatedTabs[currentIndex] = {
         ...currentTab,
-        closable: false
+        closable: false,
       };
-      
+
       this.tabs.set(updatedTabs);
     }
   }
@@ -392,15 +405,15 @@ export class Tabs {
   unpinCurrentTab(): void {
     const currentIndex = this.selectedIndex();
     const currentTab = this.tabs()[currentIndex];
-    
+
     if (currentTab && !this.isDefaultTab(currentTab.key)) {
       // Make the tab closable again (unpinned)
       const updatedTabs = [...this.tabs()];
       updatedTabs[currentIndex] = {
         ...currentTab,
-        closable: true
+        closable: true,
       };
-      
+
       this.tabs.set(updatedTabs);
     }
   }
