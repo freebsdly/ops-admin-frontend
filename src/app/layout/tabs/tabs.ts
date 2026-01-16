@@ -30,7 +30,7 @@ export interface TabItem {
   selector: 'app-tabs',
   imports: [TranslateModule, NzIconModule, NzDropdownModule, NzButtonModule, NzSpaceModule],
   template: `
-    <div class="bg-white border-b border-gray-200">
+    <div class="bg-gray-100 border-b border-gray-200">
       <div
         class="tab-container flex items-center h-8 px-4 overflow-x-auto overflow-y-hidden"
       >

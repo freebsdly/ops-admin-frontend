@@ -2,3 +2,25 @@
 :host {
   display: block;
 }
+
+/* Override nz-menu background color */
+::ng-deep .ant-menu {
+  background-color: #f3f4f6 !important;
+}
+
+::ng-deep .ant-menu-item {
+  background-color: transparent !important;
+}
+
+::ng-deep .ant-menu-item:hover {
+  background-color: #e5e7eb !important;
+}
+
+::ng-deep .ant-menu-submenu-title:hover {
+  background-color: #e5e7eb !important;
+}
+
+::ng-deep .ant-menu-item-selected {
+  background-color: #dbeafe !important;
+  color: #2563eb !important;
+}

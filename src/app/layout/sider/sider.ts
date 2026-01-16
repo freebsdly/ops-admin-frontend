@@ -18,7 +18,7 @@ import { Menus } from './menus';
     <nz-sider
       [nzCollapsed]="collapsed()"
       [nzWidth]="collapsed() ? 48 : 200"
-      class="border-r border-gray-200 !bg-white flex flex-col full-height"
+      class="border-r border-gray-200 !bg-gray-100 flex flex-col full-height"
     >
       <!-- Sidebar header (contains logo area) - fixed at top -->
       <div class="sidebar-header border-b border-gray-200 flex items-center justify-center"
@@ -37,7 +37,7 @@ import { Menus } from './menus';
       </div>
 
       <!-- Scrollable menu area - fills remaining space -->
-      <div class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden hidden-scrollbar">
+      <div class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden hidden-scrollbar bg-gray-100">
         <app-menus
           [collapsed]="collapsed()"
           (onToggleCollapsed)="onToggleCollapsed.emit()"
