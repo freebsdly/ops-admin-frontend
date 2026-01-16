@@ -1,9 +1,9 @@
 import { Component, signal, computed, inject, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { AppLayout } from './layout/app-layout';
-import { AuthService } from './services/auth.service';
-import { RouteLoadingIndicatorComponent } from './components/route-loading-indicator.component';
+import { AppLayout } from '@/app/layout/app-layout';
+import { AuthService } from '@/app/services/auth.service';
+import { RouteLoadingIndicatorComponent } from '@/app/components/route-loading-indicator.component';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { RouteLoadingIndicatorComponent } from './components/route-loading-indic
   template: `
     <!-- Global route loading indicator -->
     <app-route-loading-indicator />
-    
+
     @if (showLayout()) {
     <app-layout>
       <router-outlet />

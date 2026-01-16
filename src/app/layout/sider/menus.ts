@@ -35,7 +35,7 @@ import {
   UserOutline,
   SafetyOutline,
 } from '@ant-design/icons-angular/icons';
-import { MenuService, MenuItem } from '../../services/menu.service';
+import { MenuService, MenuItem } from '@/app/services/menu.service';
 
 @Component({
   selector: 'app-menus',
@@ -70,7 +70,7 @@ import { MenuService, MenuItem } from '../../services/menu.service';
             @if (menu.icon) {
             <nz-icon [nzType]="getIcon(menu.icon)" />
             }
-            <span>{{ getTranslatedLabel(menu.key) | translate}}</span>
+            <span>{{ getTranslatedLabel(menu.key) | translate }}</span>
           </a>
         </li>
         } @else {

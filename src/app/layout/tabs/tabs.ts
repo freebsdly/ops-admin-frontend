@@ -16,7 +16,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { RouteConfigService } from '../../services/route-config.service';
+import { RouteConfigService } from '@/app/services/route-config.service';
 
 export interface TabItem {
   key: string;
@@ -47,26 +47,26 @@ export interface TabItem {
 
         <nz-space [nzSize]="2">
           @for (tab of tabs(); track tab.key; let i = $index) {
-        <button
-          class="flex items-center gap-2 px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap"
-          [class]="
-            i === selectedIndex()
-              ? 'bg-white text-blue-600 border-t-2 border-blue-500 border-b-0'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-b border-gray-300'
-          "
-          (click)="onTabClick(i)"
-          (contextmenu)="onTabContextMenu(i, $event)"
-        >
-          @if (tab.icon) {
-          <nz-icon [nzType]="tab.icon" class="text-gray-600" />
-          }
-          <span>{{ tab.label | translate }}</span>
-          @if (tab.closable !== false && !isDefaultTab(tab.key)) {
-          <button class="ml-1 text-gray-500 hover:text-gray-700" (click)="closeTab(i, $event)">
-            ×
+          <button
+            class="flex items-center gap-2 px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap"
+            [class]="
+              i === selectedIndex()
+                ? 'bg-white text-blue-600 border-t-2 border-blue-500 border-b-0'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-b border-gray-300'
+            "
+            (click)="onTabClick(i)"
+            (contextmenu)="onTabContextMenu(i, $event)"
+          >
+            @if (tab.icon) {
+            <nz-icon [nzType]="tab.icon" class="text-gray-600" />
+            }
+            <span>{{ tab.label | translate }}</span>
+            @if (tab.closable !== false && !isDefaultTab(tab.key)) {
+            <button class="ml-1 text-gray-500 hover:text-gray-700" (click)="closeTab(i, $event)">
+              ×
+            </button>
+            }
           </button>
-          }
-        </button>
           }
         </nz-space>
       </div>

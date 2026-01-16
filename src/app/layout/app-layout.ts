@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, computed, signal, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '@/app/services/auth.service';
 import { Router } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -21,12 +20,12 @@ import {
   TeamOutline,
   FileTextOutline,
   PlusOutline,
-  ToolOutline
+  ToolOutline,
 } from '@ant-design/icons-angular/icons';
-import { Sider } from './sider/sider';
-import { AppHeader } from './header/header';
-import { Tabs } from './tabs/tabs';
-import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import { Sider } from '@/app/layout/sider/sider';
+import { AppHeader } from '@/app/layout/header/header';
+import { Tabs } from '@/app/layout/tabs/tabs';
+import { LanguageSwitcherComponent } from '@/app/language-switcher/language-switcher.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -50,10 +49,7 @@ import { TranslateModule } from '@ngx-translate/core';
     <!-- Main two-column layout -->
     <div class="app-layout-container h-screen flex">
       <!-- Left column: Sidebar component -->
-      <app-sider
-        [collapsed]="sidebarCollapsed()"
-        (onToggleCollapsed)="toggleSidebar()"
-      />
+      <app-sider [collapsed]="sidebarCollapsed()" (onToggleCollapsed)="toggleSidebar()" />
 
       <!-- Right column: Content area -->
       <div class="flex-1 flex flex-col h-full min-w-0">
@@ -75,20 +71,20 @@ import { TranslateModule } from '@ngx-translate/core';
 
         <!-- Footer -->
         @if (showFooter()) {
-          <div class="h-12 bg-white border-t border-gray-200 flex items-center justify-between px-4">
-            <p class="text-sm text-gray-500 mb-0">
-              {{ 'APP.TITLE' | translate }} © 2026. {{ 'COMMON.ALL_RIGHTS_RESERVED' | translate }}
-            </p>
-            <div class="flex items-center space-x-6">
-              <app-language-switcher />
-              <a href="#" class="text-sm text-gray-500 hover:text-gray-700">
-                {{ 'BUTTONS.PRIVACY' | translate }}
-              </a>
-              <a href="#" class="text-sm text-gray-500 hover:text-gray-700">
-                {{ 'BUTTONS.TERMS' | translate }}
-              </a>
-            </div>
+        <div class="h-12 bg-white border-t border-gray-200 flex items-center justify-between px-4">
+          <p class="text-sm text-gray-500 mb-0">
+            {{ 'APP.TITLE' | translate }} © 2026. {{ 'COMMON.ALL_RIGHTS_RESERVED' | translate }}
+          </p>
+          <div class="flex items-center space-x-6">
+            <app-language-switcher />
+            <a href="#" class="text-sm text-gray-500 hover:text-gray-700">
+              {{ 'BUTTONS.PRIVACY' | translate }}
+            </a>
+            <a href="#" class="text-sm text-gray-500 hover:text-gray-700">
+              {{ 'BUTTONS.TERMS' | translate }}
+            </a>
           </div>
+        </div>
         }
       </div>
     </div>
@@ -103,10 +99,7 @@ export class AppLayout {
   sidebarCollapsed = signal(false);
   showFooter = signal(false);
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {
+  constructor(private authService: AuthService, private router: Router) {
     // Register icons
     const icons: IconDefinition[] = [
       UserOutline,
@@ -118,7 +111,7 @@ export class AppLayout {
       TeamOutline,
       FileTextOutline,
       PlusOutline,
-      ToolOutline
+      ToolOutline,
     ];
     this.iconService.addIcon(...icons);
   }

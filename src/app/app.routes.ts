@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
-import { PlaceholderComponent } from './pages/placeholder.component';
-import { RouteLoadingTestComponent } from './components/route-loading-test.component';
+import { AuthGuard } from '@/app/guards/auth.guard';
+import { HomeComponent } from '@/app/pages/home/home.component';
+import { LoginComponent } from '@/app/pages/login/login.component';
+import { UserProfileComponent } from '@/app/pages/user-profile/user-profile.component';
+import { PlaceholderComponent } from '@/app/pages/placeholder.component';
+import { RouteLoadingTestComponent } from '@/app/components/route-loading-test.component';
 
 export const routes: Routes = [
   {

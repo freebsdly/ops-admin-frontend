@@ -21,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
   template: `
     <div class="p-6">
       <h2 class="text-2xl font-bold text-gray-900 mb-6">{{ 'USER_PROFILE.TITLE' | translate }}</h2>
-      
+
       <nz-card class="mb-6">
         <div class="flex items-center space-x-6">
           <nz-avatar nzSize="large" nzText="U" class="flex-shrink-0"></nz-avatar>
@@ -60,7 +60,8 @@ import { TranslateModule } from '@ngx-translate/core';
               <label nz-form-label>{{ 'COMMON.BIO' | translate }}</label>
               <textarea nz-input rows="4" readonly>
 Experienced DevOps engineer with 10+ years of experience in managing cloud infrastructure and CI/CD pipelines.
-              </textarea>
+              </textarea
+              >
             </div>
           </div>
         </form>

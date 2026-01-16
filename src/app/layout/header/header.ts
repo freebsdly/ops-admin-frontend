@@ -8,8 +8,8 @@ import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from '../../language-switcher/language-switcher.component';
-import { UserInfoCardComponent, UserInfo } from '../../components/user-info-card/user-info-card.component';
+import { LanguageSwitcherComponent } from '@/app/language-switcher/language-switcher.component';
+import { UserInfoCardComponent, UserInfo } from '@/app/components/user-info-card/user-info-card.component';
 
 @Component({
   selector: 'app-header',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '@/app/services/auth.service';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -12,7 +12,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from '../../language-switcher/language-switcher.component';
+import { LanguageSwitcherComponent } from '@/app/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-login',
@@ -30,11 +30,15 @@ import { LanguageSwitcherComponent } from '../../language-switcher/language-swit
     LanguageSwitcherComponent,
   ],
   template: `
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div
+      class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8"
+    >
       <div class="w-full max-w-md">
         <nz-card class="shadow-xl rounded-2xl overflow-hidden relative">
           <div class="text-center mb-8">
-            <div class="mx-auto w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
+            <div
+              class="mx-auto w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4"
+            >
               <span nz-icon nzType="lock" nzTheme="outline" class="text-white text-2xl"></span>
             </div>
             <h2 class="text-3xl font-bold text-gray-900">
@@ -110,12 +114,7 @@ import { LanguageSwitcherComponent } from '../../language-switcher/language-swit
         </nz-card>
 
         @if (error) {
-        <nz-alert
-          nzType="error"
-          [nzMessage]="error"
-          class="mt-4"
-          nzShowIcon
-        ></nz-alert>
+        <nz-alert nzType="error" [nzMessage]="error" class="mt-4" nzShowIcon></nz-alert>
         }
       </div>
     </div>
@@ -152,21 +151,24 @@ export class LoginComponent implements OnInit {
 
     const { email, password } = this.loginForm.value;
 
-    this.authService.login(email, password).then((success: boolean) => {
-      this.loading = false;
+    this.authService
+      .login(email, password)
+      .then((success: boolean) => {
+        this.loading = false;
 
-      if (success) {
-        this.message.success(this.translate.instant('LOGIN.SUCCESS'));
-        const returnUrl = this.router.routerState.snapshot.root.queryParams['returnUrl'] || '/';
-        this.router.navigateByUrl(returnUrl);
-      } else {
-        this.message.error(this.translate.instant('LOGIN.ERROR.INVALID_CREDENTIALS'));
-        this.error = this.translate.instant('LOGIN.ERROR.INVALID_CREDENTIALS');
-      }
-    }).catch(() => {
-      this.loading = false;
-      this.message.error(this.translate.instant('LOGIN.ERROR.SERVER_ERROR'));
-      this.error = this.translate.instant('LOGIN.ERROR.SERVER_ERROR');
-    });
+        if (success) {
+          this.message.success(this.translate.instant('LOGIN.SUCCESS'));
+          const returnUrl = this.router.routerState.snapshot.root.queryParams['returnUrl'] || '/';
+          this.router.navigateByUrl(returnUrl);
+        } else {
+          this.message.error(this.translate.instant('LOGIN.ERROR.INVALID_CREDENTIALS'));
+          this.error = this.translate.instant('LOGIN.ERROR.INVALID_CREDENTIALS');
+        }
+      })
+      .catch(() => {
+        this.loading = false;
+        this.message.error(this.translate.instant('LOGIN.ERROR.SERVER_ERROR'));
+        this.error = this.translate.instant('LOGIN.ERROR.SERVER_ERROR');
+      });
   }
 }

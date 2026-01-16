@@ -4,34 +4,28 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { MenuFoldOutline, MenuUnfoldOutline } from '@ant-design/icons-angular/icons';
-import { Menus } from './menus';
+import { Menus } from '@/app/layout/sider/menus';
 
 @Component({
   selector: 'app-sider',
-  imports: [
-    NzIconModule,
-    NzButtonModule,
-    NzLayoutModule,
-    Menus,
-  ],
+  imports: [NzIconModule, NzButtonModule, NzLayoutModule, Menus],
   template: `
-    <nz-sider
-      [nzCollapsed]="collapsed()"
-      class="!bg-gray-100 flex flex-col full-height"
-    >
+    <nz-sider [nzCollapsed]="collapsed()" class="!bg-gray-100 flex flex-col full-height">
       <!-- Sidebar header (contains logo area) - fixed at top -->
-      <div class="sidebar-header border-gray-200 flex items-center justify-center"
-        [class.justify-center]="collapsed()">
+      <div
+        class="sidebar-header border-gray-200 flex items-center justify-center"
+        [class.justify-center]="collapsed()"
+      >
         @if (!collapsed()) {
-          <!-- Expanded logo: SVG that fills the sider width -->
-          <div class="flex items-center justify-center w-full h-full">
-            <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="w-full h-full" />
-          </div>
+        <!-- Expanded logo: SVG that fills the sider width -->
+        <div class="flex items-center justify-center w-full h-full">
+          <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="w-full h-full" />
+        </div>
         } @else {
-          <!-- Collapsed logo: SVG icon that fills the area -->
-          <div class="flex items-center justify-center w-full h-full">
-            <img src="/logo-collapsed.svg" alt="Ops Admin Logo" class="h-12 w-full object-contain" />
-          </div>
+        <!-- Collapsed logo: SVG icon that fills the area -->
+        <div class="flex items-center justify-center w-full h-full">
+          <img src="/logo-collapsed.svg" alt="Ops Admin Logo" class="h-12 w-full object-contain" />
+        </div>
         }
       </div>
 
@@ -52,7 +46,11 @@ import { Menus } from './menus';
           (click)="onToggleCollapsed.emit()"
           class="w-full h-12 flex items-center justify-center text-gray-600"
         >
-          <span nz-icon [nzType]="collapsed() ? 'menu-unfold' : 'menu-fold'" nzTheme="outline"></span>
+          <span
+            nz-icon
+            [nzType]="collapsed() ? 'menu-unfold' : 'menu-fold'"
+            nzTheme="outline"
+          ></span>
         </button>
       </div>
     </nz-sider>
