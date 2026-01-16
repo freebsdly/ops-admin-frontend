@@ -30,16 +30,16 @@ export interface TabItem {
   selector: 'app-tabs',
   imports: [TranslateModule, NzIconModule, NzDropdownModule, NzButtonModule, NzSpaceModule],
   template: `
-    <div class="bg-gray-100 border-b border-gray-200">
+    <div class="bg-white border-b border-gray-200">
       <div
         class="tab-container flex items-center h-8 px-4 overflow-x-auto overflow-y-hidden"
       >
-        <!-- Hidden dropdown trigger for context menu -->
+        <!-- Dropdown trigger for context menu - small visible button -->
         <button
           #dropdownTrigger
           nz-button
           nzType="text"
-          class="!w-1 !h-1 !p-0 !opacity-0 absolute"
+          class="!w-1 !h-1 !p-0 !bg-transparent !border-0 !text-transparent"
           nz-dropdown
           [nzDropdownMenu]="tabManagementMenu"
           nzTrigger="click"
@@ -318,11 +318,15 @@ export class Tabs {
 
   onTabContextMenu(index: number, event: MouseEvent): void {
     event.preventDefault();
+    event.stopPropagation();
     this.contextMenuIndex.set(index);
-    // Programmatically trigger dropdown
-    if (this.dropdownTrigger && this.dropdownTrigger.nativeElement) {
-      this.dropdownTrigger.nativeElement.click();
-    }
+
+    // Programmatically trigger dropdown by clicking the small trigger button
+    setTimeout(() => {
+      if (this.dropdownTrigger && this.dropdownTrigger.nativeElement) {
+        this.dropdownTrigger.nativeElement.click();
+      }
+    }, 0);
   }
 
   // Tab Management Methods
