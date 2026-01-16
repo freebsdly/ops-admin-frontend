@@ -1,12 +1,40 @@
 {
   "name": "ops-admin-frontend",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A modern Angular 21 Ops Admin frontend with Ant Design UI, featuring comprehensive management dashboards, user authentication, multilingual support, and responsive design.",
+  "keywords": [
+    "angular",
+    "angular21",
+    "ng-zorro",
+    "ant-design",
+    "ops-admin",
+    "admin-dashboard",
+    "typescript",
+    "tailwindcss",
+    "i18n"
+  ],
+  "author": "Ops Admin Team",
+  "license": "MIT",
+  "homepage": "https://github.com/your-org/ops-admin-frontend",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/ops-admin-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/ops-admin-frontend/issues"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:dev": "ng serve --configuration development",
     "build": "ng build",
+    "build:dev": "ng build --configuration development",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:coverage": "ng test --coverage",
+    "lint": "ng lint",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.html\""
   },
   "prettier": {
     "printWidth": 100,
