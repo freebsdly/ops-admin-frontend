@@ -6,6 +6,7 @@ import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '../../language-switcher/language-switcher.component';
 import { UserInfoCardComponent, UserInfo } from '../../components/user-info-card/user-info-card.component';
@@ -20,12 +21,13 @@ import { UserInfoCardComponent, UserInfo } from '../../components/user-info-card
     NzMenuModule,
     NzTooltipModule,
     NzCardModule,
+    NzSpaceModule,
     TranslateModule,
     LanguageSwitcherComponent,
     UserInfoCardComponent,
   ],
   template: `
-    <div class="h-full bg-white border-b border-gray-200 flex items-center justify-between px-4">
+    <div class="h-full bg-white border-gray-200 flex items-center justify-between px-4">
       <!-- Left section: Page title or breadcrumbs area -->
       <div class="flex-1">
         <!-- Breadcrumbs or page title can go here -->
@@ -34,30 +36,30 @@ import { UserInfoCardComponent, UserInfo } from '../../components/user-info-card
       <!-- Right section: User info area -->
       <div class="flex items-center justify-end">
         @if (user()) {
-          <!-- Language switcher -->
-          <div class="border-r border-gray-200 pr-4">
+          <nz-space [nzSize]="8">
+            <!-- Language switcher -->
             <app-language-switcher />
-          </div>
 
-          <!-- User info area -->
-          <div
-            #userInfoArea
-            nz-dropdown
-            [nzDropdownMenu]="userMenu"
-            nzPlacement="bottomRight"
-            [nzOverlayStyle]="dropdownStyle()"
-            class="h-full flex items-center cursor-pointer hover:bg-gray-50 px-4 border-l border-gray-200 transition-colors"
-          >
-            <!-- User avatar/image -->
-            <div class="flex items-center gap-3">
-              <nz-avatar
-                nzSize="default"
-                [nzSrc]="user()?.avatar"
-                nzText="{{ user()?.name?.charAt(0) || 'U' }}"
-                class="!h-8 !w-8"
-              ></nz-avatar>
+            <!-- User info area -->
+            <div
+              #userInfoArea
+              nz-dropdown
+              [nzDropdownMenu]="userMenu"
+              nzPlacement="bottomRight"
+              [nzOverlayStyle]="dropdownStyle()"
+              class="h-full flex items-center cursor-pointer hover:bg-gray-50 px-4 border-l border-gray-200 transition-colors"
+            >
+              <!-- User avatar/image -->
+              <div class="flex items-center gap-3">
+                <nz-avatar
+                  nzSize="default"
+                  [nzSrc]="user()?.avatar"
+                  nzText="{{ user()?.name?.charAt(0) || 'U' }}"
+                  class="!h-8 !w-8"
+                ></nz-avatar>
+              </div>
             </div>
-          </div>
+          </nz-space>
 
           <!-- Dropdown menu -->
           <nz-dropdown-menu #userMenu="nzDropdownMenu" class="user-info-dropdown">
