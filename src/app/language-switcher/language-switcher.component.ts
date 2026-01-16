@@ -15,10 +15,10 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
         <li nz-menu-item (click)="changeLanguage('zh')">
-          <span>{{ 'LANGUAGE.ZH' | translate }}</span>
+          <span>🇨🇳 {{ 'LANGUAGE.ZH' | translate }}</span>
         </li>
         <li nz-menu-item (click)="changeLanguage('en')">
-          <span>{{ 'LANGUAGE.EN' | translate }}</span>
+          <span>🇺🇸 {{ 'LANGUAGE.EN' | translate }}</span>
         </li>
       </ul>
     </nz-dropdown-menu>
@@ -43,6 +43,13 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
       &:hover {
         background-color: rgba(0, 0, 0, 0.04);
       }
+    }
+    
+    /* Flag emoji styling */
+    ::ng-deep nz-menu-item span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
     /* Header-specific styles */
