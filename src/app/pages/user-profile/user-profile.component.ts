@@ -85,7 +85,6 @@ Experienced DevOps engineer with 10+ years of experience in managing cloud infra
       </nz-card>
     </div>
   `,
-  styleUrl: './user-profile.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileComponent {}

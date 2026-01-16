@@ -20,7 +20,6 @@ import { RouteLoadingIndicatorComponent } from '@/app/components/route-loading-i
     <router-outlet />
     }
   `,
-  styleUrl: './app.css',
 })
 export class App implements OnInit {
   protected readonly title = signal('ops-admin-frontend');
