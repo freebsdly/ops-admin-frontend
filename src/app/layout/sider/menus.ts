@@ -58,7 +58,7 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
         <li
           nz-submenu
           [nzPaddingLeft]="menu.level * 16"
-          [nzOpen]="menu.open"
+          [nzOpen]="collapsed() ? undefined : menu.open"
           [nzIcon]="menu.icon"
           [nzTitle]="getTranslatedTitle(menu.key)"
           [nzDisabled]="menu.disabled"

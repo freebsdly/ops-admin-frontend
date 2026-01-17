@@ -28,7 +28,7 @@ import { Menus } from '@/app/layout/sider/menus';
       </div>
 
       <!-- Scrollable menu area - fills remaining space -->
-      <div class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden hidden-scrollbar bg-gray-100">
+      <div class="flex-1 min-h-0 overflow-y-auto hidden-scrollbar bg-gray-100" [class.overflow-x-hidden]="!collapsed()">
         <app-menus
           [collapsed]="collapsed()"
           (onToggleCollapsed)="onToggleCollapsed.emit()"
