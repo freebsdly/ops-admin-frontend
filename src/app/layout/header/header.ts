@@ -27,7 +27,7 @@ import { UserInfoCardComponent, UserInfo } from '@/app/components/user-info-card
     UserInfoCardComponent,
   ],
   template: `
-    <div class="h-full bg-white border-b border-gray-200 flex">
+    <div class="h-full bg-white border-b border-gray-200 flex relative">
       <!-- Left section: Logo area -->
       <div
         class="logo-area"
@@ -38,6 +38,20 @@ import { UserInfoCardComponent, UserInfo } from '@/app/components/user-info-card
         } @else {
           <img src="/logo-collapsed.svg" alt="Ops Admin Logo" class="logo-img collapsed" />
         }
+      </div>
+      <div class="flex-1 flex items-center justify-start px-2">
+              <!-- Collapse button -->
+      <button
+        nz-button
+        nzType="text"
+        (click)="onToggleSidebar.emit()"
+      >
+        <span
+          nz-icon
+          [nzType]="sidebarCollapsed() ? 'menu-unfold' : 'menu-fold'"
+          nzTheme="outline"
+        ></span>
+      </button>
       </div>
 
       <!-- Spacer for content area -->

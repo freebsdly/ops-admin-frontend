@@ -26,14 +26,6 @@
   min-height: var(--header-height);
 }
 
-/* Sidebar footer - same height as header */
-.sidebar-footer {
-  flex-shrink: 0;
-  height: var(--header-height);
-  min-height: var(--header-height);
-  border-top: 1px solid var(--color-gray-200) !important;
-}
-
 /* Hidden scrollbar styles */
 .hidden-scrollbar {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */

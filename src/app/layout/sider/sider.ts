@@ -17,22 +17,6 @@ import { Menus } from '@/app/layout/sider/menus';
           class="block h-auto"
         />
       </div>
-
-      <!-- Sidebar footer (collapsible trigger) - fixed at bottom -->
-      <div class="sidebar-footer border-t border-gray-200 flex items-center justify-center mt-auto">
-        <button
-          nz-button
-          nzType="text"
-          (click)="onToggleCollapsed.emit()"
-          class="w-full h-12 flex items-center justify-center text-gray-600"
-        >
-          <span
-            nz-icon
-            [nzType]="collapsed() ? 'menu-unfold' : 'menu-fold'"
-            nzTheme="outline"
-          ></span>
-        </button>
-      </div>
     </nz-sider>
   `,
   styleUrl: './sider.css',
