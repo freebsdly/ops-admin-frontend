@@ -17,6 +17,10 @@ import { Menus } from '@/app/layout/sider/menus';
           class="block h-auto"
         />
       </div>
+      <!-- Sidebar footer (collapsible trigger) - fixed at bottom -->
+      <div class="sidebar-footer border-t border-gray-200 flex items-center justify-center mt-auto">
+        <p>v6.1.0</p>
+      </div>
     </nz-sider>
   `,
   styleUrl: './sider.css',
