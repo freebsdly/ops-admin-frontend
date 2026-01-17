@@ -49,7 +49,7 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
         >
           <a [routerLink]="menu.path" routerLinkActive="active">
             @if (menu.icon) {
-            <nz-icon [nzType]="getIcon(menu.icon)" />
+            <nz-icon [nzType]="menu.icon" />
             }
             <span>{{ getTranslatedLabel(menu.key) | translate }}</span>
           </a>
@@ -59,7 +59,7 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
           nz-submenu
           [nzPaddingLeft]="menu.level * 16"
           [nzOpen]="menu.open"
-          [nzIcon]="getIcon(menu.icon)"
+          [nzIcon]="menu.icon"
           [nzTitle]="getTranslatedTitle(menu.key)"
           [nzDisabled]="menu.disabled"
         >
@@ -94,28 +94,7 @@ export class Menus {
     });
   }
 
-  getIcon(iconName?: string): string {
-    // Map service icon names to Ant Design icon names
-    const iconMap: Record<string, string> = {
-      home: 'home',
-      dashboard: 'dashboard',
-      'bar-chart': 'bar-chart',
-      'file-text': 'file-text',
-      user: 'user',
-      team: 'team',
-      safety: 'safety',
-      'safety-certificate': 'safety-certificate',
-      database: 'database',
-      bell: 'bell',
-      appstore: 'appstore',
-      shopping: 'shopping',
-      car: 'car',
-      dollar: 'dollar',
-      'credit-card': 'credit-card',
-      setting: 'setting',
-    };
-    return iconMap[iconName || ''] || 'appstore';
-  }
+
 
   getTranslatedLabel(key: string): string {
     // Map menu keys to translation keys
