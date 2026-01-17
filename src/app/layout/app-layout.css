@@ -21,10 +21,10 @@
 }
 
 :host ::ng-deep .ant-layout-sider-collapsed {
-  width: 48px !important;
-  min-width: 48px !important;
-  max-width: 48px !important;
-  flex: 0 0 48px !important;
+  width: var(--sider-collapsed-width) !important;
+  min-width: var(--sider-collapsed-width) !important;
+  max-width: var(--sider-collapsed-width) !important;
+  flex: 0 0 var(--sider-collapsed-width) !important;
 }
 
 :host ::ng-deep .ant-layout-sider .ant-layout-sider-children {
@@ -34,11 +34,11 @@
   height: 100% !important;
 }
 
-/* Sidebar header - matches header height (48px) */
+/* Sidebar header - matches header height */
 .sidebar-header {
   flex-shrink: 0;
-  height: 48px;
-  min-height: 48px;
+  height: var(--header-height);
+  min-height: var(--header-height);
 }
 
 /* Scrollable menu area */
@@ -49,11 +49,11 @@
   overflow-x: hidden !important;
 }
 
-/* Sidebar footer - same height as header (48px) */
+/* Sidebar footer - same height as header */
 .sidebar-footer {
   flex-shrink: 0;
-  height: 48px;
-  min-height: 48px;
+  height: var(--header-height);
+  min-height: var(--header-height);
   border-top: 1px solid #e5e7eb !important;
 }
 
@@ -76,8 +76,8 @@
 
 /* Footer styling */
 :host ::ng-deep .app-footer {
-  height: 48px;
-  min-height: 48px;
+  height: var(--header-height);
+  min-height: var(--header-height);
 }
 
 /* Menu item styling with proper margins */
@@ -104,7 +104,7 @@
 }
 
 :host ::ng-deep .ant-menu-item-selected a {
-  color: #1677ff !important;
+  color: var(--color-primary) !important;
 }
 
 /* Ensure consistent icon alignment */
@@ -135,7 +135,7 @@
 
 /* Collapse button width to match sidebar */
 :host ::ng-deep .ant-layout-sider-collapsed .ant-layout-sider-trigger {
-  width: 48px !important;
+  width: var(--sider-collapsed-width) !important;
 }
 
 :host ::ng-deep .ant-layout-sider:not(.ant-layout-sider-collapsed) .ant-layout-sider-trigger {
@@ -149,11 +149,11 @@
 
 /* Sidebar width classes */
 .sidebar-width {
-  width: 200px !important;
+  width: var(--sider-width) !important;
 }
 
 .sidebar-width-collapsed {
-  width: 48px !important;
+  width: var(--sider-collapsed-width) !important;
 }
 
 /* Thin scrollbar styles for content area */
@@ -173,7 +173,7 @@
 
 :host ::ng-deep .content-area::-webkit-scrollbar-thumb {
   background: #d1d5db;
-  border-radius: 3px;
+  border-radius: var(--border-radius-base);
 }
 
 :host ::ng-deep .content-area::-webkit-scrollbar-thumb:hover {

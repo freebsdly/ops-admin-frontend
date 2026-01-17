@@ -1,6 +1,6 @@
 :host {
   display: block;
-  height: 48px;
+  height: var(--header-height);
 }
 
 /* User info dropdown styling for new design */
