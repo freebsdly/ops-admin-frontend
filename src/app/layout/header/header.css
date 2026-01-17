@@ -12,6 +12,11 @@
   box-sizing: border-box;
   flex-shrink: 0;
   overflow: hidden;
+  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-area.collapsed {
+  width: var(--sider-collapsed-width);
 }
 
 .logo-img {
@@ -20,6 +25,10 @@
   display: block;
   margin: 0;
   padding: 0;
+}
+
+.logo-img.collapsed {
+  width: var(--sider-collapsed-width);
 }
 
 /* User info dropdown styling for new design */
