@@ -29,15 +29,8 @@ import { UserInfoCardComponent, UserInfo } from '@/app/components/user-info-card
   template: `
     <div class="h-full bg-white border-b border-gray-200 flex relative">
       <!-- Left section: Logo area -->
-      <div
-        class="logo-area"
-        [class.collapsed]="sidebarCollapsed()"
-      >
-        @if (!sidebarCollapsed()) {
-          <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="logo-img" />
-        } @else {
-          <img src="/logo-collapsed.svg" alt="Ops Admin Logo" class="logo-img collapsed" />
-        }
+      <div class="logo-area">
+        <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="logo-img" />
       </div>
       <div class="flex-1 flex items-center justify-start px-2">
               <!-- Collapse button -->
