@@ -27,14 +27,14 @@ import { UserInfoCardComponent, UserInfo } from '@/app/components/user-info-card
     UserInfoCardComponent,
   ],
   template: `
-    <div class="h-full bg-white border-b border-gray-200 flex items-center justify-between px-4">
-      <!-- Left section: Page title or breadcrumbs area -->
-      <div class="flex-1">
-        <!-- Breadcrumbs or page title can go here -->
+    <div class="h-full bg-white border-b border-gray-200 flex">
+      <!-- Left section: Logo area -->
+      <div class="logo-area">
+        <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="logo-img" />
       </div>
 
-      <!-- Right section: User info area -->
-      <div class="flex items-center justify-end">
+      <!-- Spacer for content area -->
+      <div class="flex-1 flex items-center justify-end px-4">
         @if (user()) {
           <nz-space [nzSize]="8">
             <!-- Language switcher -->
@@ -77,6 +77,7 @@ import { UserInfoCardComponent, UserInfo } from '@/app/components/user-info-card
 })
 export class AppHeader implements AfterViewInit, OnDestroy {
   user = input<UserInfo | null>(null);
+  sidebarCollapsed = input<boolean>(false);
 
   onToggleSidebar = output<void>();
   onLogout = output<void>();

@@ -3,6 +3,25 @@
   height: var(--header-height);
 }
 
+.logo-area {
+  width: var(--sider-width);
+  height: var(--header-height);
+  border-right: 1px solid var(--color-gray-200);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.logo-img {
+  width: var(--sider-width);
+  height: var(--header-height);
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
 /* User info dropdown styling for new design */
 :host ::ng-deep .user-info-dropdown {
   width: auto !important;

@@ -8,25 +8,7 @@ import { Menus } from '@/app/layout/sider/menus';
   selector: 'app-sider',
   imports: [NzIconModule, NzButtonModule, NzLayoutModule, Menus],
   template: `
-    <nz-sider [nzCollapsed]="collapsed()" class="!bg-gray-100 flex flex-col full-height">
-      <!-- Sidebar header (contains logo area) - fixed at top -->
-      <div
-        class="sidebar-header border-gray-200 flex items-center justify-center"
-        [class.justify-center]="collapsed()"
-      >
-        @if (!collapsed()) {
-        <!-- Expanded logo: SVG that fills the sider width -->
-        <div class="flex items-center justify-center w-full h-full">
-          <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="w-full h-full" />
-        </div>
-        } @else {
-        <!-- Collapsed logo: SVG icon that fills the area -->
-        <div class="flex items-center justify-center w-full h-full">
-          <img src="/logo-collapsed.svg" alt="Ops Admin Logo" class="h-12 w-full object-contain" />
-        </div>
-        }
-      </div>
-
+    <nz-sider [nzCollapsed]="collapsed()" [nzWidth]="220" [nzCollapsedWidth]="48" class="!bg-gray-100 flex flex-col full-height">
       <!-- Scrollable menu area - fills remaining space -->
       <div class="flex-1 min-h-0 overflow-y-auto hidden-scrollbar bg-gray-100" [class.overflow-x-hidden]="!collapsed()">
         <app-menus

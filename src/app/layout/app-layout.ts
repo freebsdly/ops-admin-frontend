@@ -33,23 +33,26 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
   ],
   template: `
-    <!-- Main two-column layout -->
-    <div class="app-layout-container h-screen flex">
-      <!-- Left column: Sidebar component -->
-      <app-sider [collapsed]="sidebarCollapsed()" (onToggleCollapsed)="toggleSidebar()" />
+    <!-- Main layout container -->
+    <div class="flex flex-col h-screen">
+      <!-- Header (full width at top) -->
+      <app-header
+        [user]="user()"
+        [sidebarCollapsed]="sidebarCollapsed()"
+        (onToggleSidebar)="toggleSidebar()"
+        (onLogout)="logout()"
+        class="h-12"
+      />
 
-      <!-- Right column: Content area -->
-      <div class="flex-1 flex flex-col h-full min-w-0">
-        <!-- Header (same height as sidebar header) -->
-        <app-header
-          [user]="user()"
-          (onToggleSidebar)="toggleSidebar()"
-          (onLogout)="logout()"
-          class="h-12"
-        />
+      <!-- Main content area with sidebar -->
+      <div class="flex-1 flex min-h-0">
+        <!-- Left column: Sidebar component -->
+        <app-sider [collapsed]="sidebarCollapsed()" (onToggleCollapsed)="toggleSidebar()" />
 
-        <!-- Tab Bar -->
-        <app-tabs class="h-8 border-b border-gray-200" />
+        <!-- Right column: Content area -->
+        <div class="flex-1 flex flex-col min-w-0">
+          <!-- Tab Bar -->
+          <app-tabs class="h-8 border-b border-gray-200" />
 
         <!-- Main content area -->
         <div class="flex-1 min-h-0 overflow-auto bg-white p-4 content-area">
