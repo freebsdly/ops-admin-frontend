@@ -47,7 +47,9 @@ import { TranslateModule } from '@ngx-translate/core';
       <!-- Main content area with sidebar -->
       <div class="flex-1 flex min-h-0">
         <!-- Left column: Sidebar component -->
+        @if (!sidebarCollapsed()) {
         <app-sider [collapsed]="sidebarCollapsed()" (onToggleCollapsed)="toggleSidebar()" />
+        }
 
         <!-- Right column: Content area -->
         <div class="flex-1 flex flex-col min-w-0">
