@@ -4,7 +4,7 @@
 
 /* Force integer width for collapsed state to prevent sub-pixel rendering */
 ::ng-deep nz-layout-sider {
-  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-sider);
 }
 
 ::ng-deep nz-layout-sider.ant-layout-sider-collapsed {
@@ -31,7 +31,7 @@
   flex-shrink: 0;
   height: var(--header-height);
   min-height: var(--header-height);
-  border-top: 1px solid #e5e7eb !important;
+  border-top: 1px solid var(--color-gray-200) !important;
 }
 
 /* Hidden scrollbar styles */
