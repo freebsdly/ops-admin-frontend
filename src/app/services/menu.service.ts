@@ -19,7 +19,7 @@ export interface MenuItem {
 export class MenuService {
   private menuData: MenuItem[] = [
     {
-      key: 'home',
+      key: 'MENU.HOME',
       label: 'Home',
       level: 1,
       icon: 'home',
@@ -29,7 +29,7 @@ export class MenuService {
       disabled: false,
     },
     {
-      key: 'dashboard',
+      key: 'MENU.DASHBOARD',
       label: 'Dashboard',
       level: 1,
       icon: 'dashboard',
@@ -39,7 +39,7 @@ export class MenuService {
       disabled: false,
     },
     {
-      key: 'analytics',
+      key: 'MENU.ANALYTICS',
       label: 'Analytics',
       level: 1,
       icon: 'bar-chart',
@@ -49,7 +49,7 @@ export class MenuService {
       disabled: false,
     },
     {
-      key: 'reports',
+      key: 'MENU.REPORTS',
       label: 'Reports',
       level: 1,
       icon: 'file-text',
@@ -59,7 +59,7 @@ export class MenuService {
       disabled: false,
     },
     {
-      key: 'security',
+      key: 'MENU.SECURITY',
       label: 'Security',
       level: 1,
       icon: 'safety',
@@ -68,7 +68,7 @@ export class MenuService {
       disabled: false,
       children: [
         {
-          key: 'users',
+          key: 'MENU.USER_MANAGEMENT',
           label: 'User Management',
           level: 2,
           icon: 'user',
@@ -78,7 +78,7 @@ export class MenuService {
           disabled: false,
         },
         {
-          key: 'roles',
+          key: 'MENU.ROLE_MANAGEMENT',
           label: 'Role Management',
           level: 2,
           icon: 'team',
@@ -88,7 +88,7 @@ export class MenuService {
           disabled: false,
         },
         {
-          key: 'permissions',
+          key: 'MENU.PERMISSION_MANAGEMENT',
           label: 'Permission Management',
           level: 2,
           icon: 'safety-certificate',
@@ -98,7 +98,7 @@ export class MenuService {
           disabled: false,
         },
         {
-          key: 'audit',
+          key: 'MENU.AUDIT',
           label: 'Audit Log',
           level: 2,
           icon: 'database',
@@ -110,7 +110,7 @@ export class MenuService {
       ],
     },
     {
-      key: 'notifications',
+      key: 'MENU.NOTIFICATIONS',
       label: 'Notifications',
       level: 1,
       icon: 'bell',
@@ -120,7 +120,7 @@ export class MenuService {
       disabled: false,
     },
     {
-      key: 'operations',
+      key: 'MENU.OPERATIONS',
       label: 'Operations',
       level: 1,
       icon: 'appstore',
@@ -129,7 +129,7 @@ export class MenuService {
       disabled: false,
       children: [
         {
-          key: 'inventory',
+          key: 'MENU.INVENTORY',
           label: 'Inventory',
           level: 2,
           icon: 'appstore',
@@ -139,7 +139,7 @@ export class MenuService {
           disabled: false,
         },
         {
-          key: 'orders',
+          key: 'MENU.ORDERS',
           label: 'Orders',
           level: 2,
           icon: 'shopping',
@@ -149,7 +149,7 @@ export class MenuService {
           disabled: false,
         },
         {
-          key: 'customers',
+          key: 'MENU.CUSTOMERS',
           label: 'Customers',
           level: 2,
           icon: 'team',
@@ -161,7 +161,7 @@ export class MenuService {
       ],
     },
     {
-      key: 'products',
+      key: 'MENU.PRODUCTS',
       label: 'Products',
       level: 1,
       icon: 'database',
@@ -171,7 +171,7 @@ export class MenuService {
       disabled: false,
     },
     {
-      key: 'categories',
+      key: 'MENU.CATEGORIES',
       label: 'Categories',
       level: 1,
       icon: 'appstore',
@@ -181,7 +181,7 @@ export class MenuService {
       disabled: false,
     },
     {
-      key: 'warehouses',
+      key: 'MENU.WAREHOUSES',
       label: 'Warehouses',
       level: 1,
       icon: 'home',
@@ -191,7 +191,7 @@ export class MenuService {
       disabled: false,
     },
     {
-      key: 'shipping',
+      key: 'MENU.SHIPPING',
       label: 'Shipping',
       level: 1,
       icon: 'car',
@@ -201,7 +201,7 @@ export class MenuService {
       disabled: false,
     },
     {
-      key: 'finance',
+      key: 'MENU.FINANCE',
       label: 'Finance',
       level: 1,
       icon: 'dollar',
@@ -210,7 +210,7 @@ export class MenuService {
       disabled: false,
       children: [
         {
-          key: 'billing',
+          key: 'MENU.BILLING',
           label: 'Billing',
           level: 2,
           icon: 'dollar',
@@ -220,7 +220,7 @@ export class MenuService {
           disabled: false,
         },
         {
-          key: 'invoices',
+          key: 'MENU.INVOICES',
           label: 'Invoices',
           level: 2,
           icon: 'file-text',
@@ -230,7 +230,7 @@ export class MenuService {
           disabled: false,
         },
         {
-          key: 'payments',
+          key: 'MENU.PAYMENTS',
           label: 'Payments',
           level: 2,
           icon: 'credit-card',
@@ -242,7 +242,7 @@ export class MenuService {
       ],
     },
     {
-      key: 'nested-demo',
+      key: 'MENU.NESTED_DEMO',
       label: 'Nested Demo',
       level: 1,
       icon: 'appstore',
@@ -251,7 +251,7 @@ export class MenuService {
       disabled: false,
       children: [
         {
-          key: 'level2-item1',
+          key: 'MENU.LEVEL2_ITEM1',
           label: 'Level 2 - Item 1',
           level: 2,
           icon: 'appstore',
@@ -260,7 +260,7 @@ export class MenuService {
           disabled: false,
           children: [
             {
-              key: 'level3-item1',
+              key: 'MENU.LEVEL3_ITEM1',
               label: 'Level 3 - Item 1',
               level: 3,
               icon: 'appstore',
@@ -270,7 +270,7 @@ export class MenuService {
               disabled: false,
             },
             {
-              key: 'level3-item2',
+              key: 'MENU.LEVEL3_ITEM2',
               label: 'Level 3 - Item 2',
               level: 3,
               icon: 'appstore',
@@ -282,7 +282,7 @@ export class MenuService {
           ]
         },
         {
-          key: 'level2-item2',
+          key: 'MENU.LEVEL2_ITEM2',
           label: 'Level 2 - Item 2',
           level: 2,
           icon: 'appstore',
@@ -292,7 +292,7 @@ export class MenuService {
           disabled: false,
         },
         {
-          key: 'level2-item3',
+          key: 'MENU.LEVEL2_ITEM3',
           label: 'Level 2 - Item 3',
           level: 2,
           icon: 'appstore',
@@ -304,7 +304,7 @@ export class MenuService {
       ]
     },
     {
-      key: 'settings',
+      key: 'MENU.SETTINGS',
       label: 'Settings',
       level: 1,
       icon: 'setting',
@@ -315,7 +315,7 @@ export class MenuService {
     },
   ];
 
-  private selectedMenuItemKey = 'home';
+  private selectedMenuItemKey = 'MENU.HOME';
   private menuDataSubject = new BehaviorSubject<MenuItem[]>(this.menuData);
 
   constructor() {
@@ -361,24 +361,24 @@ export class MenuService {
 
   private updateMenuSelection(): void {
     const selectedKey = this.selectedMenuItemKey;
-    
+
     const updateSelection = (items: MenuItem[]): MenuItem[] => {
       return items.map(item => {
         const isSelected = item.key === selectedKey;
-        
+
         const updatedItem: MenuItem = {
           ...item,
           selected: isSelected,
         };
-        
+
         if (item.children && item.children.length > 0) {
           updatedItem.children = updateSelection(item.children);
         }
-        
+
         return updatedItem;
       });
     };
-    
+
     this.menuData = updateSelection(this.menuData);
     this.menuDataSubject.next(this.menuData);
   }

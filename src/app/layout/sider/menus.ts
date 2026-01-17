@@ -51,7 +51,7 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
             @if (menu.icon) {
             <nz-icon [nzType]="menu.icon" />
             }
-            <span>{{ getTranslatedLabel(menu.key) | translate }}</span>
+            <span>{{ menu.key | translate }}</span>
           </a>
         </li>
         } @else {
@@ -94,48 +94,7 @@ export class Menus {
     });
   }
 
-
-
-  getTranslatedLabel(key: string): string {
-    // Map menu keys to translation keys
-    const translationMap: Record<string, string> = {
-      home: 'MENU.HOME',
-      dashboard: 'MENU.DASHBOARD',
-      analytics: 'MENU.ANALYTICS',
-      reports: 'MENU.REPORTS',
-      security: 'MENU.SECURITY',
-      users: 'MENU.USER_MANAGEMENT',
-      roles: 'MENU.ROLE_MANAGEMENT',
-      permissions: 'MENU.PERMISSION_MANAGEMENT',
-      audit: 'MENU.AUDIT',
-      notifications: 'MENU.NOTIFICATIONS',
-      operations: 'MENU.OPERATIONS',
-      inventory: 'MENU.INVENTORY',
-      orders: 'MENU.ORDERS',
-      customers: 'MENU.CUSTOMERS',
-      products: 'MENU.PRODUCTS',
-      categories: 'MENU.CATEGORIES',
-      warehouses: 'MENU.WAREHOUSES',
-      shipping: 'MENU.SHIPPING',
-      finance: 'MENU.FINANCE',
-      billing: 'MENU.BILLING',
-      invoices: 'MENU.INVOICES',
-      payments: 'MENU.PAYMENTS',
-      'nested-demo': 'MENU.NESTED_DEMO',
-      'level2-item1': 'MENU.LEVEL2_ITEM1',
-      'level3-item1': 'MENU.LEVEL3_ITEM1',
-      'level3-item2': 'MENU.LEVEL3_ITEM2',
-      'level2-item2': 'MENU.LEVEL2_ITEM2',
-      'level2-item3': 'MENU.LEVEL2_ITEM3',
-      settings: 'MENU.SETTINGS',
-    };
-
-    const translationKey = translationMap[key] || `MENU.${key.toUpperCase().replace(/-/g, '_')}`;
-    return translationKey;
-  }
-
   getTranslatedTitle(key: string): string {
-    const translationKey = this.getTranslatedLabel(key);
-    return this.translateService.instant(translationKey);
+    return this.translateService.instant(key);
   }
 }
