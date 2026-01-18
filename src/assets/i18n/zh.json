@@ -119,6 +119,7 @@
     "NO": "否",
     "OK": "确定",
     "BACK": "返回",
+    "SEARCH": "搜索",
     "NEXT": "下一步",
     "PREVIOUS": "上一步",
     "USER": "用户",
@@ -216,5 +217,9 @@
       "WARNING": "警告",
       "ERROR": "错误"
     }
+  },
+  "SEARCH": {
+    "SUGGESTIONS": "最近搜索",
+    "NO_RESULTS": "未找到结果"
   }
 }

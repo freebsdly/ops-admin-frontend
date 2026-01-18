@@ -130,11 +130,6 @@ export interface TabItem {
         <li nz-menu-item (click)="reloadCurrentTab()">
           <span>{{ 'TABS.MANAGEMENT.RELOAD_CURRENT_TAB' | translate }}</span>
         </li>
-        <li nz-menu-item 
-          (click)="duplicateCurrentTab()" 
-          [nzDisabled]="!isTabClosable()">
-          <span>{{ 'TABS.MANAGEMENT.DUPLICATE_CURRENT_TAB' | translate }}</span>
-        </li>
         <li nz-menu-divider></li>
         <li nz-menu-item 
           (click)="pinCurrentTab()" 

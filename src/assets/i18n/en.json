@@ -118,6 +118,7 @@
     "YES": "Yes",
     "NO": "No",
     "OK": "OK",
+    "SEARCH": "Search",
     "BACK": "Back",
     "NEXT": "Next",
     "PREVIOUS": "Previous",
@@ -216,5 +217,9 @@
       "WARNING": "Warning",
       "ERROR": "Error"
     }
+  },
+  "SEARCH": {
+    "SUGGESTIONS": "Recent Searches",
+    "NO_RESULTS": "No results found"
   }
 }
