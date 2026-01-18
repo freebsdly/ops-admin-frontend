@@ -38,7 +38,7 @@ export interface TabItem {
         <div class="flex items-center border-b border-gray-300">
           @for (tab of tabs(); track tab.key; let i = $index) {
           <button
-            class="flex items-center justify-between gap-1 px-2 py-0.5 rounded-t font-medium transition-colors w-28 h-8 border border-gray-300 border-b-0 relative"
+            class="flex items-center justify-between gap-1 px-2 py-0.5 font-medium transition-colors w-28 h-8 border border-gray-300 border-b-0 relative"
             [class.bg-white]="i === selectedIndex()"
             [class.bg-gray-50]="i !== selectedIndex()"
             [class.text-blue-600]="i === selectedIndex()"
