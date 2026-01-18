@@ -194,5 +194,27 @@
       "PIN_CURRENT_TAB": "固定当前标签页",
       "UNPIN_CURRENT_TAB": "取消固定当前标签页"
     }
+  },
+  "MESSAGES": {
+    "TITLE": "消息",
+    "NOTIFICATIONS": "通知",
+    "NO_NOTIFICATIONS": "暂无通知",
+    "NO_MESSAGES": "暂无消息",
+    "NEW": "新",
+    "UNREAD": "条未读",
+    "VIEW_ALL_MESSAGES": "查看全部消息",
+    "MARK_AS_READ": "标记为已读",
+    "READ": "已读",
+    "LOAD_MORE": "加载更多",
+    "JUST_NOW": "刚刚",
+    "MINUTES_AGO": "{count}分钟前",
+    "HOURS_AGO": "{count}小时前",
+    "DAYS_AGO": "{count}天前",
+    "TYPE": {
+      "INFO": "信息",
+      "SUCCESS": "成功",
+      "WARNING": "警告",
+      "ERROR": "错误"
+    }
   }
 }

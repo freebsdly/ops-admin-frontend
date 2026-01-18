@@ -3,6 +3,7 @@ import { AuthGuard } from '@/app/guards/auth.guard';
 import { HomeComponent } from '@/app/pages/home/home.component';
 import { LoginComponent } from '@/app/pages/login/login.component';
 import { UserProfileComponent } from '@/app/pages/user-profile/user-profile.component';
+import { MessagesComponent } from '@/app/pages/messages/messages.component';
 import { PlaceholderComponent } from '@/app/pages/placeholder.component';
 
 export const routes: Routes = [
@@ -19,6 +20,11 @@ export const routes: Routes = [
   {
     path: 'profile',
     component: UserProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'messages',
+    component: MessagesComponent,
     canActivate: [AuthGuard],
   },
   {

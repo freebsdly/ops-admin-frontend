@@ -194,5 +194,27 @@
       "PIN_CURRENT_TAB": "Pin Current Tab",
       "UNPIN_CURRENT_TAB": "Unpin Current Tab"
     }
+  },
+  "MESSAGES": {
+    "TITLE": "Messages",
+    "NOTIFICATIONS": "Notifications",
+    "NO_NOTIFICATIONS": "No notifications",
+    "NO_MESSAGES": "No messages",
+    "NEW": "new",
+    "UNREAD": "unread",
+    "VIEW_ALL_MESSAGES": "View All Messages",
+    "MARK_AS_READ": "Mark as Read",
+    "READ": "Read",
+    "LOAD_MORE": "Load More",
+    "JUST_NOW": "Just now",
+    "MINUTES_AGO": "{count}m ago",
+    "HOURS_AGO": "{count}h ago",
+    "DAYS_AGO": "{count}d ago",
+    "TYPE": {
+      "INFO": "Info",
+      "SUCCESS": "Success",
+      "WARNING": "Warning",
+      "ERROR": "Error"
+    }
   }
 }
