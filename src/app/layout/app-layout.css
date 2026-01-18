@@ -82,59 +82,6 @@
   min-height: var(--header-height);
 }
 
-/* Menu item styling with proper margins */
-:host ::ng-deep .ant-menu-item {
-  height: var(--menu-item-height) !important;
-  line-height: var(--menu-item-height) !important;
-}
-
-:host ::ng-deep .ant-menu-item .ant-menu-title-content {
-  overflow: visible !important;
-}
-
-:host ::ng-deep .ant-menu-item:hover {
-  background-color: var(--color-bg-menu-hover) !important;
-}
-
-:host ::ng-deep .ant-menu-submenu-title:hover {
-  background-color: var(--color-bg-menu-hover) !important;
-}
-
-/* Active menu item styling */
-:host ::ng-deep .ant-menu-item-selected {
-  background-color: var(--color-bg-menu-selected) !important;
-}
-
-:host ::ng-deep .ant-menu-item-selected a {
-  color: var(--color-primary) !important;
-}
-
-/* Ensure consistent icon alignment */
-:host ::ng-deep .ant-menu-item .ant-menu-item-icon,
-:host ::ng-deep .ant-menu-submenu-title .ant-menu-item-icon,
-:host ::ng-deep .ant-menu-item .anticon,
-:host ::ng-deep .ant-menu-submenu-title .anticon {
-  width: var(--icon-size) !important;
-  min-width: var(--icon-size) !important;
-  font-size: var(--icon-size) !important;
-  line-height: 1 !important;
-  vertical-align: middle !important;
-}
-
-/* Consistent spacing for menu items */
-:host ::ng-deep .ant-menu-item a {
-  display: flex !important;
-  align-items: center !important;
-  gap: var(--spacing-sm) !important;
-}
-
-/* Align submenu titles with menu items */
-:host ::ng-deep .ant-menu-submenu-title {
-  display: flex !important;
-  align-items: center !important;
-  gap: var(--spacing-sm) !important;
-}
-
 /* Collapse button width to match sidebar */
 :host ::ng-deep .ant-layout-sider-collapsed .ant-layout-sider-trigger {
   width: var(--sider-collapsed-width) !important;
