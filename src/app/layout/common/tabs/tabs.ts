@@ -54,7 +54,12 @@ export interface TabItem {
               @if (tab.icon) {
               <nz-icon [nzType]="tab.icon" [class.text-blue-500]="i === selectedIndex()" [class.text-gray-600]="i !== selectedIndex()" class="shrink-0" />
               }
-              <span class="break-words line-clamp-1 leading-tight text-[12px] truncate text-center flex-1">{{ tab.label | translate }}</span>
+              <span
+                class="whitespace-nowrap overflow-hidden text-ellipsis leading-tight text-[12px] text-center flex-1"
+                [attr.title]="tab.label | translate"
+              >
+                {{ tab.label | translate }}
+              </span>
             </div>
             <button
               class="text-gray-500 hover:text-gray-700 shrink-0 text-[10px] w-4"
