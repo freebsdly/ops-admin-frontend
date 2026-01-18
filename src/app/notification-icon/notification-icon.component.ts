@@ -190,9 +190,9 @@ export interface Message {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     .notification-item-tag {
@@ -203,6 +203,7 @@ export interface Message {
       font-size: 11px;
       font-weight: 400;
       flex-shrink: 0;
+      margin-left: 2px;
     }
 
     .notification-item-text {

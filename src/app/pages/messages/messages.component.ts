@@ -66,10 +66,12 @@ export interface Message {
                       </div>
                     </ng-template>
                     <ng-template #titleTemplate>
-                      <span class="message-title">{{ item.title }}</span>
-                      @if (!item.read) {
-                        <nz-tag nzColor="blue" class="message-tag">{{ 'MESSAGES.NEW' | translate }}</nz-tag>
-                      }
+                      <div class="message-title-wrapper">
+                        <span class="message-title">{{ item.title }}</span>
+                        @if (!item.read) {
+                          <nz-tag nzColor="blue" class="message-tag">{{ 'MESSAGES.NEW' | translate }}</nz-tag>
+                        }
+                      </div>
                     </ng-template>
                     <ng-template #descriptionTemplate>
                       <div class="message-content">{{ item.content }}</div>
@@ -102,7 +104,7 @@ export interface Message {
   `,
   styles: `
     .messages-container {
-      padding: 24px;
+      padding: 0px;
       background: #f5f5f5;
       min-height: calc(100vh - var(--header-height) - 16px);
     }
@@ -164,22 +166,26 @@ export interface Message {
       color: #ff4d4f;
     }
 
+    .message-title-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
     .message-title {
       font-size: 14px;
       font-weight: 500;
       color: #262626;
-      margin-right: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .message-tag {
-      font-size: 12px;
-      padding: 0 4px;
+      font-size: 11px;
+      padding: 0 6px;
       height: 18px;
       line-height: 18px;
       border-radius: 4px;
+      flex-shrink: 0;
+      margin-left: 2px;
     }
 
     .message-content {
