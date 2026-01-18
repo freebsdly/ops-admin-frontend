@@ -4,7 +4,6 @@ import { HomeComponent } from '@/app/pages/home/home.component';
 import { LoginComponent } from '@/app/pages/login/login.component';
 import { UserProfileComponent } from '@/app/pages/user-profile/user-profile.component';
 import { PlaceholderComponent } from '@/app/pages/placeholder.component';
-import { RouteLoadingTestComponent } from '@/app/components/route-loading-test.component';
 
 export const routes: Routes = [
   {
@@ -25,13 +24,6 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-  },
-  // Test route for loading indicator
-  {
-    path: 'test-loading',
-    component: RouteLoadingTestComponent,
-    canActivate: [AuthGuard],
-    data: { titleKey: 'TEST.LOADING' },
   },
   // Dashboard routes
   {
