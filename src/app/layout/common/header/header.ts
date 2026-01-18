@@ -10,7 +10,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '@/app/language-switcher/language-switcher.component';
 import { UserInfoCardComponent, UserInfo } from '@/app/layout/common/user-info/user-info.component';
-import { NotificationIconComponent } from '@/app/notification-icon/notification-icon.component';
+import { NotificationIconComponent } from '@/app/layout/common/notification-icon/notification-icon.component';
 
 @Component({
   selector: 'app-header',
