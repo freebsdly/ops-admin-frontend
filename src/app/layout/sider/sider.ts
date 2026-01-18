@@ -8,7 +8,7 @@ import { Menus } from '@/app/layout/sider/menus';
   selector: 'app-sider',
   imports: [NzIconModule, NzButtonModule, NzLayoutModule, Menus],
   template: `
-    <nz-sider [nzCollapsed]="collapsed()" [nzWidth]="220" [nzCollapsedWidth]="48" class="!bg-gray-100 flex flex-col full-height">
+    <nz-sider [nzCollapsed]="collapsed()" [nzWidth]="240" [nzCollapsedWidth]="48" class="!bg-gray-100 flex flex-col full-height">
       <!-- Scrollable menu area - fills remaining space -->
       <div class="flex-1 min-h-0 overflow-y-auto hidden-scrollbar bg-gray-100" [class.overflow-x-hidden]="!collapsed()">
         <app-menus
