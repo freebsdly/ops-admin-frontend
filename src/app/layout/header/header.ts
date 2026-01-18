@@ -33,18 +33,6 @@ import { UserInfoCardComponent, UserInfo } from '@/app/components/user-info-card
         <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="logo-img" />
       </div>
       <div class="flex-1 flex items-center justify-start px-2">
-              <!-- Collapse button -->
-      <button
-        nz-button
-        nzType="text"
-        (click)="onToggleSidebar.emit()"
-      >
-        <span
-          nz-icon
-          [nzType]="sidebarCollapsed() ? 'menu-unfold' : 'menu-fold'"
-          nzTheme="outline"
-        ></span>
-      </button>
       </div>
 
       <!-- Spacer for content area -->
