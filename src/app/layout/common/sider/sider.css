@@ -8,9 +8,12 @@
 }
 
 ::ng-deep nz-layout-sider.ant-layout-sider-collapsed {
-  width: var(--sider-collapsed-width) !important;
-  min-width: var(--sider-collapsed-width) !important;
-  max-width: var(--sider-collapsed-width) !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  flex: 0 0 0 !important;
+  overflow: hidden !important;
+  border: none !important;
 }
 
 ::ng-deep nz-layout-sider:not(.ant-layout-sider-collapsed) {
@@ -19,25 +22,18 @@
   max-width: var(--sider-width) !important;
 }
 
-/* Sidebar header - matches header height */
-.sidebar-header {
-  flex-shrink: 0;
-  height: var(--header-height);
-  min-height: var(--header-height);
-}
-
 /* Hidden scrollbar styles */
-.hidden-scrollbar {
+.app-sider-hidden-scrollbar {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
   scrollbar-width: none;     /* Firefox */
 }
 
-.hidden-scrollbar::-webkit-scrollbar {
+.app-sider-hidden-scrollbar::-webkit-scrollbar {
   display: none;             /* Safari and Chrome */
 }
 
 /* Sidebar footer - same height as header */
-.sidebar-footer {
+.app-sider-footer {
   flex-shrink: 0;
   height: var(--header-height);
   min-height: var(--header-height);

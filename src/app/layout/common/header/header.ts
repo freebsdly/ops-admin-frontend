@@ -29,8 +29,8 @@ import { UserInfoCardComponent, UserInfo } from '@/app/layout/common/user-info/u
   template: `
     <div class="h-full bg-white border-b border-gray-200 flex relative">
       <!-- Left section: Logo area -->
-      <div class="logo-area">
-        <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="logo-img" />
+      <div class="app-header-logo-area">
+        <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="app-header-logo-img" />
       </div>
       <div class="flex-1 flex items-center justify-start px-2">
       </div>
@@ -64,7 +64,7 @@ import { UserInfoCardComponent, UserInfo } from '@/app/layout/common/user-info/u
           </nz-space>
 
           <!-- Dropdown menu -->
-          <nz-dropdown-menu #userMenu="nzDropdownMenu" class="user-info-dropdown">
+          <nz-dropdown-menu #userMenu="nzDropdownMenu" class="app-header-user-info-dropdown">
             <app-user-info-card
               [user]="user()"
               (onLogout)="onLogout.emit()"

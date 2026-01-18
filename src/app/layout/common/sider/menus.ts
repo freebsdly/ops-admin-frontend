@@ -2,20 +2,15 @@ import {
   Component,
   ChangeDetectionStrategy,
   input,
-  output,
-  signal,
   inject,
-  OnInit,
-  DestroyRef,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateModule } from '@ngx-translate/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MenuService, MenuItem } from '@/app/services/menu.service';
 
 @Component({
@@ -26,7 +21,6 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
     NgTemplateOutlet,
     NzIconModule,
     NzMenuModule,
-    NzButtonModule,
     NzTooltipModule,
     TranslateModule,
   ],
@@ -34,7 +28,7 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
     <ul
       nz-menu
       nzMode="inline"
-      class="sidebar-width"
+      class="app-layout-sidebar-width"
       [nzInlineCollapsed]="collapsed()"
       nzMenuTooltipPlacement="right"
     >
@@ -60,7 +54,7 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
           [nzPaddingLeft]="menu.level * 16"
           [nzOpen]="collapsed() ? undefined : menu.open"
           [nzIcon]="menu.icon"
-          [nzTitle]="getTranslatedTitle(menu.key)"
+          [nzTitle]="menu.key | translate"
           [nzDisabled]="menu.disabled"
         >
           <ul>
@@ -75,26 +69,8 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppMenus {
-  private readonly menuService = inject(MenuService);
-  private readonly translateService = inject(TranslateService);
-  private destroyRef = inject(DestroyRef);
-
-  menuItems = signal<MenuItem[]>([]);
-
   collapsed = input<boolean>(false);
 
-  onToggleCollapsed = output<boolean>();
-
-  constructor() {
-    // Subscribe to menu data updates
-    this.menuService.getMenuData().pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe((data) => {
-      this.menuItems.set(data);
-    });
-  }
-
-  getTranslatedTitle(key: string): string {
-    return this.translateService.instant(key);
-  }
+  private readonly menuService = inject(MenuService);
+  readonly menuItems = toSignal(this.menuService.getMenuData(), { initialValue: [] });
 }

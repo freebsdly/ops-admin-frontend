@@ -3,7 +3,7 @@
   height: var(--header-height);
 }
 
-.logo-area {
+.app-header-logo-area {
   width: var(--sider-width);
   height: var(--header-height);
   border-right: 1px solid var(--color-gray-200);
@@ -15,11 +15,11 @@
   transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.logo-area.collapsed {
+.app-header-logo-area-collapsed {
   width: var(--sider-collapsed-width);
 }
 
-.logo-img {
+.app-header-logo-img {
   width: var(--sider-width);
   height: var(--header-height);
   display: block;
@@ -28,18 +28,18 @@
   transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.logo-img.collapsed {
+.app-header-logo-img-collapsed {
   width: var(--sider-collapsed-width);
 }
 
 /* User info dropdown styling for new design */
-:host ::ng-deep .user-info-dropdown {
+:host ::ng-deep .app-header-user-info-dropdown {
   width: auto !important;
   min-width: auto !important;
   max-width: none !important;
 }
 
-:host ::ng-deep .user-info-dropdown .ant-dropdown-menu {
+:host ::ng-deep .app-header-user-info-dropdown .ant-dropdown-menu {
   width: auto !important;
   min-width: auto !important;
   padding: 0;
@@ -48,16 +48,16 @@
 }
 
 /* Custom hover effects for menu items */
-:host ::ng-deep .user-info-dropdown .ant-dropdown-menu-item:hover {
+:host ::ng-deep .app-header-user-info-dropdown .ant-dropdown-menu-item:hover {
   background-color: transparent !important;
 }
 
 /* Collapse button styling */
-.collapse-button {
+.app-header-collapse-button {
   z-index: 10;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
-.collapse-button:hover {
+.app-header-collapse-button:hover {
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
 }

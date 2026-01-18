@@ -51,7 +51,7 @@ import { TranslateModule } from '@ngx-translate/core';
       <!-- Main content area with sidebar -->
       <div class="flex-1 flex min-h-0 relative">
         <!-- Left column: Sidebar component -->
-        <app-sider [collapsed]="sidebarCollapsed()" (onToggleCollapsed)="toggleSidebar()" />
+        <app-sider [collapsed]="sidebarCollapsed()" />
 
         <!-- Collapse button - half circle on sider right border -->
         <button
@@ -59,9 +59,9 @@ import { TranslateModule } from '@ngx-translate/core';
           nzType="primary"
           nzShape="circle"
           (click)="toggleSidebar()"
-          class="sidebar-collapse-button"
-          [class.sidebar-collapsed]="sidebarCollapsed()"
-          [class.sidebar-expanded]="!sidebarCollapsed()"
+          class="app-layout-collapse-button"
+          [class.app-layout-collapse-button-collapsed]="sidebarCollapsed()"
+          [class.app-layout-collapse-button-expanded]="!sidebarCollapsed()"
           nzTooltipPlacement="right"
         >
           <span nz-icon [nzType]="sidebarCollapsed() ? 'menu-unfold' : 'menu-fold'"></span>

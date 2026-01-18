@@ -20,15 +20,6 @@
   flex-direction: column !important;
 }
 
-:host ::ng-deep .ant-layout-sider-collapsed {
-  width: 0 !important;
-  min-width: 0 !important;
-  max-width: 0 !important;
-  flex: 0 0 0 !important;
-  overflow: hidden !important;
-  border: none !important;
-}
-
 :host ::ng-deep .ant-layout-sider .ant-layout-sider-children {
   display: flex !important;
   flex-direction: column !important;
@@ -37,7 +28,7 @@
 }
 
 /* Sidebar header - matches header height */
-.sidebar-header {
+.app-layout-sidebar-header {
   flex-shrink: 0;
   height: var(--header-height);
   min-height: var(--header-height);
@@ -52,7 +43,7 @@
 }
 
 /* Sidebar footer - same height as header */
-.sidebar-footer {
+.app-layout-sidebar-footer {
   flex-shrink: 0;
   height: var(--header-height);
   min-height: var(--header-height);
@@ -92,16 +83,16 @@
 }
 
 /* Full height utility class */
-.full-height {
+.app-layout-full-height {
   height: 100% !important;
 }
 
 /* Sidebar width classes */
-.sidebar-width {
+.app-layout-sidebar-width {
   width: var(--sider-width) !important;
 }
 
-.sidebar-width-collapsed {
+.app-layout-sidebar-width-collapsed {
   width: var(--sider-collapsed-width) !important;
 }
 
@@ -130,7 +121,7 @@
 }
 
 /* Sidebar collapse button - half circle on sider right border */
-.sidebar-collapse-button {
+.app-layout-collapse-button {
   position: absolute;
   top: 60px;
   width: 32px;
@@ -149,16 +140,16 @@
 }
 
 /* When sidebar is expanded - button on sider right border (left: 240px - 16px = 224px) */
-.sidebar-collapse-button.sidebar-expanded {
+.app-layout-collapse-button-expanded {
   left: 224px;
 }
 
-/* When sidebar is collapsed - button on left edge (left: -16px) */
-.sidebar-collapse-button.sidebar-collapsed {
+/* When sidebar is collapsed/hidden - button on left edge (left: -16px) */
+.app-layout-collapse-button-collapsed {
   left: -16px;
 }
 
-.sidebar-collapse-button:hover {
+.app-layout-collapse-button:hover {
   background: #40a9ff;
   transform: scale(1.1);
 }

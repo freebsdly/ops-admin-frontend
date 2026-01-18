@@ -1,9 +1,4 @@
 /* Menus component styles */
-/* :host {
-  display: block;
-} */
-
-/* Override nz-menu background color */
 ::ng-deep .ant-menu {
   background-color: var(--color-bg-menu) !important;
 }
