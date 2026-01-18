@@ -182,7 +182,7 @@ export class RouteConfigService {
       path: '/messages',
       key: 'messages',
       titleKey: 'MESSAGES.TITLE',
-      icon: 'message',
+      icon: 'mail',
     },
     // Test loading route
     {
