@@ -186,12 +186,12 @@
 .sidebar-collapse-button {
   position: absolute;
   top: 60px;
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
-  min-height: 24px;
-  line-height: 24px;
-  font-size: 12px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  line-height: 32px;
+  font-size: 16px;
   padding: 0;
   z-index: 100;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -201,14 +201,14 @@
   transition: all 0.3s ease;
 }
 
-/* When sidebar is expanded - button on sider right border (left: 240px - 12px = 228px) */
+/* When sidebar is expanded - button on sider right border (left: 240px - 16px = 224px) */
 .sidebar-collapse-button.sidebar-expanded {
-  left: 228px;
+  left: 224px;
 }
 
-/* When sidebar is collapsed - button on left edge (left: -12px) */
+/* When sidebar is collapsed - button on left edge (left: -16px) */
 .sidebar-collapse-button.sidebar-collapsed {
-  left: -12px;
+  left: -16px;
 }
 
 .sidebar-collapse-button:hover {
