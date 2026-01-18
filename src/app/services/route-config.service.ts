@@ -177,6 +177,13 @@ export class RouteConfigService {
       titleKey: 'LAYOUT.HEADER.PROFILE',
       icon: 'user',
     },
+    // Messages route
+    {
+      path: '/messages',
+      key: 'messages',
+      titleKey: 'MESSAGES.TITLE',
+      icon: 'message',
+    },
     // Test loading route
     {
       path: '/test-loading',
