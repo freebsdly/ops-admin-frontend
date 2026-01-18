@@ -2,9 +2,14 @@ import {
   Component,
   ChangeDetectionStrategy,
   signal,
+  computed,
   inject,
   effect,
   DestroyRef,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -31,10 +36,11 @@ export interface TabItem {
   template: `
     <div class="bg-white border-b border-gray-200">
       <div
-        class="tab-container border-b border-gray-200 flex items-center h-8 overflow-x-auto overflow-y-hidden"
+        #tabContainer
+        class="tab-container border-b border-gray-200 flex items-center h-8 overflow-hidden"
       >
-        <div class="flex items-center border-b border-gray-300">
-          @for (tab of tabs(); track tab.key; let i = $index) {
+        <div #tabsWrapper class="flex items-center border-b border-gray-300">
+          @for (tab of visibleTabs(); track tab.key; let i = $index) {
           <button
             class="flex items-center justify-between gap-1 px-2 py-0.5 font-medium transition-colors w-28 h-8 border border-gray-300 border-b-0 relative"
             [class.bg-white]="i === selectedIndex()"
@@ -71,9 +77,39 @@ export interface TabItem {
             </button>
           </button>
           }
+
+          @if (overflowTabs().length > 0) {
+          <button
+            nz-dropdown
+            [nzDropdownMenu]="overflowMenu"
+            nzPlacement="bottomRight"
+            class="flex items-center justify-center h-8 px-2 border-l border-gray-300 bg-white hover:bg-gray-50"
+          >
+            <nz-icon nzType="ellipsis" />
+          </button>
+          }
         </div>
       </div>
     </div>
+
+    <!-- Overflow Tabs Dropdown Menu -->
+    <nz-dropdown-menu #overflowMenu="nzDropdownMenu">
+      <ul nz-menu>
+        @for (tab of overflowTabs(); track tab.key; let i = $index) {
+        <li nz-menu-item
+          [class.ant-menu-item-selected]="tab.key === tabs()[selectedIndex()]?.key"
+          (click)="onOverflowTabClick(tab)"
+        >
+          <span class="flex items-center gap-2">
+            @if (tab.icon) {
+            <nz-icon [nzType]="tab.icon" class="text-sm" />
+            }
+            <span>{{ tab.label | translate }}</span>
+          </span>
+        </li>
+        }
+      </ul>
+    </nz-dropdown-menu>
 
     <!-- Tab Management Dropdown Menu -->
     <nz-dropdown-menu #tabManagementMenu="nzDropdownMenu">
@@ -118,17 +154,6 @@ export interface TabItem {
       display: block;
     }
 
-    /* Hide scrollbar for tab container */
-    .tab-container::-webkit-scrollbar {
-      display: none;
-    }
-
-    .tab-container {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
-      scroll-behavior: smooth;
-    }
-
     /* Ensure tab buttons don't shrink and maintain consistent appearance */
     .tab-container button {
       flex-shrink: 0;
@@ -144,8 +169,25 @@ export class AppTabBar {
   private readonly contextMenuService = inject(NzContextMenuService);
   private readonly tabsStorageKey = 'app_tabs';
 
+  @ViewChild('tabContainer') tabContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild('tabsWrapper') tabsWrapper!: ElementRef<HTMLDivElement>;
+
+  private resizeObserver: ResizeObserver | null = null;
+
   // Initialize tabs from localStorage or with default home tab
   tabs = signal<TabItem[]>(this.loadTabsFromStorage());
+
+  visibleTabs = computed(() => {
+    const allTabs = this.tabs();
+    return allTabs.slice(0, this.maxVisibleTabs());
+  });
+
+  overflowTabs = computed(() => {
+    const allTabs = this.tabs();
+    return allTabs.slice(this.maxVisibleTabs());
+  });
+
+  maxVisibleTabs = signal(10);
 
   selectedIndex = signal(this.loadSelectedIndexFromStorage());
   contextMenuIndex = signal(0);
@@ -170,6 +212,37 @@ export class AppTabBar {
 
     // Initial tab update
     this.handleRouteChange();
+  }
+
+  ngAfterViewInit() {
+    // Observe container size to adjust visible tabs
+    this.resizeObserver = new ResizeObserver(() => {
+      this.calculateVisibleTabs();
+    });
+
+    if (this.tabContainer) {
+      this.resizeObserver.observe(this.tabContainer.nativeElement);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+  }
+
+  private calculateVisibleTabs(): void {
+    if (!this.tabContainer || !this.tabsWrapper) {
+      return;
+    }
+
+    const containerWidth = this.tabContainer.nativeElement.clientWidth;
+    const tabWidth = 112; // 7rem = 112px
+    const dropdownWidth = 32; // approx width for dropdown button
+    const availableWidth = containerWidth - dropdownWidth;
+    const maxTabs = Math.floor(availableWidth / tabWidth);
+
+    this.maxVisibleTabs.set(Math.max(1, maxTabs));
   }
 
   private loadTabsFromStorage(): TabItem[] {
@@ -314,6 +387,14 @@ export class AppTabBar {
     const tab = this.tabs()[index];
     if (tab && tab.path) {
       this.router.navigate([tab.path]);
+    }
+  }
+
+  onOverflowTabClick(tab: TabItem): void {
+    // Find the actual index in all tabs
+    const index = this.tabs().findIndex((t) => t.key === tab.key);
+    if (index !== -1) {
+      this.onTabClick(index);
     }
   }
 
