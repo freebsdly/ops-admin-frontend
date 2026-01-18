@@ -1,10 +1,10 @@
 import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { Menus } from '@/app/layout/sider/menus';
+import { AppMenus } from '@/app/layout/sider/menus';
 
 @Component({
   selector: 'app-sider',
-  imports: [NzLayoutModule, Menus],
+  imports: [NzLayoutModule, AppMenus],
   template: `
     <nz-sider [nzCollapsed]="collapsed()" [nzWidth]="240" [nzCollapsedWidth]="48" class="!bg-gray-100 flex flex-col full-height relative">
       <!-- Scrollable menu area - fills remaining space -->
@@ -24,7 +24,7 @@ import { Menus } from '@/app/layout/sider/menus';
   styleUrl: './sider.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Sider {
+export class AppSider {
   collapsed = input<boolean>(false);
 
   onToggleCollapsed = output<void>();

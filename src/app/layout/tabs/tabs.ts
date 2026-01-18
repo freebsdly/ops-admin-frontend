@@ -28,7 +28,7 @@ export interface TabItem {
 }
 
 @Component({
-  selector: 'app-tabs',
+  selector: 'app-tabbar',
   imports: [TranslateModule, NzIconModule, NzDropdownModule, NzButtonModule, NzSpaceModule],
   template: `
     <div class="bg-white border-b border-gray-200">
@@ -133,7 +133,7 @@ export interface TabItem {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Tabs {
+export class AppTabBar {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   private readonly routeConfigService = inject(RouteConfigService);

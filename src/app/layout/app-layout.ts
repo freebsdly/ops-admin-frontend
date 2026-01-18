@@ -12,9 +12,9 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { MenuFoldOutline, MenuUnfoldOutline } from '@ant-design/icons-angular/icons';
-import { Sider } from '@/app/layout/sider/sider';
+import { AppSider } from '@/app/layout/sider/sider';
 import { AppHeader } from '@/app/layout/header/header';
-import { Tabs } from '@/app/layout/tabs/tabs';
+import { AppTabBar } from '@/app/layout/tabs/tabs';
 import { LanguageSwitcherComponent } from '@/app/language-switcher/language-switcher.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -30,9 +30,9 @@ import { TranslateModule } from '@ngx-translate/core';
     NzSpaceModule,
     NzBreadCrumbModule,
     NzTooltipModule,
-    Sider,
+    AppSider,
     AppHeader,
-    Tabs,
+    AppTabBar,
     LanguageSwitcherComponent,
     TranslateModule,
   ],
@@ -70,7 +70,7 @@ import { TranslateModule } from '@ngx-translate/core';
         <!-- Right column: Content area -->
         <div class="flex-1 flex flex-col min-w-0">
           <!-- Tab Bar -->
-          <app-tabs class="h-8 border-b border-gray-200" />
+          <app-tabbar class="h-8 border-b border-gray-200" />
 
         <!-- Main content area -->
         <div class="flex-1 min-h-0 overflow-auto bg-white p-4 content-area">

@@ -74,7 +74,7 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
   styleUrl: './menus.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Menus {
+export class AppMenus {
   private readonly menuService = inject(MenuService);
   private readonly translateService = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
