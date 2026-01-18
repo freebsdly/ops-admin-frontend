@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, computed, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, signal, OnInit } from '@angular/core';
 import { AuthService } from '@/app/services/auth.service';
 import { Router } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -9,6 +9,9 @@ import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
+import { NzIconService } from 'ng-zorro-antd/icon';
+import { MenuFoldOutline, MenuUnfoldOutline } from '@ant-design/icons-angular/icons';
 import { Sider } from '@/app/layout/sider/sider';
 import { AppHeader } from '@/app/layout/header/header';
 import { Tabs } from '@/app/layout/tabs/tabs';
@@ -26,6 +29,7 @@ import { TranslateModule } from '@ngx-translate/core';
     NzAvatarModule,
     NzSpaceModule,
     NzBreadCrumbModule,
+    NzTooltipModule,
     Sider,
     AppHeader,
     Tabs,
@@ -45,11 +49,23 @@ import { TranslateModule } from '@ngx-translate/core';
       />
 
       <!-- Main content area with sidebar -->
-      <div class="flex-1 flex min-h-0">
+      <div class="flex-1 flex min-h-0 relative">
         <!-- Left column: Sidebar component -->
-        @if (!sidebarCollapsed()) {
         <app-sider [collapsed]="sidebarCollapsed()" (onToggleCollapsed)="toggleSidebar()" />
-        }
+
+        <!-- Collapse button - half circle on sider right border -->
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          (click)="toggleSidebar()"
+          class="sidebar-collapse-button"
+          [class.sidebar-collapsed]="sidebarCollapsed()"
+          [class.sidebar-expanded]="!sidebarCollapsed()"
+          nzTooltipPlacement="right"
+        >
+          <span nz-icon [nzType]="sidebarCollapsed() ? 'menu-unfold' : 'menu-fold'"></span>
+        </button>
 
         <!-- Right column: Content area -->
         <div class="flex-1 flex flex-col min-w-0">
@@ -84,12 +100,16 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './app-layout.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppLayout {
+export class AppLayout implements OnInit {
   user = computed(() => this.authService.user());
   sidebarCollapsed = signal(false);
   showFooter = signal(false);
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private iconService: NzIconService) {}
+
+  ngOnInit(): void {
+    this.iconService.addIcon(MenuFoldOutline, MenuUnfoldOutline);
+  }
 
   toggleSidebar(): void {
     this.sidebarCollapsed.set(!this.sidebarCollapsed());

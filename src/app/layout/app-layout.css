@@ -21,10 +21,12 @@
 }
 
 :host ::ng-deep .ant-layout-sider-collapsed {
-  width: var(--sider-collapsed-width) !important;
-  min-width: var(--sider-collapsed-width) !important;
-  max-width: var(--sider-collapsed-width) !important;
-  flex: 0 0 var(--sider-collapsed-width) !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  flex: 0 0 0 !important;
+  overflow: hidden !important;
+  border: none !important;
 }
 
 :host ::ng-deep .ant-layout-sider .ant-layout-sider-children {
@@ -178,4 +180,38 @@
 
 :host ::ng-deep .content-area::-webkit-scrollbar-thumb:hover {
   background: var(--color-gray-400);
+}
+
+/* Sidebar collapse button - half circle on sider right border */
+.sidebar-collapse-button {
+  position: absolute;
+  top: 60px;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  line-height: 24px;
+  font-size: 12px;
+  padding: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background: var(--color-primary);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+/* When sidebar is expanded - button on sider right border (left: 240px - 12px = 228px) */
+.sidebar-collapse-button.sidebar-expanded {
+  left: 228px;
+}
+
+/* When sidebar is collapsed - button on left edge (left: -12px) */
+.sidebar-collapse-button.sidebar-collapsed {
+  left: -12px;
+}
+
+.sidebar-collapse-button:hover {
+  background: #40a9ff;
+  transform: scale(1.1);
 }
