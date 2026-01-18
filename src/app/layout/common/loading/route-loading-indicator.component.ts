@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouteLoadingService } from '../services/route-loading.service';
+import { RouteLoadingService } from '@/app/services/route-loading.service';
 
 @Component({
   selector: 'app-route-loading-indicator',

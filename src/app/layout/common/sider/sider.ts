@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { AppMenus } from '@/app/layout/sider/menus';
+import { AppMenus } from '@/app/layout/common/sider/menus';
 
 @Component({
   selector: 'app-sider',

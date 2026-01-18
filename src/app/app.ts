@@ -1,9 +1,9 @@
 import { Component, signal, computed, inject, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { AppLayout } from '@/app/layout/app-layout';
+import { AppLayout } from '@/app/layout/common/app-layout';
 import { AuthService } from '@/app/services/auth.service';
-import { RouteLoadingIndicatorComponent } from '@/app/components/route-loading-indicator.component';
+import { RouteLoadingIndicatorComponent } from '@/app/layout/common/loading/route-loading-indicator.component';
 
 @Component({
   selector: 'app-root',
