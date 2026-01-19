@@ -82,7 +82,7 @@ export interface Message {
   styleUrl: './notification-icon.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotificationIconComponent {
+export class AppHeaderNotification {
   private router = inject(Router);
   private iconService = inject(NzIconService);
   private translate = inject(TranslateService);

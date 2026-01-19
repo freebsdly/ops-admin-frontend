@@ -1,0 +1,136 @@
+:host {
+  display: block;
+}
+
+/* Main container */
+.app-tab-bar {
+  background-color: white;
+  border-bottom: 1px solid rgb(229 231 235); /* gray-200 */
+}
+
+/* Tab container */
+.app-tab-bar-container {
+  border-bottom: 1px solid rgb(229 231 235); /* gray-200 */
+  display: flex;
+  align-items: center;
+  height: 2rem; /* h-8 */
+  overflow: hidden;
+}
+
+/* Tabs wrapper */
+.app-tab-bar-wrapper {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(209 213 219); /* gray-300 */
+}
+
+/* Tab button */
+.app-tab-bar-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem; /* gap-1 */
+  padding: 0.125rem 0.5rem; /* px-2 py-0.5 */
+  font-weight: 500; /* font-medium */
+  transition-property: color, background-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms; /* transition-colors */
+  height: 2rem; /* h-8 */
+  border: 1px solid rgb(209 213 219); /* border-gray-300 */
+  border-bottom: none;
+  position: relative;
+  width: 7rem;
+  margin-left: -1px;
+  flex-shrink: 0;
+}
+
+/* Active tab */
+.app-tab-bar-tab-active {
+  background-color: white;
+  color: rgb(37 99 235); /* blue-600 */
+  z-index: 10;
+  margin-bottom: -1px;
+  border-top-width: 2px;
+  border-top-color: rgb(59 130 246); /* blue-500 */
+}
+
+/* Inactive tab */
+.app-tab-bar-tab:not(.app-tab-bar-tab-active) {
+  background-color: rgb(249 250 251); /* gray-50 */
+  color: rgb(55 65 81); /* gray-700 */
+}
+
+.app-tab-bar-tab:not(.app-tab-bar-tab-active):hover {
+  background-color: rgb(243 244 246); /* gray-100 */
+}
+
+/* Tab content area */
+.app-tab-bar-tab-content {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; /* gap-1 */
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Tab icon */
+.app-tab-bar-tab-icon {
+  flex-shrink: 0;
+}
+
+.app-tab-bar-tab-icon-active {
+  color: rgb(59 130 246); /* blue-500 */
+}
+
+.app-tab-bar-tab-icon-inactive {
+  color: rgb(75 85 99); /* gray-600 */
+}
+
+/* Tab label */
+.app-tab-bar-tab-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25; /* leading-tight */
+  font-size: 0.75rem; /* text-[12px] */
+  text-align: center;
+  flex: 1;
+}
+
+/* Tab close button */
+.app-tab-bar-tab-close {
+  color: rgb(107 114 128); /* gray-500 */
+  flex-shrink: 0;
+  font-size: 0.625rem; /* text-[10px] */
+  width: 1rem; /* w-4 */
+}
+
+.app-tab-bar-tab-close:hover {
+  color: rgb(55 65 81); /* gray-700 */
+}
+
+/* Overflow button */
+.app-tab-bar-overflow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem; /* h-8 */
+  padding: 0 0.5rem; /* px-2 */
+  border-left: 1px solid rgb(209 213 219); /* border-l border-gray-300 */
+  background-color: white;
+}
+
+.app-tab-bar-overflow:hover {
+  background-color: rgb(249 250 251); /* gray-50 */
+}
+
+/* Menu item content */
+.app-tab-bar-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+}
+
+.app-tab-bar-menu-item-icon {
+  font-size: 0.875rem; /* text-sm */
+}

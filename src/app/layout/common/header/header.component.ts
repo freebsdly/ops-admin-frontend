@@ -3,10 +3,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from '@/app/language-switcher/language-switcher.component';
+import { AppLanguageSwitcher } from '@/app/language-switcher/language-switcher.component';
 import { UserInfoComponent, UserInfo } from '@/app/layout/common/user-info/user-info.component';
-import { NotificationIconComponent } from '@/app/layout/common/notification-icon/notification-icon.component';
-import { ModuleSelectorComponent } from '@/app/layout/common/module-selector/module-selector.component';
+import { AppHeaderNotification } from '@/app/layout/common/notification-icon/notification-icon.component';
+import { AppModuleSelector } from '@/app/layout/common/module-selector/module-selector.component';
 
 @Component({
   selector: 'app-header',
@@ -15,10 +15,10 @@ import { ModuleSelectorComponent } from '@/app/layout/common/module-selector/mod
     NzButtonModule,
     NzSpaceModule,
     TranslateModule,
-    LanguageSwitcherComponent,
+    AppLanguageSwitcher,
     UserInfoComponent,
-    NotificationIconComponent,
-    ModuleSelectorComponent,
+    AppHeaderNotification,
+    AppModuleSelector,
   ],
   template: `
     <div class="app-header-container">

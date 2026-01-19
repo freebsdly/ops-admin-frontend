@@ -31,44 +31,29 @@ export interface TabItem {
 }
 
 @Component({
-  selector: 'app-tabbar',
+  selector: 'app-tab-bar',
   imports: [TranslateModule, NzIconModule, NzDropdownModule, NzButtonModule, NzSpaceModule],
   template: `
-    <div class="bg-white border-b border-gray-200">
-      <div
-        #tabContainer
-        class="tab-container border-b border-gray-200 flex items-center h-8 overflow-hidden"
-      >
-        <div #tabsWrapper class="flex items-center border-b border-gray-300">
+    <div class="app-tab-bar">
+      <div #tabContainer class="app-tab-bar-container">
+        <div #tabsWrapper class="app-tab-bar-wrapper">
           @for (tab of visibleTabs(); track tab.key; let i = $index) {
           <button
-            class="flex items-center justify-between gap-1 px-2 py-0.5 font-medium transition-colors w-28 h-8 border border-gray-300 border-b-0 relative"
-            [class.bg-white]="i === selectedIndex()"
-            [class.bg-gray-50]="i !== selectedIndex()"
-            [class.text-blue-600]="i === selectedIndex()"
-            [class.text-gray-700]="i !== selectedIndex()"
-            [class.hover:bg-gray-100]="i !== selectedIndex()"
-            [class.z-10]="i === selectedIndex()"
-            [class.-mb-px]="i === selectedIndex()"
-            [class.border-t-2]="i === selectedIndex()"
-            [class.border-t-blue-500]="i === selectedIndex()"
-            style="width: 7rem; margin-left: -1px;"
+            class="app-tab-bar-tab"
+            [class.app-tab-bar-tab-active]="i === selectedIndex()"
             (click)="onTabClick(i)"
             (contextmenu)="onTabContextMenu(i, $event, tabManagementMenu)"
           >
-            <div class="flex items-center gap-1 flex-1 overflow-hidden">
+            <div class="app-tab-bar-tab-content">
               @if (tab.icon) {
-              <nz-icon [nzType]="tab.icon" [class.text-blue-500]="i === selectedIndex()" [class.text-gray-600]="i !== selectedIndex()" class="shrink-0" />
+              <nz-icon class="app-tab-bar-tab-icon" [class.app-tab-bar-tab-icon-active]="i === selectedIndex()" [class.app-tab-bar-tab-icon-inactive]="i !== selectedIndex()" [nzType]="tab.icon" />
               }
-              <span
-                class="whitespace-nowrap overflow-hidden text-ellipsis leading-tight text-[12px] text-center flex-1"
-                [attr.title]="tab.label | translate"
-              >
+              <span class="app-tab-bar-tab-label" [attr.title]="tab.label | translate">
                 {{ tab.label | translate }}
               </span>
             </div>
             <button
-              class="text-gray-500 hover:text-gray-700 shrink-0 text-[10px] w-4"
+              class="app-tab-bar-tab-close"
               [class.invisible]="tab.closable === false"
               [class.pointer-events-none]="tab.closable === false"
               (click)="tab.closable !== false ? closeTab(i, $event) : null"
@@ -83,7 +68,7 @@ export interface TabItem {
             nz-dropdown
             [nzDropdownMenu]="overflowMenu"
             nzPlacement="bottomRight"
-            class="flex items-center justify-center h-8 px-2 border-l border-gray-300 bg-white hover:bg-gray-50"
+            class="app-tab-bar-overflow"
           >
             <nz-icon nzType="ellipsis" />
           </button>
@@ -100,9 +85,9 @@ export interface TabItem {
           [class.ant-menu-item-selected]="tab.key === tabs()[selectedIndex()]?.key"
           (click)="onOverflowTabClick(tab)"
         >
-          <span class="flex items-center gap-2">
+          <span class="app-tab-bar-menu-item">
             @if (tab.icon) {
-            <nz-icon [nzType]="tab.icon" class="text-sm" />
+            <nz-icon class="app-tab-bar-menu-item-icon" [nzType]="tab.icon" />
             }
             <span>{{ tab.label | translate }}</span>
           </span>
@@ -144,7 +129,7 @@ export interface TabItem {
       </ul>
     </nz-dropdown-menu>
   `,
-  styleUrl: './tabs.css',
+  styleUrl: './tab-bar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppTabBar {

@@ -72,7 +72,7 @@ export interface ModuleItem {
   styleUrl: './module-selector.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ModuleSelectorComponent {
+export class AppModuleSelector {
   private readonly router = inject(Router);
   private readonly menuService = inject(MenuService);
 

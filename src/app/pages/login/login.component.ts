@@ -12,7 +12,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from '@/app/language-switcher/language-switcher.component';
+import { AppLanguageSwitcher } from '@/app/language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +27,7 @@ import { LanguageSwitcherComponent } from '@/app/language-switcher/language-swit
     NzGridModule,
     NzAlertModule,
     TranslateModule,
-    LanguageSwitcherComponent,
+    AppLanguageSwitcher,
   ],
   template: `
     <div

@@ -25,7 +25,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
   `,
   styleUrl: './language-switcher.component.css',
 })
-export class LanguageSwitcherComponent {
+export class AppLanguageSwitcher {
   private translate = inject(TranslateService);
 
   currentLanguage = 'zh';
