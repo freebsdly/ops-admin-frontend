@@ -144,16 +144,7 @@ export interface TabItem {
       </ul>
     </nz-dropdown-menu>
   `,
-  styles: `
-    :host {
-      display: block;
-    }
-
-    /* Ensure tab buttons don't shrink and maintain consistent appearance */
-    .tab-container button {
-      flex-shrink: 0;
-    }
-  `,
+  styleUrl: './tabs.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppTabBar {

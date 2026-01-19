@@ -32,35 +32,6 @@
   width: var(--sider-collapsed-width);
 }
 
-/* User info dropdown styling for new design */
-:host ::ng-deep .app-header-user-info-dropdown {
-  width: auto !important;
-  min-width: auto !important;
-  max-width: none !important;
-}
-
-:host ::ng-deep .app-header-user-info-dropdown .ant-dropdown-menu {
-  width: auto !important;
-  min-width: auto !important;
-  padding: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-/* Custom hover effects for menu items */
-:host ::ng-deep .app-header-user-info-dropdown .ant-dropdown-menu-item:hover {
-  background-color: transparent !important;
-}
-
-/* Module selector card dropdown styling */
-:host ::ng-deep .module-selector .ant-dropdown-menu {
-  padding: 0;
-  background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  min-width: 280px;
-}
-
 /* Collapse button styling */
 .app-header-collapse-button {
   z-index: 10;

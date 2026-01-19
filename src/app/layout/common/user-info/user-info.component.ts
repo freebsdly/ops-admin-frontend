@@ -133,11 +133,7 @@ export interface UserInfo {
       </div>
     </div>
   `,
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
+  styleUrl: './user-info.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserInfoCardComponent {

@@ -2,17 +2,6 @@
   display: block;
 }
 
-/* Force integer width for collapsed state to prevent sub-pixel rendering */
-::ng-deep nz-layout-sider {
-  transition: var(--transition-sider);
-}
-
-::ng-deep nz-layout-sider:not(.ant-layout-sider-collapsed) {
-  width: var(--sider-width) !important;
-  min-width: var(--sider-width) !important;
-  max-width: var(--sider-width) !important;
-}
-
 /* Hidden scrollbar styles */
 .app-sider-hidden-scrollbar {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
