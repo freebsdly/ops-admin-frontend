@@ -1,0 +1,61 @@
+:host {
+  display: block;
+}
+
+/* Main sider container */
+.app-sider-container {
+  background-color: #f3f4f6 !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+/* Sider header - same height as tabbar */
+.app-sider-header {
+  flex-shrink: 0;
+  height: 2rem;
+  min-height: 2rem;
+  border-bottom: 1px solid var(--color-gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scrollable content area */
+.app-sider-content {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  background-color: #f3f4f6;
+}
+
+.app-sider-content:not(.app-sider-collapsed) {
+  overflow-x: hidden;
+}
+
+/* Hidden scrollbar styles */
+.app-sider-hidden-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.app-sider-hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sider footer */
+.app-sider-footer {
+  flex-shrink: 0;
+  height: var(--header-height);
+  min-height: var(--header-height);
+  border-top: 1px solid var(--color-gray-200) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.app-sider-footer p {
+  margin: 0;
+}

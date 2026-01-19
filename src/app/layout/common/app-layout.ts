@@ -12,7 +12,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { MenuFoldOutline, MenuUnfoldOutline } from '@ant-design/icons-angular/icons';
-import { AppSider } from '@/app/layout/common/sider/sider';
+import { AppSider } from '@/app/layout/common/sider/sider.component';
 import { AppHeader } from '@/app/layout/common/header/header';
 import { AppTabBar } from '@/app/layout/common/tabs/tabs';
 import { LanguageSwitcherComponent } from '@/app/language-switcher/language-switcher.component';
