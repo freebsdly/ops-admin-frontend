@@ -6,7 +6,7 @@ import { AppMenus } from '@/app/layout/common/sider/menus';
   selector: 'app-sider',
   imports: [NzLayoutModule, AppMenus],
   template: `
-    <nz-sider [nzCollapsed]="collapsed()" [nzWidth]="240" [nzCollapsedWidth]="0" class="!bg-gray-100 flex flex-col h-full relative">
+    <nz-sider [nzCollapsed]="collapsed()" [nzWidth]="200" [nzCollapsedWidth]="0" class="!bg-gray-100 flex flex-col h-full relative">
       <!-- Scrollable menu area - fills remaining space -->
       <div class="flex-1 min-h-0 overflow-y-auto app-sider-hidden-scrollbar bg-gray-100" [class.overflow-x-hidden]="!collapsed()">
         <app-menus [collapsed]="collapsed()" />

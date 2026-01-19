@@ -79,7 +79,7 @@
 }
 
 :host ::ng-deep .ant-layout-sider:not(.ant-layout-sider-collapsed) .ant-layout-sider-trigger {
-  width: 200px !important;
+  width: var(--sider-width) !important;
 }
 
 /* Full height utility class */
@@ -139,9 +139,9 @@
   transition: all 0.3s ease;
 }
 
-/* When sidebar is expanded - button on sider right border (left: 240px - 16px = 224px) */
+/* When sidebar is expanded - button on sider right border (left: 200px - 16px = 184px) */
 .app-layout-collapse-button-expanded {
-  left: 224px;
+  left: 184px;
 }
 
 /* When sidebar is collapsed/hidden - button on left edge (left: -16px) */
