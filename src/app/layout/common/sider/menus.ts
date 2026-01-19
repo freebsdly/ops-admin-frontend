@@ -36,7 +36,7 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
         @for (menu of menus; track menu.key) { @if (!menu.children || menu.children.length === 0) {
         <li
           nz-menu-item
-          [nzPaddingLeft]="menu.level * 16"
+          [nzPaddingLeft]="menu.level * 8"
           [nzDisabled]="menu.disabled"
           [nzSelected]="menu.selected"
         >
@@ -50,7 +50,7 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
         } @else {
         <li
           nz-submenu
-          [nzPaddingLeft]="menu.level * 16"
+          [nzPaddingLeft]="menu.level * 8"
           [nzOpen]="collapsed() ? undefined : menu.open"
           [nzIcon]="menu.icon"
           [nzTitle]="menu.key | translate"
