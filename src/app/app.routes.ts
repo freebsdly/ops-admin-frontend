@@ -13,44 +13,80 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'login',
+    component: LoginComponent,
+  },
+
+  // Home routes
+  {
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard],
   },
+
+  // Profile route
   {
     path: 'profile',
     component: UserProfileComponent,
     canActivate: [AuthGuard],
   },
+
+  // Messages route
   {
     path: 'messages',
     component: MessagesComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
+
   // Dashboard routes
   {
     path: 'dashboard',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.DASHBOARD' },
+    data: { titleKey: 'MENU.DASHBOARD_OVERVIEW' },
   },
+
+  // Analytics routes
   {
-    path: 'analytics',
+    path: 'analytics/traffic',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.ANALYTICS' },
+    data: { titleKey: 'MENU.ANALYTICS_TRAFFIC' },
   },
   {
-    path: 'reports',
+    path: 'analytics/performance',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.REPORTS' },
+    data: { titleKey: 'MENU.ANALYTICS_PERFORMANCE' },
   },
-  // Security submenu routes
+  {
+    path: 'analytics/conversions',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.ANALYTICS_CONVERSIONS' },
+  },
+
+  // Reports routes
+  {
+    path: 'reports/system',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.REPORTS_SYSTEM' },
+  },
+  {
+    path: 'reports/users',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.REPORTS_USERS' },
+  },
+  {
+    path: 'reports/performance',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.REPORTS_PERFORMANCE' },
+  },
+
+  // Security routes
   {
     path: 'users',
     component: PlaceholderComponent,
@@ -63,50 +99,69 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     data: { titleKey: 'MENU.ROLE_MANAGEMENT' },
   },
+
+  // Permissions routes
   {
-    path: 'permissions',
+    path: 'permissions/users',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.PERMISSION_MANAGEMENT' },
+    data: { titleKey: 'MENU.PERMISSIONS_USERS' },
   },
+  {
+    path: 'permissions/roles',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.PERMISSIONS_ROLES' },
+  },
+
   {
     path: 'audit',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
     data: { titleKey: 'MENU.AUDIT' },
   },
-  // Notifications route
-  {
-    path: 'notifications',
-    component: PlaceholderComponent,
-    canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.NOTIFICATIONS' },
-  },
-  // Operations submenu routes
+
+  // Operations routes
   {
     path: 'inventory',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
     data: { titleKey: 'MENU.INVENTORY' },
   },
+
+  // Orders routes
   {
-    path: 'orders',
+    path: 'orders/all',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.ORDERS' },
+    data: { titleKey: 'MENU.ORDERS_ALL' },
   },
+  {
+    path: 'orders/pending',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.ORDERS_PENDING' },
+  },
+  {
+    path: 'orders/completed',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.ORDERS_COMPLETED' },
+  },
+
   {
     path: 'customers',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
     data: { titleKey: 'MENU.CUSTOMERS' },
   },
+
   // Products routes
   {
     path: 'products',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.PRODUCTS' },
+    data: { titleKey: 'MENU.PRODUCTS_LIST' },
   },
   {
     path: 'categories',
@@ -114,70 +169,155 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     data: { titleKey: 'MENU.CATEGORIES' },
   },
+
+  // Warehouses routes
   {
-    path: 'warehouses',
+    path: 'warehouses/all',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.WAREHOUSES' },
+    data: { titleKey: 'MENU.WAREHOUSES_ALL' },
   },
-  // Shipping route
   {
-    path: 'shipping',
+    path: 'warehouses/locations',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.SHIPPING' },
+    data: { titleKey: 'MENU.WAREHOUSES_LOCATIONS' },
   },
-  // Finance submenu routes
+  {
+    path: 'warehouses/capacity',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.WAREHOUSES_CAPACITY' },
+  },
+
+  // Shipping routes
+  {
+    path: 'shipping/domestic',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.SHIPPING_DOMESTIC' },
+  },
+  {
+    path: 'shipping/international',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.SHIPPING_INTERNATIONAL' },
+  },
+  {
+    path: 'shipping/tracking',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.SHIPPING_TRACKING' },
+  },
+
+  // Finance routes
   {
     path: 'billing',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
     data: { titleKey: 'MENU.BILLING' },
   },
+
+  // Invoices routes
   {
-    path: 'invoices',
+    path: 'invoices/all',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.INVOICES' },
+    data: { titleKey: 'MENU.INVOICES_ALL' },
   },
   {
-    path: 'payments',
+    path: 'invoices/paid',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.PAYMENTS' },
-  },
-  // Nested demo routes
-  {
-    path: 'nested/level3/item1',
-    component: PlaceholderComponent,
-    canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.LEVEL3_ITEM1' },
+    data: { titleKey: 'MENU.INVOICES_PAID' },
   },
   {
-    path: 'nested/level3/item2',
+    path: 'invoices/pending',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.LEVEL3_ITEM2' },
+    data: { titleKey: 'MENU.INVOICES_PENDING' },
   },
   {
-    path: 'nested/level2/item2',
+    path: 'invoices/overdue',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.LEVEL2_ITEM2' },
+    data: { titleKey: 'MENU.INVOICES_OVERDUE' },
+  },
+
+  // Payments routes
+  {
+    path: 'payments/all',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.PAYMENTS_ALL' },
   },
   {
-    path: 'nested/level2/item3',
+    path: 'payments/received',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.LEVEL2_ITEM3' },
+    data: { titleKey: 'MENU.PAYMENTS_RECEIVED' },
   },
-  // Settings route
   {
-    path: 'settings',
+    path: 'payments/refunded',
     component: PlaceholderComponent,
     canActivate: [AuthGuard],
-    data: { titleKey: 'MENU.SETTINGS' },
+    data: { titleKey: 'MENU.PAYMENTS_REFUNDED' },
   },
+
+  // System routes - Notifications
+  {
+    path: 'notifications/all',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.NOTIFICATIONS_ALL' },
+  },
+  {
+    path: 'notifications/unread',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.NOTIFICATIONS_UNREAD' },
+  },
+  {
+    path: 'notifications/important',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.NOTIFICATIONS_IMPORTANT' },
+  },
+
+  // System routes - Settings
+  {
+    path: 'settings/general',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.SETTINGS_GENERAL' },
+  },
+  {
+    path: 'settings/authentication',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.SETTINGS_AUTH' },
+  },
+  {
+    path: 'settings/notifications',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.SETTINGS_NOTIFICATIONS' },
+  },
+  {
+    path: 'settings/encryption',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'MENU.SETTINGS_ENCRYPTION' },
+  },
+
+  // Test loading route
+  {
+    path: 'test-loading',
+    component: PlaceholderComponent,
+    canActivate: [AuthGuard],
+    data: { titleKey: 'TEST.LOADING' },
+  },
+
   {
     path: '**',
     redirectTo: 'home',

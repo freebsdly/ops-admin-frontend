@@ -16,88 +16,137 @@ export interface RouteConfig {
 })
 export class RouteConfigService {
   private readonly routeConfigs: RouteConfig[] = [
-    // Home
+    // Home routes
     {
       path: '/home',
       key: 'home',
-      titleKey: 'MENU.HOME',
+      titleKey: 'MENU.HOME_DASHBOARD',
       icon: 'home',
     },
+
     // Dashboard routes
     {
       path: '/dashboard',
       key: 'dashboard',
-      titleKey: 'MENU.DASHBOARD',
+      titleKey: 'MENU.DASHBOARD_OVERVIEW',
       icon: 'dashboard',
     },
+
+    // Analytics routes
     {
-      path: '/analytics',
-      key: 'analytics',
-      titleKey: 'MENU.ANALYTICS',
+      path: '/analytics/traffic',
+      key: 'analytics-traffic',
+      titleKey: 'MENU.ANALYTICS_TRAFFIC',
       icon: 'bar-chart',
     },
     {
-      path: '/reports',
-      key: 'reports',
-      titleKey: 'MENU.REPORTS',
+      path: '/analytics/performance',
+      key: 'analytics-performance',
+      titleKey: 'MENU.ANALYTICS_PERFORMANCE',
+      icon: 'bar-chart',
+    },
+    {
+      path: '/analytics/conversions',
+      key: 'analytics-conversions',
+      titleKey: 'MENU.ANALYTICS_CONVERSIONS',
+      icon: 'bar-chart',
+    },
+
+    // Reports routes
+    {
+      path: '/reports/system',
+      key: 'reports-system',
+      titleKey: 'MENU.REPORTS_SYSTEM',
       icon: 'file-text',
     },
-    // Security submenu routes
+    {
+      path: '/reports/users',
+      key: 'reports-users',
+      titleKey: 'MENU.REPORTS_USERS',
+      icon: 'file-text',
+    },
+    {
+      path: '/reports/performance',
+      key: 'reports-performance',
+      titleKey: 'MENU.REPORTS_PERFORMANCE',
+      icon: 'file-text',
+    },
+
+    // Security routes
     {
       path: '/users',
-      key: 'user-management',
+      key: 'users',
       titleKey: 'MENU.USER_MANAGEMENT',
       icon: 'user',
     },
     {
       path: '/roles',
-      key: 'role-management',
+      key: 'roles',
       titleKey: 'MENU.ROLE_MANAGEMENT',
       icon: 'team',
     },
+
+    // Permissions routes
     {
-      path: '/permissions',
-      key: 'permission-management',
-      titleKey: 'MENU.PERMISSION_MANAGEMENT',
+      path: '/permissions/users',
+      key: 'permissions-users',
+      titleKey: 'MENU.PERMISSIONS_USERS',
       icon: 'safety-certificate',
     },
+    {
+      path: '/permissions/roles',
+      key: 'permissions-roles',
+      titleKey: 'MENU.PERMISSIONS_ROLES',
+      icon: 'safety-certificate',
+    },
+
     {
       path: '/audit',
       key: 'audit',
       titleKey: 'MENU.AUDIT',
       icon: 'database',
     },
-    // Notifications route
-    {
-      path: '/notifications',
-      key: 'notifications',
-      titleKey: 'MENU.NOTIFICATIONS',
-      icon: 'bell',
-    },
-    // Operations submenu routes
+
+    // Operations routes
     {
       path: '/inventory',
       key: 'inventory',
       titleKey: 'MENU.INVENTORY',
       icon: 'appstore',
     },
+
+    // Orders routes
     {
-      path: '/orders',
-      key: 'orders',
-      titleKey: 'MENU.ORDERS',
+      path: '/orders/all',
+      key: 'orders-all',
+      titleKey: 'MENU.ORDERS_ALL',
       icon: 'shopping',
     },
+    {
+      path: '/orders/pending',
+      key: 'orders-pending',
+      titleKey: 'MENU.ORDERS_PENDING',
+      icon: 'shopping',
+    },
+    {
+      path: '/orders/completed',
+      key: 'orders-completed',
+      titleKey: 'MENU.ORDERS_COMPLETED',
+      icon: 'shopping',
+    },
+
     {
       path: '/customers',
       key: 'customers',
       titleKey: 'MENU.CUSTOMERS',
       icon: 'team',
     },
+
     // Products routes
     {
       path: '/products',
       key: 'products',
-      titleKey: 'MENU.PRODUCTS',
+      titleKey: 'MENU.PRODUCTS_LIST',
       icon: 'database',
     },
     {
@@ -106,70 +155,147 @@ export class RouteConfigService {
       titleKey: 'MENU.CATEGORIES',
       icon: 'appstore',
     },
+
+    // Warehouses routes
     {
-      path: '/warehouses',
-      key: 'warehouses',
-      titleKey: 'MENU.WAREHOUSES',
+      path: '/warehouses/all',
+      key: 'warehouses-all',
+      titleKey: 'MENU.WAREHOUSES_ALL',
       icon: 'home',
     },
-    // Shipping route
     {
-      path: '/shipping',
-      key: 'shipping',
-      titleKey: 'MENU.SHIPPING',
+      path: '/warehouses/locations',
+      key: 'warehouses-locations',
+      titleKey: 'MENU.WAREHOUSES_LOCATIONS',
+      icon: 'home',
+    },
+    {
+      path: '/warehouses/capacity',
+      key: 'warehouses-capacity',
+      titleKey: 'MENU.WAREHOUSES_CAPACITY',
+      icon: 'home',
+    },
+
+    // Shipping routes
+    {
+      path: '/shipping/domestic',
+      key: 'shipping-domestic',
+      titleKey: 'MENU.SHIPPING_DOMESTIC',
       icon: 'car',
     },
-    // Finance submenu routes
+    {
+      path: '/shipping/international',
+      key: 'shipping-international',
+      titleKey: 'MENU.SHIPPING_INTERNATIONAL',
+      icon: 'car',
+    },
+    {
+      path: '/shipping/tracking',
+      key: 'shipping-tracking',
+      titleKey: 'MENU.SHIPPING_TRACKING',
+      icon: 'car',
+    },
+
+    // Finance routes
     {
       path: '/billing',
       key: 'billing',
       titleKey: 'MENU.BILLING',
       icon: 'dollar',
     },
+
+    // Invoices routes
     {
-      path: '/invoices',
-      key: 'invoices',
-      titleKey: 'MENU.INVOICES',
+      path: '/invoices/all',
+      key: 'invoices-all',
+      titleKey: 'MENU.INVOICES_ALL',
       icon: 'file-text',
     },
     {
-      path: '/payments',
-      key: 'payments',
-      titleKey: 'MENU.PAYMENTS',
+      path: '/invoices/paid',
+      key: 'invoices-paid',
+      titleKey: 'MENU.INVOICES_PAID',
+      icon: 'file-text',
+    },
+    {
+      path: '/invoices/pending',
+      key: 'invoices-pending',
+      titleKey: 'MENU.INVOICES_PENDING',
+      icon: 'file-text',
+    },
+    {
+      path: '/invoices/overdue',
+      key: 'invoices-overdue',
+      titleKey: 'MENU.INVOICES_OVERDUE',
+      icon: 'file-text',
+    },
+
+    // Payments routes
+    {
+      path: '/payments/all',
+      key: 'payments-all',
+      titleKey: 'MENU.PAYMENTS_ALL',
       icon: 'credit-card',
     },
-    // Nested demo routes
     {
-      path: '/nested/level3/item1',
-      key: 'level3-item1',
-      titleKey: 'MENU.LEVEL3_ITEM1',
-      icon: 'appstore',
+      path: '/payments/received',
+      key: 'payments-received',
+      titleKey: 'MENU.PAYMENTS_RECEIVED',
+      icon: 'credit-card',
     },
     {
-      path: '/nested/level3/item2',
-      key: 'level3-item2',
-      titleKey: 'MENU.LEVEL3_ITEM2',
-      icon: 'appstore',
+      path: '/payments/refunded',
+      key: 'payments-refunded',
+      titleKey: 'MENU.PAYMENTS_REFUNDED',
+      icon: 'credit-card',
+    },
+
+    // System routes - Notifications
+    {
+      path: '/notifications/all',
+      key: 'notifications-all',
+      titleKey: 'MENU.NOTIFICATIONS_ALL',
+      icon: 'bell',
     },
     {
-      path: '/nested/level2/item2',
-      key: 'level2-item2',
-      titleKey: 'MENU.LEVEL2_ITEM2',
-      icon: 'appstore',
+      path: '/notifications/unread',
+      key: 'notifications-unread',
+      titleKey: 'MENU.NOTIFICATIONS_UNREAD',
+      icon: 'bell',
     },
     {
-      path: '/nested/level2/item3',
-      key: 'level2-item3',
-      titleKey: 'MENU.LEVEL2_ITEM3',
-      icon: 'appstore',
+      path: '/notifications/important',
+      key: 'notifications-important',
+      titleKey: 'MENU.NOTIFICATIONS_IMPORTANT',
+      icon: 'bell',
     },
-    // Settings route
+
+    // System routes - Settings
     {
-      path: '/settings',
-      key: 'settings',
-      titleKey: 'MENU.SETTINGS',
+      path: '/settings/general',
+      key: 'settings-general',
+      titleKey: 'MENU.SETTINGS_GENERAL',
       icon: 'setting',
     },
+    {
+      path: '/settings/authentication',
+      key: 'settings-auth',
+      titleKey: 'MENU.SETTINGS_AUTH',
+      icon: 'setting',
+    },
+    {
+      path: '/settings/notifications',
+      key: 'settings-notifications',
+      titleKey: 'MENU.SETTINGS_NOTIFICATIONS',
+      icon: 'setting',
+    },
+    {
+      path: '/settings/encryption',
+      key: 'settings-encryption',
+      titleKey: 'MENU.SETTINGS_ENCRYPTION',
+      icon: 'setting',
+    },
+
     // Profile route
     {
       path: '/profile',
@@ -177,6 +303,7 @@ export class RouteConfigService {
       titleKey: 'LAYOUT.HEADER.PROFILE',
       icon: 'user',
     },
+
     // Messages route
     {
       path: '/messages',
@@ -184,6 +311,7 @@ export class RouteConfigService {
       titleKey: 'MESSAGES.TITLE',
       icon: 'mail',
     },
+
     // Test loading route
     {
       path: '/test-loading',
@@ -191,6 +319,7 @@ export class RouteConfigService {
       titleKey: 'TEST.LOADING',
       icon: 'appstore',
     },
+
     // Root route (maps to home)
     {
       path: '/',
