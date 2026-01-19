@@ -208,10 +208,12 @@ export class AppTabBar {
     }
 
     const containerWidth = this.tabContainer.nativeElement.clientWidth;
-    const tabWidth = 112; // 7rem = 112px
+    const tabWidth = 144; // average of min-width (8rem) and max-width (10rem)
     const dropdownWidth = 32; // approx width for dropdown button
-    const availableWidth = containerWidth - dropdownWidth;
-    const maxTabs = Math.floor(availableWidth / tabWidth);
+    const gap = 4; // 0.125rem gap between tabs
+    const padding = 16; // 0.5rem padding on container
+    const availableWidth = containerWidth - dropdownWidth - padding * 2;
+    const maxTabs = Math.floor((availableWidth + gap) / (tabWidth + gap));
 
     this.maxVisibleTabs.set(Math.max(1, maxTabs));
   }
