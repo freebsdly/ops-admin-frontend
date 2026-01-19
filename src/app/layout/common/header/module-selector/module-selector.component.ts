@@ -29,35 +29,35 @@ export interface ModuleItem {
     TranslateModule,
   ],
   template: `
-    <div class="module-selector">
+    <div class="app-module-selector">
       <button
         nz-dropdown
         [nzDropdownMenu]="moduleMenu"
         nzTrigger="hover"
         nzPlacement="bottomLeft"
         [nzOverlayStyle]="{ minWidth: '280px', padding: '0' }"
-        class="module-selector-button"
+        class="app-module-selector-button"
       >
-        <nz-space [nzSize]="8" class="module-selector-content" style="width: 100%;">
-          <span nz-icon [nzType]="currentModuleIcon()" class="module-icon"></span>
-          <span class="module-label">{{ currentModuleLabel() | translate }}</span>
-          <span nz-icon nzType="down" class="module-dropdown-icon"></span>
+        <nz-space [nzSize]="8" class="app-module-selector-content">
+          <span nz-icon [nzType]="currentModuleIcon()" class="app-module-selector-icon"></span>
+          <span class="app-module-selector-label">{{ currentModuleLabel() | translate }}</span>
+          <span nz-icon nzType="down" class="app-module-selector-dropdown-icon"></span>
         </nz-space>
       </button>
 
       <nz-dropdown-menu #moduleMenu="nzDropdownMenu">
-        <nz-card class="module-card" [nzBordered]="false" [nzHoverable]="false">
-          <div class="module-grid">
+        <nz-card class="app-module-selector-card" [nzBordered]="false" [nzHoverable]="false">
+          <div class="app-module-selector-grid">
             @for (module of availableModules(); track module.key) {
               <div
-                class="module-item"
-                [class.module-item-active]="module.isActive"
+                class="app-module-selector-item"
+                [class.app-module-selector-item-active]="module.isActive"
                 (click)="selectModule(module)"
               >
-                <div class="module-item-content">
+                <div class="app-module-selector-item-content">
                   <nz-space [nzSize]="8" [nzDirection]="'vertical'">
-                    <nz-icon [nzType]="module.icon" class="module-item-icon"></nz-icon>
-                    <span class="module-item-label">{{ module.label | translate }}</span>
+                    <nz-icon [nzType]="module.icon" class="app-module-selector-item-icon"></nz-icon>
+                    <span class="app-module-selector-item-label">{{ module.label | translate }}</span>
                   </nz-space>
                 </div>
               </div>

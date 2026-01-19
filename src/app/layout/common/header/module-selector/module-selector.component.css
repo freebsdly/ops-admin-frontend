@@ -1,8 +1,8 @@
-.module-selector {
+.app-module-selector {
   display: inline-block;
 }
 
-.module-selector-button {
+.app-module-selector-button {
   display: flex;
   align-items: center;
   padding: 8px 12px;
@@ -16,25 +16,26 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
-.module-selector-button:hover {
+.app-module-selector-button:hover {
   border-color: #1677ff;
   color: #1677ff;
   box-shadow: 0 2px 4px rgba(24, 144, 255, 0.15);
 }
 
-.module-selector-content {
+.app-module-selector-content {
   align-items: center;
   width: 100%;
+  display: flex;
 }
 
-.module-icon {
+.app-module-selector-icon {
   font-size: 16px;
   color: #1677ff;
   flex-shrink: 0;
   width: 16px;
 }
 
-.module-label {
+.app-module-selector-label {
   font-size: 14px;
   font-weight: 500;
   color: #262626;
@@ -46,7 +47,7 @@
   hyphens: auto;
 }
 
-.module-dropdown-icon {
+.app-module-selector-dropdown-icon {
   font-size: 12px;
   color: #8c8c8c;
   flex-shrink: 0;
@@ -54,24 +55,24 @@
   transition: transform 0.3s ease;
 }
 
-.module-selector-button:hover .module-dropdown-icon {
+.app-module-selector-button:hover .app-module-selector-dropdown-icon {
   transform: rotate(180deg);
 }
 
-.module-card {
+.app-module-selector-card {
   box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.08), 0 9px 28px 0 rgba(0, 0, 0, 0.05), 0 12px 48px 16px rgba(0, 0, 0, 0.03);
   border-radius: 8px;
   overflow: hidden;
 }
 
-.module-grid {
+.app-module-selector-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 4px;
   padding: 8px;
 }
 
-.module-item {
+.app-module-selector-item {
   max-width: 100px;
   min-width: 100px;
   padding: 10px;
@@ -85,56 +86,56 @@
   justify-content: center;
 }
 
-.module-item:hover {
+.app-module-selector-item:hover {
   background-color: #e6f7ff;
   border-color: #91d5ff;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
 }
 
-.module-item-active {
+.app-module-selector-item-active {
   background-color: #1890ff;
   border-color: #1890ff;
 }
 
-.module-item-active:hover {
+.app-module-selector-item-active:hover {
   background-color: #1677ff;
   border-color: #1677ff;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
 }
 
-.module-item-content {
+.app-module-selector-item-content {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 
-.module-item-icon {
+.app-module-selector-item-icon {
   font-size: 20px;
   color: #8c8c8c;
 }
 
-.module-item:hover .module-item-icon {
+.app-module-selector-item:hover .app-module-selector-item-icon {
   color: #1677ff;
 }
 
-.module-item-active .module-item-icon {
+.app-module-selector-item-active .app-module-selector-item-icon {
   color: white;
 }
 
-.module-item-label {
+.app-module-selector-item-label {
   font-size: 12px;
   font-weight: 500;
   color: #262626;
   text-align: center;
 }
 
-.module-item:hover .module-item-label {
+.app-module-selector-item:hover .app-module-selector-item-label {
   color: #1677ff;
 }
 
-.module-item-active .module-item-label {
+.app-module-selector-item-active .app-module-selector-item-label {
   color: white;
 }
