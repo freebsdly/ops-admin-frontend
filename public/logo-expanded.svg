@@ -1,37 +1,113 @@
-<svg width="240" height="48" viewBox="0 0 240 48" xmlns="http://www.w3.org/2000/svg">
+<svg width="200" height="48" viewBox="0 0 200 48" xmlns="http://www.w3.org/2000/svg">
   <defs>
+    <!-- Main gradient with more vibrant colors -->
     <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#1890ff" />
+      <stop offset="50%" stop-color="#096dd9" />
       <stop offset="100%" stop-color="#52c41a" />
     </linearGradient>
+
+    <!-- Subtle inner glow -->
+    <filter id="innerGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+      <feOffset in="blur" dx="0" dy="1" result="offsetBlur"/>
+      <feComposite in="SourceGraphic" in2="offsetBlur" operator="over"/>
+    </filter>
+
+    <!-- Drop shadow for depth -->
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"/>
+      <feOffset in="blur" dx="0" dy="2" result="offsetBlur"/>
+      <feFlood flood-color="rgba(0,0,0,0.15)" result="color"/>
+      <feComposite in="color" in2="offsetBlur" operator="in" result="shadow"/>
+      <feComposite in="SourceGraphic" in2="shadow" operator="over"/>
+    </filter>
+
+    <!-- Gear icon gradient -->
+    <linearGradient id="gearGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f0f0f0" />
+    </linearGradient>
   </defs>
-  
-  <!-- Background rectangle fills entire area -->
-  <rect width="240" height="48" fill="url(#logoGradient)" rx="0"/>
-  
-  <!-- Logo icon and text -->
-  <g transform="translate(12, 10)">
-    <!-- Gear icon -->
-    <circle cx="20" cy="14" r="10" fill="white" />
-    <circle cx="20" cy="14" r="8" fill="url(#logoGradient)" />
-    <circle cx="20" cy="14" r="3" fill="white" />
-    
-    <!-- Gear teeth -->
-    <rect x="28" y="12" width="4" height="4" fill="white" transform="rotate(45 20 14)" />
-    <rect x="8" y="12" width="4" height="4" fill="white" transform="rotate(-45 20 14)" />
-    <rect x="18" y="22" width="4" height="4" fill="white" transform="rotate(0 20 14)" />
-    <rect x="18" y="4" width="4" height="4" fill="white" transform="rotate(0 20 14)" />
-    
-    <!-- Text -->
-    <text x="50" y="18" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" 
-          font-size="16" font-weight="600" fill="white" text-anchor="start">
+
+  <!-- Background with subtle gradient overlay -->
+  <rect width="200" height="48" fill="url(#logoGradient)" rx="4"/>
+
+  <!-- Subtle top highlight -->
+  <rect x="0" y="0" width="200" height="24" fill="url(#topHighlight)" opacity="0.15" rx="4"/>
+  <linearGradient id="topHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#ffffff" />
+    <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+  </linearGradient>
+
+  <!-- Logo content -->
+  <g transform="translate(16, 12)" filter="url(#dropShadow)">
+    <!-- Outer gear ring -->
+    <circle cx="12" cy="12" r="11.5" fill="none" stroke="white" stroke-width="1.5" opacity="0.9"/>
+
+    <!-- Inner gear with more detail -->
+    <g transform="translate(12, 12)">
+      <!-- Gear teeth (8 evenly spaced) -->
+      <g fill="white" opacity="0.95">
+        <rect x="-2" y="-11" width="4" height="6" rx="0.5" />
+        <rect x="-2" y="5" width="4" height="6" rx="0.5" />
+        <rect x="-11" y="-2" width="6" height="4" rx="0.5" />
+        <rect x="5" y="-2" width="6" height="4" rx="0.5" />
+        <!-- Diagonal teeth -->
+        <rect x="-8" y="-9" width="5" height="4" rx="0.5" transform="rotate(45 -5.5 -7)"/>
+        <rect x="3" y="-9" width="5" height="4" rx="0.5" transform="rotate(-45 5.5 -7)"/>
+        <rect x="-8" y="5" width="5" height="4" rx="0.5" transform="rotate(-45 -5.5 7)"/>
+        <rect x="3" y="5" width="5" height="4" rx="0.5" transform="rotate(45 5.5 7)"/>
+      </g>
+
+      <!-- Inner circle -->
+      <circle cx="0" cy="0" r="6" fill="url(#logoGradient)" opacity="0.9"/>
+
+      <!-- Center dot -->
+      <circle cx="0" cy="0" r="2.5" fill="white" />
+    </g>
+  </g>
+
+  <!-- Text section -->
+  <g transform="translate(44, 18)">
+    <!-- Main title -->
+    <text x="0" y="0"
+          font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+          font-size="17"
+          font-weight="700"
+          fill="white"
+          text-anchor="start"
+          letter-spacing="0.5"
+          filter="url(#innerGlow)">
       Ops Admin
     </text>
-    
-    <!-- Tagline -->
-    <text x="50" y="32" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" 
-          font-size="10" font-weight="400" fill="rgba(255, 255, 255, 0.85)" text-anchor="start">
-      DevOps Platform
+
+    <!-- Tagline with better positioning -->
+    <text x="0" y="14"
+          font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+          font-size="9"
+          font-weight="500"
+          fill="rgba(255, 255, 255, 0.9)"
+          text-anchor="start"
+          letter-spacing="1">
+      DEVOPS
+    </text>
+  </g>
+
+  <!-- Decorative accent line -->
+  <line x1="118" y1="16" x2="118" y2="32" stroke="white" stroke-width="1" opacity="0.3" stroke-dasharray="2 2"/>
+
+  <!-- Version/indicator badge -->
+  <g transform="translate(125, 18)">
+    <rect x="0" y="-7" width="60" height="18" fill="rgba(255, 255, 255, 0.15)" rx="9"/>
+    <text x="30" y="4"
+          font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+          font-size="9"
+          font-weight="600"
+          fill="white"
+          text-anchor="middle"
+          letter-spacing="0.5">
+      v1.0.0
     </text>
   </g>
 </svg>

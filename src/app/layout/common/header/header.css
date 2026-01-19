@@ -13,6 +13,29 @@
   flex-shrink: 0;
   overflow: hidden;
   transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 1px 0 4px rgba(0, 0, 0, 0.02);
+}
+
+.app-header-logo-area::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(24, 144, 255, 0.2) 50%, transparent 100%);
+}
+
+.app-header-logo-area::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(82, 196, 26, 0.2) 50%, transparent 100%);
 }
 
 .app-header-logo-area-collapsed {
@@ -25,7 +48,20 @@
   display: block;
   margin: 0;
   padding: 0;
-  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              filter 0.3s ease,
+              transform 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+}
+
+.app-header-logo-img:hover {
+  filter: drop-shadow(0 4px 8px rgba(24, 144, 255, 0.2));
+  transform: translateY(-1px);
+  cursor: pointer;
+}
+
+.app-header-logo-img:active {
+  transform: translateY(0);
 }
 
 .app-header-logo-img-collapsed {

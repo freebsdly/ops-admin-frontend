@@ -2,6 +2,15 @@
   display: block;
   height: 100vh;
   width: 100%;
+  --sider-width: 200px;
+  --sider-collapsed-width: 0px;
+  --header-height: 48px;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-primary: #1890ff;
+  --border-radius-base: 6px;
+  --scrollbar-width: 6px;
 }
 
 .app-layout-container {
