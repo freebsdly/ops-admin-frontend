@@ -1,8 +1,22 @@
-import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+  signal,
+} from '@angular/core';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -13,130 +27,161 @@ export interface UserInfo {
 }
 
 @Component({
-  selector: 'app-user-info-card',
+  selector: 'app-user-info',
   imports: [
     NzAvatarModule,
     NzButtonModule,
     NzMenuModule,
     NzIconModule,
+    NzDropdownModule,
+    NzCardModule,
+    NzStatisticModule,
+    NzSpaceModule,
     RouterLink,
     TranslateModule,
   ],
   template: `
-    <!-- Modern user card design -->
-    <div class="w-80 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
-      <!-- User profile header -->
-      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6">
-        <div class="flex items-center gap-4">
-          <nz-avatar 
-            nzSize="large"
-            [nzSrc]="user()?.avatar" 
-            nzText="{{ user()?.name?.charAt(0) || 'U' }}"
-            class="!h-16 !w-16 border-4 border-white shadow-sm"
-          ></nz-avatar>
-          <div class="flex flex-col">
-            <span class="text-lg font-semibold text-gray-900">{{ user()?.name }}</span>
-            @if (user()?.role) {
-              <span class="text-sm text-gray-600">{{ user()?.role }}</span>
-            }
-            <div class="mt-2 flex items-center gap-2 text-sm text-gray-500">
-              <span nz-icon nzType="check-circle" nzTheme="outline" class="text-green-500"></span>
-              <span>{{ 'USER_CARD.STATUS_ONLINE' | translate }}</span>
-            </div>
-          </div>
-        </div>
+    @if (user()) {
+      <!-- Avatar trigger -->
+      <div
+        #userInfoArea
+        nz-dropdown
+        [nzDropdownMenu]="userMenu"
+        nzTrigger="hover"
+        nzPlacement="bottomRight"
+        [nzOverlayStyle]="dropdownStyle()"
+        class="app-user-info-trigger"
+      >
+        <nz-avatar
+          nzSize="default"
+          [nzSrc]="user()?.avatar"
+          nzText="{{ user()?.name?.charAt(0) || 'U' }}"
+          class="app-user-info-trigger-avatar"
+        ></nz-avatar>
       </div>
-      
-      <!-- Quick stats/info -->
-      <div class="px-6 py-4 border-b border-gray-100 bg-gray-50">
-        <div class="grid grid-cols-3 gap-4 text-center">
-          <div>
-            <div class="text-sm text-gray-500">{{ 'USER_CARD.STATS_PROJECTS' | translate }}</div>
-            <div class="text-xl font-bold text-gray-800">12</div>
+
+      <!-- Dropdown menu with user card -->
+      <nz-dropdown-menu #userMenu="nzDropdownMenu">
+        <nz-card class="app-user-info-card" [nzBordered]="false">
+          <!-- User profile header -->
+          <div class="app-user-info-profile-header">
+            <nz-space [nzSize]="'large'" nzAlign="center">
+              <nz-avatar
+                nzSize="large"
+                [nzSrc]="user()?.avatar"
+                nzText="{{ user()?.name?.charAt(0) || 'U' }}"
+                class="app-user-info-profile-avatar"
+              ></nz-avatar>
+              <div>
+                <div class="app-user-info-name">{{ user()?.name }}</div>
+                @if (user()?.role) {
+                  <div class="app-user-info-role">{{ user()?.role }}</div>
+                }
+                <div class="app-user-info-status">
+                  <span nz-icon nzType="check-circle" nzTheme="outline" class="app-user-info-status-icon"></span>
+                  <span>{{ 'USER_CARD.STATUS_ONLINE' | translate }}</span>
+                </div>
+              </div>
+            </nz-space>
           </div>
-          <div>
-            <div class="text-sm text-gray-500">{{ 'USER_CARD.STATS_TASKS' | translate }}</div>
-            <div class="text-xl font-bold text-gray-800">47</div>
+
+          <!-- Quick stats/info -->
+          <div class="app-user-info-stats">
+            <nz-statistic [nzTitle]="'USER_CARD.STATS_PROJECTS' | translate" [nzValue]="12"></nz-statistic>
+            <nz-statistic [nzTitle]="'USER_CARD.STATS_TASKS' | translate" [nzValue]="47"></nz-statistic>
+            <nz-statistic [nzTitle]="'USER_CARD.STATS_TEAMS' | translate" [nzValue]="3"></nz-statistic>
           </div>
-          <div>
-            <div class="text-sm text-gray-500">{{ 'USER_CARD.STATS_TEAMS' | translate }}</div>
-            <div class="text-xl font-bold text-gray-800">3</div>
+
+          <!-- Navigation menu -->
+          <ul nz-menu nzSelectable="false" class="app-user-info-menu">
+            <li nz-menu-item routerLink="/profile" class="app-user-info-menu-item">
+              <nz-space [nzSize]="'middle'">
+                <span nz-icon nzType="user" nzTheme="outline" class="app-user-info-menu-icon app-user-info-menu-icon-blue"></span>
+                <div class="app-user-info-menu-text">
+                  <div class="app-user-info-menu-title">{{ 'LAYOUT.HEADER.PROFILE' | translate }}</div>
+                  <div class="app-user-info-menu-desc">{{ 'USER_CARD.PROFILE_DESCRIPTION' | translate }}</div>
+                </div>
+              </nz-space>
+            </li>
+            <li nz-menu-item routerLink="/settings" class="app-user-info-menu-item">
+              <nz-space [nzSize]="'middle'">
+                <span nz-icon nzType="setting" nzTheme="outline" class="app-user-info-menu-icon app-user-info-menu-icon-purple"></span>
+                <div class="app-user-info-menu-text">
+                  <div class="app-user-info-menu-title">{{ 'LAYOUT.HEADER.SETTINGS' | translate }}</div>
+                  <div class="app-user-info-menu-desc">{{ 'USER_CARD.SETTINGS_DESCRIPTION' | translate }}</div>
+                </div>
+              </nz-space>
+            </li>
+            <li nz-menu-item routerLink="/notifications" class="app-user-info-menu-item">
+              <nz-space [nzSize]="'middle'">
+                <span nz-icon nzType="bell" nzTheme="outline" class="app-user-info-menu-icon app-user-info-menu-icon-yellow"></span>
+                <div class="app-user-info-menu-text">
+                  <div class="app-user-info-menu-title">{{ 'USER_CARD.NOTIFICATIONS' | translate }}</div>
+                  <div class="app-user-info-menu-desc">{{ 'USER_CARD.NOTIFICATIONS_DESCRIPTION' | translate }}</div>
+                </div>
+              </nz-space>
+            </li>
+            <li nz-menu-item routerLink="/help" class="app-user-info-menu-item">
+              <nz-space [nzSize]="'middle'">
+                <span nz-icon nzType="question-circle" nzTheme="outline" class="app-user-info-menu-icon app-user-info-menu-icon-green"></span>
+                <div class="app-user-info-menu-text">
+                  <div class="app-user-info-menu-title">{{ 'USER_CARD.HELP_SUPPORT' | translate }}</div>
+                  <div class="app-user-info-menu-desc">{{ 'USER_CARD.HELP_DESCRIPTION' | translate }}</div>
+                </div>
+              </nz-space>
+            </li>
+          </ul>
+
+          <!-- Footer with logout -->
+          <div class="app-user-info-footer">
+            <button
+              nz-button
+              nzType="default"
+              nzDanger
+              nzBlock
+              (click)="onLogout.emit()"
+              class="app-user-info-logout-button"
+            >
+              <span nz-icon nzType="logout" nzTheme="outline"></span>
+              <span>{{ 'LAYOUT.HEADER.LOGOUT' | translate }}</span>
+            </button>
           </div>
-        </div>
-      </div>
-      
-      <!-- Navigation menu -->
-      <div class="py-2">
-        <ul nz-menu nzSelectable="false" class="!border-0">
-          <li nz-menu-item routerLink="/profile" class="!h-12 !px-6 hover:bg-blue-50">
-            <div class="flex items-center gap-3">
-              <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100">
-                <span nz-icon nzType="user" nzTheme="outline" class="text-blue-600"></span>
-              </div>
-              <div class="flex flex-col">
-                <span class="text-sm font-medium text-gray-800">{{ 'LAYOUT.HEADER.PROFILE' | translate }}</span>
-                <span class="text-xs text-gray-500">{{ 'USER_CARD.PROFILE_DESCRIPTION' | translate }}</span>
-              </div>
-            </div>
-          </li>
-          <li nz-menu-item routerLink="/settings" class="!h-12 !px-6 hover:bg-blue-50">
-            <div class="flex items-center gap-3">
-              <div class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-100">
-                <span nz-icon nzType="setting" nzTheme="outline" class="text-purple-600"></span>
-              </div>
-              <div class="flex flex-col">
-                <span class="text-sm font-medium text-gray-800">{{ 'LAYOUT.HEADER.SETTINGS' | translate }}</span>
-                <span class="text-xs text-gray-500">{{ 'USER_CARD.SETTINGS_DESCRIPTION' | translate }}</span>
-              </div>
-            </div>
-          </li>
-          <li nz-menu-item routerLink="/notifications" class="!h-12 !px-6 hover:bg-blue-50">
-            <div class="flex items-center gap-3">
-              <div class="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-100">
-                <span nz-icon nzType="bell" nzTheme="outline" class="text-yellow-600"></span>
-              </div>
-              <div class="flex flex-col">
-                <span class="text-sm font-medium text-gray-800">{{ 'USER_CARD.NOTIFICATIONS' | translate }}</span>
-                <span class="text-xs text-gray-500">{{ 'USER_CARD.NOTIFICATIONS_DESCRIPTION' | translate }}</span>
-              </div>
-            </div>
-          </li>
-          <li nz-menu-item routerLink="/help" class="!h-12 !px-6 hover:bg-blue-50">
-            <div class="flex items-center gap-3">
-              <div class="flex items-center justify-center w-8 h-8 rounded-full bg-green-100">
-                <span nz-icon nzType="question-circle" nzTheme="outline" class="text-green-600"></span>
-              </div>
-              <div class="flex flex-col">
-                <span class="text-sm font-medium text-gray-800">{{ 'USER_CARD.HELP_SUPPORT' | translate }}</span>
-                <span class="text-xs text-gray-500">{{ 'USER_CARD.HELP_DESCRIPTION' | translate }}</span>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Footer with logout -->
-      <div class="px-6 py-4 border-t border-gray-100 bg-gray-50">
-        <button 
-          nz-button 
-          nzType="default" 
-          nzDanger
-          nzBlock
-          (click)="onLogout.emit()"
-          class="!h-10 !text-sm hover:!bg-red-50 hover:!border-red-200 hover:!text-red-600 transition-colors"
-        >
-          <div class="flex items-center justify-center gap-2">
-            <span nz-icon nzType="logout" nzTheme="outline"></span>
-            <span>{{ 'LAYOUT.HEADER.LOGOUT' | translate }}</span>
-          </div>
-        </button>
-      </div>
-    </div>
+        </nz-card>
+      </nz-dropdown-menu>
+    }
   `,
   styleUrl: './user-info.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserInfoCardComponent {
+export class UserInfoComponent implements AfterViewInit, OnDestroy {
   user = input<UserInfo | null>(null);
   onLogout = output<void>();
+
+  @ViewChild('userInfoArea') userInfoArea!: ElementRef<HTMLDivElement>;
+
+  private resizeObserver: ResizeObserver | null = null;
+
+  dropdownStyle = signal<{ [key: string]: string }>({});
+
+  ngAfterViewInit() {
+    this.updateDropdownWidth();
+
+    // Observe resize of user info area
+    this.resizeObserver = new ResizeObserver(() => {
+      this.updateDropdownWidth();
+    });
+
+    this.resizeObserver.observe(this.userInfoArea.nativeElement);
+  }
+
+  ngOnDestroy() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+  }
+
+  private updateDropdownWidth() {
+    // Fixed width for the redesigned user card (320px = w-80)
+    this.dropdownStyle.set({ width: '320px' });
+  }
 }

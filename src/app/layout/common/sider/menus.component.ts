@@ -10,7 +10,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { MenuService, MenuItem } from '@/app/services/menu.service';
+import { MenuService } from '@/app/services/menu.service';
 
 @Component({
   selector: 'app-menus',
