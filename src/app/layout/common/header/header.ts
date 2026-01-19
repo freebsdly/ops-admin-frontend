@@ -57,6 +57,7 @@ import { ModuleSelectorComponent } from './module-selector/module-selector.compo
               #userInfoArea
               nz-dropdown
               [nzDropdownMenu]="userMenu"
+              nzTrigger="hover"
               nzPlacement="bottomRight"
               [nzOverlayStyle]="dropdownStyle()"
               class="h-full flex items-center cursor-pointer hover:bg-gray-50 px-4 border-l border-gray-200 transition-colors"

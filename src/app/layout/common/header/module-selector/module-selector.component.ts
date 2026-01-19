@@ -33,7 +33,7 @@ export interface ModuleItem {
       <button
         nz-dropdown
         [nzDropdownMenu]="moduleMenu"
-        nzTrigger="click"
+        nzTrigger="hover"
         nzPlacement="bottomLeft"
         [nzOverlayStyle]="{ minWidth: '280px', padding: '0' }"
         class="module-selector-button"

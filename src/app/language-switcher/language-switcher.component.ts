@@ -9,7 +9,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, NzDropdownModule, NzIconModule, TranslateModule],
   template: `
-    <a nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight">
+    <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="hover" nzPlacement="bottomRight">
       <span nz-icon nzType="global"></span>
     </a>
     <nz-dropdown-menu #menu="nzDropdownMenu">
