@@ -97,36 +97,178 @@
   background: var(--color-gray-400);
 }
 
-/* Sidebar collapse button - half circle on sider right border */
+/* Sidebar collapse button - beautiful floating button */
 .app-layout-collapse-button {
   position: absolute;
-  top: 60px;
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  min-height: 32px;
-  line-height: 32px;
-  font-size: 16px;
+  top: 3.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
   padding: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  background: var(--color-primary);
-  border: 2px solid #fff;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  border: 2px solid rgba(255, 255, 255, 0.9);
   border-radius: 50%;
-  transition: all 0.3s ease;
+  box-shadow:
+    0 4px 16px rgba(59, 130, 246, 0.4),
+    0 2px 8px rgba(139, 92, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
-/* When sidebar is expanded - button on sider right border (left: 200px - 16px = 184px) */
+/* Glow animation for collapse button */
+.app-layout-collapse-button::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.app-layout-collapse-button:hover::before {
+  opacity: 0.6;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.3;
+  }
+}
+
+/* Icon styling */
+.app-layout-collapse-button nz-icon {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.95);
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* When sidebar is expanded - button on sider right border */
 .app-layout-collapse-button-expanded {
   left: 184px;
+  animation: slideInRight 0.4s ease-out;
 }
 
-/* When sidebar is collapsed/hidden - button on left edge (left: -16px) */
+/* When sidebar is collapsed/hidden - button on left edge */
 .app-layout-collapse-button-collapsed {
-  left: -16px;
+  left: -20px;
+  animation: slideInLeft 0.4s ease-out;
 }
 
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Hover state */
 .app-layout-collapse-button:hover {
-  background: #40a9ff;
-  transform: scale(1.1);
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  box-shadow:
+    0 6px 20px rgba(59, 130, 246, 0.5),
+    0 3px 12px rgba(139, 92, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: scale(1.15);
+  border-color: rgba(255, 255, 255, 1);
+}
+
+.app-layout-collapse-button:hover nz-icon {
+  transform: scale(1.2) rotate(5deg);
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Active/click state */
+.app-layout-collapse-button:active {
+  transform: scale(1.05);
+  box-shadow:
+    0 2px 8px rgba(59, 130, 246, 0.3),
+    0 1px 4px rgba(139, 92, 246, 0.2),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.app-layout-collapse-button:active nz-icon {
+  transform: scale(0.95) rotate(-5deg);
+}
+
+/* Focus state for accessibility */
+.app-layout-collapse-button:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+  border-color: rgba(255, 255, 255, 1);
+}
+
+/* Tooltip customization for collapse button */
+:host ::ng-deep .ant-tooltip-inner {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-size: 0.8125rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-weight: 500;
+}
+
+:host ::ng-deep .ant-tooltip-arrow-content {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Shine effect on hover */
+.app-layout-collapse-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+.app-layout-collapse-button:hover::after {
+  left: 150%;
 }

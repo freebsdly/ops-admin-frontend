@@ -53,19 +53,24 @@ import { TranslateModule } from '@ngx-translate/core';
         <!-- Left column: Sidebar component -->
         <app-sider [collapsed]="sidebarCollapsed()" />
 
-        <!-- Collapse button - half circle on sider right border -->
-        <button
-          nz-button
-          nzType="primary"
-          nzShape="circle"
-          (click)="toggleSidebar()"
-          class="app-layout-collapse-button"
-          [class.app-layout-collapse-button-collapsed]="sidebarCollapsed()"
-          [class.app-layout-collapse-button-expanded]="!sidebarCollapsed()"
+        <!-- Collapse button - beautiful floating button -->
+        <div
+          nz-tooltip
+          [nzTooltipTitle]="sidebarCollapsed() ? 'Expand Sidebar' : 'Collapse Sidebar'"
           nzTooltipPlacement="right"
         >
-          <span nz-icon [nzType]="sidebarCollapsed() ? 'menu-unfold' : 'menu-fold'"></span>
-        </button>
+          <button
+            nz-button
+            nzType="primary"
+            nzShape="circle"
+            (click)="toggleSidebar()"
+            class="app-layout-collapse-button"
+            [class.app-layout-collapse-button-collapsed]="sidebarCollapsed()"
+            [class.app-layout-collapse-button-expanded]="!sidebarCollapsed()"
+          >
+            <span nz-icon [nzType]="sidebarCollapsed() ? 'menu-unfold' : 'menu-fold'"></span>
+          </button>
+        </div>
 
         <!-- Right column: Content area -->
         <div class="flex-1 flex flex-col min-w-0">
