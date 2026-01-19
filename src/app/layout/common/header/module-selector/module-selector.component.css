@@ -9,10 +9,10 @@
   padding: 10px 16px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
-  border-radius: 12px;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  height: 44px;
+  height: 100%;
   width: 200px;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
   color: white;
@@ -24,20 +24,17 @@
 
 /* Hover effect with scale and shadow */
 .app-module-selector-button:hover {
-  transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
   background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }
 
 /* Click effect */
 .app-module-selector-button:active {
-  transform: translateY(0);
   box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
 }
 
 /* Shine effect on hover */
 .app-module-selector-button::before {
-  content: '';
   position: absolute;
   top: 0;
   left: -100%;
@@ -100,7 +97,7 @@
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 16px;
+  border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15),
               0 5px 15px rgba(0, 0, 0, 0.1);
@@ -108,17 +105,10 @@
   padding: 8px;
 }
 
-.app-module-selector-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  padding: 4px;
-}
-
 /* Module items with modern card design */
 .app-module-selector-item {
   padding: 14px;
-  border-radius: 12px;
+  border-radius: 4px;
   border: 1.5px solid #e8e8e8;
   background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
   cursor: pointer;
@@ -129,14 +119,25 @@
   gap: 12px;
   position: relative;
   overflow: hidden;
+  flex: 0 0 calc(25% - 8px);
+  min-width: 0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* When hovering the dropdown, keep items elevated */
+nz-card:hover .app-module-selector-item {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* Hover effect with lift and glow */
 .app-module-selector-item:hover {
   background: linear-gradient(135deg, #f0f7ff 0%, #e6f7ff 100%);
   border-color: #91d5ff;
-  transform: translateY(-3px) scale(1.02);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 8px 20px rgba(24, 144, 255, 0.2);
+  z-index: 2;
 }
 
 /* Active state with gradient and glow */
@@ -144,12 +145,15 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-color: #667eea;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  transform: translateY(-2px);
+  z-index: 1;
 }
 
 .app-module-selector-item-active:hover {
   background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-  transform: translateY(-3px) scale(1.02);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  z-index: 2;
 }
 
 /* Ripple effect on hover */
@@ -186,7 +190,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 4px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

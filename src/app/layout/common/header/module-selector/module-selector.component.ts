@@ -4,6 +4,7 @@ import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { TranslateModule } from '@ngx-translate/core';
 import { MenuService, MenuItem } from '@/app/services/menu.service';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -26,6 +27,7 @@ export interface ModuleItem {
     NzCardModule,
     NzIconModule,
     NzSpaceModule,
+    NzFlexModule,
     TranslateModule,
   ],
   template: `
@@ -47,7 +49,7 @@ export interface ModuleItem {
 
       <nz-dropdown-menu #moduleMenu="nzDropdownMenu">
         <nz-card class="app-module-selector-card" [nzBordered]="false" [nzHoverable]="false">
-          <div class="app-module-selector-grid">
+          <nz-flex [nzWrap]="'wrap'" [nzGap]="'small'">
             @for (module of availableModules(); track module.key) {
               <div
                 class="app-module-selector-item"
@@ -62,7 +64,7 @@ export interface ModuleItem {
                 </div>
               </div>
             }
-          </div>
+          </nz-flex>
         </nz-card>
       </nz-dropdown-menu>
     </div>
