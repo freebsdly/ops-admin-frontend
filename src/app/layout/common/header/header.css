@@ -52,6 +52,15 @@
   background-color: transparent !important;
 }
 
+/* Module selector card dropdown styling */
+:host ::ng-deep .module-selector .ant-dropdown-menu {
+  padding: 0;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 280px;
+}
+
 /* Collapse button styling */
 .app-header-collapse-button {
   z-index: 10;

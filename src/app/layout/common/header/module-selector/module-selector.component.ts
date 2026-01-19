@@ -1,7 +1,7 @@
 import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,7 +23,7 @@ export interface ModuleItem {
   standalone: true,
   imports: [
     NzDropdownModule,
-    NzMenuModule,
+    NzCardModule,
     NzIconModule,
     NzSpaceModule,
     TranslateModule,
@@ -35,7 +35,7 @@ export interface ModuleItem {
         [nzDropdownMenu]="moduleMenu"
         nzTrigger="click"
         nzPlacement="bottomLeft"
-        [nzOverlayStyle]="{ minWidth: '200px' }"
+        [nzOverlayStyle]="{ minWidth: '280px', padding: '0' }"
         class="module-selector-button"
       >
         <nz-space [nzSize]="8" class="module-selector-content">
@@ -46,21 +46,24 @@ export interface ModuleItem {
       </button>
 
       <nz-dropdown-menu #moduleMenu="nzDropdownMenu">
-        <ul nz-menu class="module-menu">
-          @for (module of availableModules(); track module.key) {
-            <li
-              nz-menu-item
-              [nzSelected]="module.isActive"
-              (click)="selectModule(module)"
-              class="module-menu-item"
-            >
-              <nz-space [nzSize]="12">
-                <span nz-icon [nzType]="module.icon"></span>
-                <span>{{ module.label | translate }}</span>
-              </nz-space>
-            </li>
-          }
-        </ul>
+        <nz-card class="module-card" [nzBordered]="false" [nzHoverable]="false">
+          <div class="module-grid">
+            @for (module of availableModules(); track module.key) {
+              <div
+                class="module-item"
+                [class.module-item-active]="module.isActive"
+                (click)="selectModule(module)"
+              >
+                <div class="module-item-content">
+                  <nz-space [nzSize]="12" [nzDirection]="'vertical'">
+                    <nz-icon [nzType]="module.icon" class="module-item-icon"></nz-icon>
+                    <span class="module-item-label">{{ module.label | translate }}</span>
+                  </nz-space>
+                </div>
+              </div>
+            }
+          </div>
+        </nz-card>
       </nz-dropdown-menu>
     </div>
   `,
@@ -118,23 +121,83 @@ export interface ModuleItem {
       color: #8c8c8c;
     }
 
-    .module-menu {
-      max-height: 400px;
-      overflow-y: auto;
+    .module-card {
+      box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.08), 0 9px 28px 0 rgba(0, 0, 0, 0.05), 0 12px 48px 16px rgba(0, 0, 0, 0.03);
+      border-radius: 8px;
+      overflow: hidden;
     }
 
-    .module-menu-item {
-      padding: 8px 12px;
-      min-height: 40px;
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 12px;
     }
 
-    .module-menu-item:hover {
-      background-color: #f5f5f5;
+    .module-item {
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #f0f0f0;
+      background-color: #fafafa;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .module-menu-item.ant-menu-item-selected {
+    .module-item:hover {
       background-color: #e6f7ff;
+      border-color: #91d5ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
+    }
+
+    .module-item-active {
+      background-color: #1890ff;
+      border-color: #1890ff;
+    }
+
+    .module-item-active:hover {
+      background-color: #1677ff;
+      border-color: #1677ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
+    }
+
+    .module-item-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .module-item-icon {
+      font-size: 24px;
+      color: #8c8c8c;
+    }
+
+    .module-item:hover .module-item-icon {
       color: #1677ff;
+    }
+
+    .module-item-active .module-item-icon {
+      color: white;
+    }
+
+    .module-item-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #262626;
+      text-align: center;
+    }
+
+    .module-item:hover .module-item-label {
+      color: #1677ff;
+    }
+
+    .module-item-active .module-item-label {
+      color: white;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
