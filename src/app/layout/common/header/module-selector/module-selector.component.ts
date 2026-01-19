@@ -142,6 +142,7 @@ export interface ModuleItem {
     }
 
     .module-item {
+      min-width: 100px;
       padding: 16px;
       border-radius: 8px;
       border: 1px solid #f0f0f0;
