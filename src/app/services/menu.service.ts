@@ -776,10 +776,12 @@ export class MenuService {
     const updateSelection = (items: MenuItem[]): MenuItem[] => {
       return items.map(item => {
         const isSelected = item.key === selectedKey;
+        const hasSelectedChild = this.hasSelectedChild(item.children, selectedKey);
 
         const updatedItem: MenuItem = {
           ...item,
           selected: isSelected,
+          open: hasSelectedChild || isSelected,
         };
 
         if (item.children && item.children.length > 0) {
@@ -792,5 +794,22 @@ export class MenuService {
 
     this.menuData.set(updateSelection(this.menuData()));
     this.menuDataSubject.next(this.menuData());
+  }
+
+  private hasSelectedChild(children: MenuItem[] | undefined, selectedKey: string): boolean {
+    if (!children) {
+      return false;
+    }
+
+    for (const child of children) {
+      if (child.key === selectedKey) {
+        return true;
+      }
+      if (this.hasSelectedChild(child.children, selectedKey)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
