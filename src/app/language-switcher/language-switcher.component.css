@@ -7,16 +7,37 @@ a {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-  height: 32px;
-  font-size: 14px;
+  padding: 8px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 40px;
+  width: 40px;
+  font-size: 16px;
+  background: linear-gradient(135deg, rgba(24, 144, 255, 0.05) 0%, rgba(24, 144, 255, 0.1) 100%);
+  border: 1px solid rgba(24, 144, 255, 0.1);
+}
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
-  }
+a:hover {
+  background: linear-gradient(135deg, rgba(24, 144, 255, 0.15) 0%, rgba(24, 144, 255, 0.2) 100%);
+  border-color: rgba(24, 144, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.2);
+}
+
+a:active {
+  transform: translateY(0);
+}
+
+a :deep(.anticon) {
+  font-size: 18px;
+  color: #595959;
+  transition: color 0.3s ease;
+}
+
+a:hover :deep(.anticon) {
+  color: #1890ff;
 }
 
 /* Header-specific styles */

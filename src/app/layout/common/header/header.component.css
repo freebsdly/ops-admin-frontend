@@ -3,19 +3,45 @@
   height: var(--header-height);
 }
 
+/* Header container */
+.app-header-container {
+  height: 100%;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.app-header-container::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    rgba(24, 144, 255, 0.1) 0%,
+    rgba(24, 144, 255, 0.3) 20%,
+    rgba(82, 196, 26, 0.3) 50%,
+    rgba(24, 144, 255, 0.3) 80%,
+    rgba(24, 144, 255, 0.1) 100%
+  );
+}
+
 .app-header-logo-area {
   width: var(--sider-width);
   height: var(--header-height);
-  border-right: 1px solid var(--color-gray-200);
+  border-right: 1px solid rgba(226, 232, 240, 0.8);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   flex-shrink: 0;
   overflow: hidden;
-  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  box-shadow: 1px 0 4px rgba(0, 0, 0, 0.02);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
 }
 
 .app-header-logo-area::before {
@@ -24,8 +50,15 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(24, 144, 255, 0.2) 50%, transparent 100%);
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(24, 144, 255, 0.3) 0%,
+    rgba(24, 144, 255, 0.6) 30%,
+    rgba(82, 196, 26, 0.6) 50%,
+    rgba(24, 144, 255, 0.6) 70%,
+    rgba(24, 144, 255, 0.3) 100%
+  );
+  opacity: 0.8;
 }
 
 .app-header-logo-area::after {
@@ -35,7 +68,13 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(82, 196, 26, 0.2) 50%, transparent 100%);
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(24, 144, 255, 0.15) 30%,
+    rgba(82, 196, 26, 0.15) 50%,
+    rgba(24, 144, 255, 0.15) 70%,
+    transparent 100%
+  );
 }
 
 .app-header-logo-area-collapsed {
@@ -48,20 +87,20 @@
   display: block;
   margin: 0;
   padding: 0;
-  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               filter 0.3s ease,
               transform 0.3s ease;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+  filter: drop-shadow(0 2px 4px rgba(24, 144, 255, 0.1));
 }
 
 .app-header-logo-img:hover {
-  filter: drop-shadow(0 4px 8px rgba(24, 144, 255, 0.2));
-  transform: translateY(-1px);
+  filter: drop-shadow(0 4px 12px rgba(24, 144, 255, 0.25));
+  transform: translateY(-1px) scale(1.02);
   cursor: pointer;
 }
 
 .app-header-logo-img:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .app-header-logo-img-collapsed {
@@ -71,20 +110,11 @@
 /* Collapse button styling */
 .app-header-collapse-button {
   z-index: 10;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
 }
 
 .app-header-collapse-button:hover {
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Header container */
-.app-header-container {
-  height: 100%;
-  background-color: white;
-  border-bottom: 1px solid #e5e7eb;
-  display: flex;
-  position: relative;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.12);
 }
 
 /* Module selector area */
@@ -92,7 +122,23 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
+  position: relative;
+}
+
+.app-header-module-selector::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(226, 232, 240, 0.8) 20%,
+    rgba(226, 232, 240, 0.8) 80%,
+    transparent 100%
+  );
 }
 
 /* Actions area (right side) */
@@ -101,5 +147,22 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
+  position: relative;
+}
+
+.app-header-actions::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 40px;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(226, 232, 240, 0.8) 20%,
+    rgba(226, 232, 240, 0.8) 80%,
+    transparent 100%
+  );
 }
