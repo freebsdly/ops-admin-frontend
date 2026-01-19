@@ -131,7 +131,7 @@ export interface ModuleItem {
 
     .module-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
       padding: 12px;
     }
