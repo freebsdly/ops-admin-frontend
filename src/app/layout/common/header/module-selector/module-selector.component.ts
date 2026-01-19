@@ -38,7 +38,7 @@ export interface ModuleItem {
         [nzOverlayStyle]="{ minWidth: '280px', padding: '0' }"
         class="module-selector-button"
       >
-        <nz-space [nzSize]="8" class="module-selector-content">
+        <nz-space [nzSize]="8" class="module-selector-content" style="width: 100%;">
           <span nz-icon [nzType]="currentModuleIcon()" class="module-icon"></span>
           <span class="module-label">{{ currentModuleLabel() | translate }}</span>
           <span nz-icon nzType="down" class="module-dropdown-icon"></span>
@@ -77,12 +77,12 @@ export interface ModuleItem {
       align-items: center;
       padding: 8px 12px;
       background-color: white;
-      border: 1px solid #d9d9d9;
+      border: 1px solid transparent;
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.3s;
       height: 40px;
-      min-width: 140px;
+      width: 180px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }
 
@@ -92,17 +92,16 @@ export interface ModuleItem {
       box-shadow: 0 2px 4px rgba(24, 144, 255, 0.15);
     }
 
-    .module-selector-button:active {
-      border-color: #0958d9;
-    }
-
     .module-selector-content {
       align-items: center;
+      width: 100%;
     }
 
     .module-icon {
       font-size: 16px;
       color: #1677ff;
+      flex-shrink: 0;
+      width: 16px;
     }
 
     .module-label {
@@ -112,13 +111,16 @@ export interface ModuleItem {
       flex: 1;
       text-align: left;
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
     }
 
     .module-dropdown-icon {
       font-size: 12px;
       color: #8c8c8c;
+      flex-shrink: 0;
+      width: 12px;
     }
 
     .module-card {
