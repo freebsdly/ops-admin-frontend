@@ -121,6 +121,11 @@ export interface ModuleItem {
       color: #8c8c8c;
       flex-shrink: 0;
       width: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .module-selector-button:hover .module-dropdown-icon {
+      transform: rotate(180deg);
     }
 
     .module-card {
