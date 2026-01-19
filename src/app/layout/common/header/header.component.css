@@ -77,3 +77,57 @@
 .app-header-collapse-button:hover {
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
 }
+
+/* Header container */
+.app-header-container {
+  height: 100%;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  position: relative;
+}
+
+/* Module selector area */
+.app-header-module-selector {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 0.5rem;
+}
+
+/* Actions area (right side) */
+.app-header-actions {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1rem;
+}
+
+/* User info area */
+.app-header-user-info-area {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 1rem;
+  border-left: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+.app-header-user-info-area:hover {
+  background-color: #f9fafb;
+}
+
+/* User avatar wrapper */
+.app-header-user-avatar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* User avatar */
+.app-header-user-avatar {
+  height: 2rem !important;
+  width: 2rem !important;
+}
