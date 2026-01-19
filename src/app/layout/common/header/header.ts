@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSwitcherComponent } from '@/app/language-switcher/language-switcher.component';
 import { UserInfoCardComponent, UserInfo } from '@/app/layout/common/user-info/user-info.component';
 import { NotificationIconComponent } from '@/app/layout/common/notification-icon/notification-icon.component';
+import { ModuleSelectorComponent } from './module-selector/module-selector.component';
 
 @Component({
   selector: 'app-header',
@@ -27,6 +28,7 @@ import { NotificationIconComponent } from '@/app/layout/common/notification-icon
     LanguageSwitcherComponent,
     UserInfoCardComponent,
     NotificationIconComponent,
+    ModuleSelectorComponent,
   ],
   template: `
     <div class="h-full bg-white border-b border-gray-200 flex relative">
@@ -34,7 +36,10 @@ import { NotificationIconComponent } from '@/app/layout/common/notification-icon
       <div class="app-header-logo-area">
         <img src="/logo-expanded.svg" alt="Ops Admin Logo" class="app-header-logo-img" />
       </div>
-      <div class="flex-1 flex items-center justify-start px-2">
+
+      <!-- Module selector area -->
+      <div class="flex items-center justify-start px-2">
+        <app-module-selector />
       </div>
 
       <!-- Spacer for content area -->

@@ -1,0 +1,256 @@
+import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { TranslateModule } from '@ngx-translate/core';
+import { MenuService, MenuItem } from '@/app/services/menu.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filter } from 'rxjs/operators';
+
+export interface ModuleItem {
+  key: string;
+  label: string;
+  icon: string;
+  defaultPath: string;
+  isActive: boolean;
+}
+
+@Component({
+  selector: 'app-module-selector',
+  standalone: true,
+  imports: [
+    NzDropdownModule,
+    NzMenuModule,
+    NzIconModule,
+    NzSpaceModule,
+    TranslateModule,
+  ],
+  template: `
+    <div class="module-selector">
+      <button
+        nz-dropdown
+        [nzDropdownMenu]="moduleMenu"
+        nzTrigger="click"
+        nzPlacement="bottomLeft"
+        [nzOverlayStyle]="{ minWidth: '200px' }"
+        class="module-selector-button"
+      >
+        <nz-space [nzSize]="8" class="module-selector-content">
+          <span nz-icon [nzType]="currentModuleIcon()" class="module-icon"></span>
+          <span class="module-label">{{ currentModuleLabel() | translate }}</span>
+          <span nz-icon nzType="down" class="module-dropdown-icon"></span>
+        </nz-space>
+      </button>
+
+      <nz-dropdown-menu #moduleMenu="nzDropdownMenu">
+        <ul nz-menu class="module-menu">
+          @for (module of availableModules(); track module.key) {
+            <li
+              nz-menu-item
+              [nzSelected]="module.isActive"
+              (click)="selectModule(module)"
+              class="module-menu-item"
+            >
+              <nz-space [nzSize]="12">
+                <span nz-icon [nzType]="module.icon"></span>
+                <span>{{ module.label | translate }}</span>
+              </nz-space>
+            </li>
+          }
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+  `,
+  styles: `
+    .module-selector {
+      display: inline-block;
+    }
+
+    .module-selector-button {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      background-color: white;
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+      height: 40px;
+      min-width: 140px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+
+    .module-selector-button:hover {
+      border-color: #1677ff;
+      color: #1677ff;
+      box-shadow: 0 2px 4px rgba(24, 144, 255, 0.15);
+    }
+
+    .module-selector-button:active {
+      border-color: #0958d9;
+    }
+
+    .module-selector-content {
+      align-items: center;
+    }
+
+    .module-icon {
+      font-size: 16px;
+      color: #1677ff;
+    }
+
+    .module-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #262626;
+      flex: 1;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .module-dropdown-icon {
+      font-size: 12px;
+      color: #8c8c8c;
+    }
+
+    .module-menu {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .module-menu-item {
+      padding: 8px 12px;
+      min-height: 40px;
+    }
+
+    .module-menu-item:hover {
+      background-color: #f5f5f5;
+    }
+
+    .module-menu-item.ant-menu-item-selected {
+      background-color: #e6f7ff;
+      color: #1677ff;
+    }
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ModuleSelectorComponent {
+  private readonly router = inject(Router);
+  private readonly menuService = inject(MenuService);
+
+  // Get all menu items from menu service
+  readonly menuItems = toSignal(this.menuService.getMenuData(), { initialValue: [] });
+
+  // Current URL signal
+  readonly currentUrl = signal<string>(this.router.url);
+
+  constructor() {
+    // Subscribe to router navigation updates
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe((event) => {
+        this.currentUrl.set(event.urlAfterRedirects);
+      });
+  }
+
+  // Extract first layer modules (Level 1)
+  readonly availableModules = computed(() => {
+    return this.menuItems()
+      .filter(item => item.level === 1)
+      .map(module => {
+        const defaultPath = this.findModuleDefaultPath(module);
+        return {
+          key: module.key,
+          label: module.key,
+          icon: module.icon || 'appstore',
+          defaultPath: defaultPath,
+          isActive: this.isModuleActive(module, defaultPath),
+        } as ModuleItem;
+      });
+  });
+
+  // Current active module
+  readonly currentModule = computed(() => {
+    return this.availableModules().find(m => m.isActive) || this.availableModules()[0];
+  });
+
+  readonly currentModuleLabel = computed(() => {
+    return this.currentModule()?.label || 'MENU.HOME';
+  });
+
+  readonly currentModuleIcon = computed(() => {
+    return this.currentModule()?.icon || 'home';
+  });
+
+  // Find default route path for a module (first child with path)
+  private findModuleDefaultPath(module: MenuItem): string {
+    if (module.children && module.children.length > 0) {
+      // Find first child with a path
+      const childWithPath = module.children.find(child => child.path);
+      if (childWithPath) {
+        return childWithPath.path || '';
+      }
+      // If no direct path, search recursively
+      for (const child of module.children) {
+        const path = this.findModuleDefaultPath(child);
+        if (path) return path;
+      }
+    }
+    return '';
+  }
+
+  // Check if module is active (based on current route)
+  private isModuleActive(module: MenuItem, defaultPath: string): boolean {
+    const currentPath = this.currentUrl().split('?')[0];
+
+    // Check if current path starts with module's default path
+    if (defaultPath && currentPath.startsWith(defaultPath)) {
+      return true;
+    }
+
+    // Check if current path belongs to this module
+    return this.isPathInModule(currentPath, module);
+  }
+
+  // Check if current path belongs to this module
+  private isPathInModule(path: string, module: MenuItem): boolean {
+    if (!path || path === '/') {
+      return false;
+    }
+
+    const pathSegments = path.split('/').filter(Boolean);
+    if (pathSegments.length === 0) {
+      return false;
+    }
+
+    // Check if path matches any child of this module
+    const checkChildren = (items: MenuItem[]): boolean => {
+      for (const item of items) {
+        if (item.path && path.startsWith(item.path)) {
+          return true;
+        }
+        if (item.children && checkChildren(item.children)) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    return checkChildren(module.children || []);
+  }
+
+  // Select module and navigate
+  selectModule(module: ModuleItem): void {
+    if (module.defaultPath) {
+      this.router.navigate([module.defaultPath]);
+    }
+  }
+}
