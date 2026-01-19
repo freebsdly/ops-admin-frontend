@@ -62,18 +62,18 @@ export interface TabItem {
             </button>
           </button>
           }
-
-          @if (overflowTabs().length > 0) {
-          <button
-            nz-dropdown
-            [nzDropdownMenu]="overflowMenu"
-            nzPlacement="bottomRight"
-            class="app-tab-bar-overflow"
-          >
-            <nz-icon nzType="ellipsis" />
-          </button>
-          }
         </div>
+
+        @if (overflowTabs().length > 0) {
+        <button
+          nz-dropdown
+          [nzDropdownMenu]="overflowMenu"
+          nzPlacement="bottomRight"
+          class="app-tab-bar-overflow"
+        >
+          <nz-icon nzType="ellipsis" />
+        </button>
+        }
       </div>
     </div>
 

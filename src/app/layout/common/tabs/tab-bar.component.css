@@ -35,6 +35,7 @@
   overflow: hidden;
   background: rgb(255 255 255);
   padding: 0 0.5rem;
+  position: relative;
 }
 
 /* Tabs wrapper */
@@ -42,6 +43,9 @@
   display: flex;
   align-items: center;
   gap: 0.125rem;
+  flex: 1;
+  overflow: hidden;
+  padding-right: 2.5rem;
 }
 
 /* Tab button */
@@ -176,6 +180,8 @@
 
 /* Overflow button */
 .app-tab-bar-overflow {
+  position: absolute;
+  right: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -183,12 +189,12 @@
   width: 2rem;
   border: 1px solid transparent;
   border-radius: 0.5rem;
-  background: transparent;
+  background: rgb(255 255 255);
   color: rgb(107 114 128);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  margin-left: auto;
-  position: relative;
+  z-index: 20;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
 }
 
 .app-tab-bar-overflow:hover {
