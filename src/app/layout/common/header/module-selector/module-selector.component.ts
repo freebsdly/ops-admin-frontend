@@ -55,7 +55,7 @@ export interface ModuleItem {
                 (click)="selectModule(module)"
               >
                 <div class="module-item-content">
-                  <nz-space [nzSize]="12" [nzDirection]="'vertical'">
+                  <nz-space [nzSize]="8" [nzDirection]="'vertical'">
                     <nz-icon [nzType]="module.icon" class="module-item-icon"></nz-icon>
                     <span class="module-item-label">{{ module.label | translate }}</span>
                   </nz-space>
@@ -137,14 +137,15 @@ export interface ModuleItem {
     .module-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      padding: 12px;
+      gap: 4px;
+      padding: 8px;
     }
 
     .module-item {
+      max-width: 100px;
       min-width: 100px;
-      padding: 16px;
-      border-radius: 8px;
+      padding: 10px;
+      border-radius: 6px;
       border: 1px solid #f0f0f0;
       background-color: #fafafa;
       cursor: pointer;
@@ -181,7 +182,7 @@ export interface ModuleItem {
     }
 
     .module-item-icon {
-      font-size: 24px;
+      font-size: 20px;
       color: #8c8c8c;
     }
 
@@ -194,7 +195,7 @@ export interface ModuleItem {
     }
 
     .module-item-label {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       color: #262626;
       text-align: center;
