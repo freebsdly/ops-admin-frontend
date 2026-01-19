@@ -10,7 +10,6 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { MenuService, MenuItem } from '@/app/services/menu.service';
 
 @Component({
@@ -72,5 +71,5 @@ export class AppMenus {
   collapsed = input<boolean>(false);
 
   private readonly menuService = inject(MenuService);
-  readonly menuItems = toSignal(this.menuService.getMenuData(), { initialValue: [] });
+  readonly menuItems = this.menuService.selectedModuleMenuItems;
 }

@@ -149,6 +149,9 @@ export class ModuleSelectorComponent {
   // Current URL signal
   readonly currentUrl = signal<string>(this.router.url);
 
+  // Active module key from menu service (already a signal)
+  readonly activeModuleKey = this.menuService.activeModuleKey;
+
   constructor() {
     // Subscribe to router navigation updates
     this.router.events
@@ -163,6 +166,7 @@ export class ModuleSelectorComponent {
 
   // Extract first layer modules (Level 1)
   readonly availableModules = computed(() => {
+    const activeKey = this.activeModuleKey();
     return this.menuItems()
       .filter(item => item.level === 1)
       .map(module => {
@@ -172,7 +176,7 @@ export class ModuleSelectorComponent {
           label: module.key,
           icon: module.icon || 'appstore',
           defaultPath: defaultPath,
-          isActive: this.isModuleActive(module, defaultPath),
+          isActive: module.key === activeKey,
         } as ModuleItem;
       });
   });
@@ -205,46 +209,6 @@ export class ModuleSelectorComponent {
       }
     }
     return '';
-  }
-
-  // Check if module is active (based on current route)
-  private isModuleActive(module: MenuItem, defaultPath: string): boolean {
-    const currentPath = this.currentUrl().split('?')[0];
-
-    // Check if current path starts with module's default path
-    if (defaultPath && currentPath.startsWith(defaultPath)) {
-      return true;
-    }
-
-    // Check if current path belongs to this module
-    return this.isPathInModule(currentPath, module);
-  }
-
-  // Check if current path belongs to this module
-  private isPathInModule(path: string, module: MenuItem): boolean {
-    if (!path || path === '/') {
-      return false;
-    }
-
-    const pathSegments = path.split('/').filter(Boolean);
-    if (pathSegments.length === 0) {
-      return false;
-    }
-
-    // Check if path matches any child of this module
-    const checkChildren = (items: MenuItem[]): boolean => {
-      for (const item of items) {
-        if (item.path && path.startsWith(item.path)) {
-          return true;
-        }
-        if (item.children && checkChildren(item.children)) {
-          return true;
-        }
-      }
-      return false;
-    };
-
-    return checkChildren(module.children || []);
   }
 
   // Select module and navigate

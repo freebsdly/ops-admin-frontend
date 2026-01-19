@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface MenuItem {
   key: string;
@@ -633,8 +634,23 @@ export class MenuService {
   private selectedMenuItemKey = 'MENU.HOME';
   private menuDataSubject = new BehaviorSubject<MenuItem[]>(this.menuData);
 
+  readonly currentUrl = signal<string>(inject(Router).url);
+  readonly activeModuleKey = computed(() => {
+    return this.findActiveModule(this.menuData, this.currentUrl())?.key || 'MENU.HOME';
+  });
+  readonly selectedModuleMenuItems = computed(() => {
+    const activeModule = this.menuData.find(item => item.key === this.activeModuleKey());
+    return activeModule?.children || [];
+  });
+
   constructor() {
     this.updateMenuSelection();
+    const router = inject(Router);
+    router.events.subscribe((event) => {
+      if (event.constructor.name === 'NavigationEnd') {
+        this.currentUrl.set((event as any).urlAfterRedirects);
+      }
+    });
   }
 
   getMenuData(): Observable<MenuItem[]> {
@@ -672,6 +688,69 @@ export class MenuService {
       }
     }
     return undefined;
+  }
+
+  private findActiveModule(items: MenuItem[], path: string): MenuItem | undefined {
+    const cleanPath = path.split('?')[0];
+
+    for (const item of items) {
+      if (item.level === 1) {
+        // Check if this module has children that match the current path
+        if (item.children) {
+          const moduleDefaultPath = this.findDefaultPath(item);
+          if (moduleDefaultPath && cleanPath.startsWith(moduleDefaultPath)) {
+            return item;
+          }
+
+          // Check if current path belongs to any child of this module
+          for (const child of item.children) {
+            if (child.path && cleanPath.startsWith(child.path)) {
+              return item;
+            }
+            if (child.children) {
+              const foundInChild = this.findPathInChildren(cleanPath, child.children);
+              if (foundInChild) {
+                return item;
+              }
+            }
+          }
+        }
+      }
+    }
+    return undefined;
+  }
+
+  private findDefaultPath(module: MenuItem): string | undefined {
+    if (!module.children) {
+      return undefined;
+    }
+
+    for (const child of module.children) {
+      if (child.path) {
+        return child.path;
+      }
+      if (child.children) {
+        const found = this.findDefaultPath(child);
+        if (found) {
+          return found;
+        }
+      }
+    }
+    return undefined;
+  }
+
+  private findPathInChildren(path: string, children: MenuItem[]): boolean {
+    for (const child of children) {
+      if (child.path && path.startsWith(child.path)) {
+        return true;
+      }
+      if (child.children) {
+        if (this.findPathInChildren(path, child.children)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   private updateMenuSelection(): void {
