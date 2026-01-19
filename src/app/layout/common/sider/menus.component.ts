@@ -64,7 +64,7 @@ import { MenuService, MenuItem } from '@/app/services/menu.service';
       </ng-template>
     </ul>
   `,
-  styleUrl: './menus.css',
+  styleUrl: './menus.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppMenus {
