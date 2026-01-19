@@ -1,6 +1,8 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export interface MenuItem {
   key: string;
@@ -18,7 +20,7 @@ export interface MenuItem {
   providedIn: 'root',
 })
 export class MenuService {
-  private menuData: MenuItem[] = [
+  private menuData = signal<MenuItem[]>([
     // Layer 1: Home Module
     {
       key: 'MENU.HOME',
@@ -629,28 +631,33 @@ export class MenuService {
         },
       ],
     },
-  ];
+  ]);
 
   private selectedMenuItemKey = 'MENU.HOME';
-  private menuDataSubject = new BehaviorSubject<MenuItem[]>(this.menuData);
+  private menuDataSubject = new BehaviorSubject<MenuItem[]>(this.menuData());
 
-  readonly currentUrl = signal<string>(inject(Router).url);
+  readonly currentUrl = signal<string>('');
   readonly activeModuleKey = computed(() => {
-    return this.findActiveModule(this.menuData, this.currentUrl())?.key || 'MENU.HOME';
+    return this.findActiveModule(this.menuData(), this.currentUrl())?.key || 'MENU.HOME';
   });
   readonly selectedModuleMenuItems = computed(() => {
-    const activeModule = this.menuData.find(item => item.key === this.activeModuleKey());
+    const activeModule = this.menuData().find(item => item.key === this.activeModuleKey());
     return activeModule?.children || [];
   });
 
   constructor() {
-    this.updateMenuSelection();
     const router = inject(Router);
-    router.events.subscribe((event) => {
-      if (event.constructor.name === 'NavigationEnd') {
-        this.currentUrl.set((event as any).urlAfterRedirects);
-      }
-    });
+    this.currentUrl.set(router.url);
+    this.updateMenuSelection();
+
+    router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe((event: NavigationEnd) => {
+        this.currentUrl.set(event.urlAfterRedirects);
+      });
   }
 
   getMenuData(): Observable<MenuItem[]> {
@@ -658,7 +665,7 @@ export class MenuService {
   }
 
   getMenuByKey(key: string): Observable<MenuItem | undefined> {
-    const menuItem = this.menuData.find(item => item.key === key);
+    const menuItem = this.menuData().find(item => item.key === key);
     return of(menuItem);
   }
 
@@ -668,7 +675,11 @@ export class MenuService {
   }
 
   selectMenuItemByPath(path: string): void {
-    const menuItem = this.findMenuItemByPath(this.menuData, path);
+    // Update current URL signal to trigger active module recalculation
+    this.currentUrl.set(path);
+
+    // Also update selected menu item
+    const menuItem = this.findMenuItemByPath(this.menuData(), path);
     if (menuItem) {
       this.selectedMenuItemKey = menuItem.key;
       this.updateMenuSelection();
@@ -693,31 +704,51 @@ export class MenuService {
   private findActiveModule(items: MenuItem[], path: string): MenuItem | undefined {
     const cleanPath = path.split('?')[0];
 
+    const matches: { module: MenuItem; matchLength: number }[] = [];
+
     for (const item of items) {
       if (item.level === 1) {
         // Check if this module has children that match the current path
         if (item.children) {
           const moduleDefaultPath = this.findDefaultPath(item);
           if (moduleDefaultPath && cleanPath.startsWith(moduleDefaultPath)) {
-            return item;
+            matches.push({ module: item, matchLength: moduleDefaultPath.length });
           }
 
           // Check if current path belongs to any child of this module
-          for (const child of item.children) {
-            if (child.path && cleanPath.startsWith(child.path)) {
-              return item;
-            }
-            if (child.children) {
-              const foundInChild = this.findPathInChildren(cleanPath, child.children);
-              if (foundInChild) {
-                return item;
-              }
-            }
+          const matchInChildren = this.findBestMatchInChildren(cleanPath, item.children);
+          if (matchInChildren) {
+            matches.push({ module: item, matchLength: matchInChildren });
           }
         }
       }
     }
+
+    // Return the module with the longest match (best fit)
+    if (matches.length > 0) {
+      matches.sort((a, b) => b.matchLength - a.matchLength);
+      return matches[0].module;
+    }
+
     return undefined;
+  }
+
+  private findBestMatchInChildren(path: string, children: MenuItem[]): number | null {
+    let bestMatchLength = 0;
+
+    for (const child of children) {
+      if (child.path && path.startsWith(child.path) && child.path.length > bestMatchLength) {
+        bestMatchLength = child.path.length;
+      }
+      if (child.children) {
+        const childMatch = this.findBestMatchInChildren(path, child.children);
+        if (childMatch !== null && childMatch > bestMatchLength) {
+          bestMatchLength = childMatch;
+        }
+      }
+    }
+
+    return bestMatchLength > 0 ? bestMatchLength : null;
   }
 
   private findDefaultPath(module: MenuItem): string | undefined {
@@ -737,20 +768,6 @@ export class MenuService {
       }
     }
     return undefined;
-  }
-
-  private findPathInChildren(path: string, children: MenuItem[]): boolean {
-    for (const child of children) {
-      if (child.path && path.startsWith(child.path)) {
-        return true;
-      }
-      if (child.children) {
-        if (this.findPathInChildren(path, child.children)) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
   private updateMenuSelection(): void {
@@ -773,7 +790,7 @@ export class MenuService {
       });
     };
 
-    this.menuData = updateSelection(this.menuData);
-    this.menuDataSubject.next(this.menuData);
+    this.menuData.set(updateSelection(this.menuData()));
+    this.menuDataSubject.next(this.menuData());
   }
 }
