@@ -84,13 +84,23 @@ export interface TabItem {
         <li nz-menu-item
           [class.ant-menu-item-selected]="tab.key === tabs()[selectedIndex()]?.key"
           (click)="onOverflowTabClick(tab)"
+          class="app-tab-bar-dropdown-item"
         >
-          <span class="app-tab-bar-menu-item">
+          <div class="app-tab-bar-menu-item">
             @if (tab.icon) {
             <nz-icon class="app-tab-bar-menu-item-icon" [nzType]="tab.icon" />
             }
-            <span>{{ tab.label | translate }}</span>
-          </span>
+            <span class="app-tab-bar-menu-item-text">{{ tab.label | translate }}</span>
+            @if (tab.closable !== false) {
+            <button
+              class="app-tab-bar-dropdown-close"
+              (click)="closeOverflowTab(tab, $event)"
+              [attr.aria-label]="'Close ' + (tab.label | translate)"
+            >
+              ×
+            </button>
+            }
+          </div>
         </li>
         }
       </ul>
@@ -368,6 +378,17 @@ export class AppTabBar {
     const index = this.tabs().findIndex((t) => t.key === tab.key);
     if (index !== -1) {
       this.onTabClick(index);
+    }
+  }
+
+  closeOverflowTab(tab: TabItem, event: MouseEvent): void {
+    event.stopPropagation();
+    event.preventDefault();
+
+    // Find the actual index in all tabs
+    const index = this.tabs().findIndex((t) => t.key === tab.key);
+    if (index !== -1) {
+      this.closeTab(index);
     }
   }
 
